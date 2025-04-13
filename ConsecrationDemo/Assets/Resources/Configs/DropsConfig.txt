@@ -1,0 +1,24 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "101": {
+    "$type": "DropsConfig, Assembly-CSharp",
+    "dropgroup": 11,
+    "dropconfig": "10001,10002,10003",
+    "weight": 50,
+    "id": 101
+  },
+  "102": {
+    "$type": "DropsConfig, Assembly-CSharp",
+    "dropgroup": 12,
+    "dropconfig": "10001,10002,10003",
+    "weight": 50,
+    "id": 102
+  },
+  "103": {
+    "$type": "DropsConfig, Assembly-CSharp",
+    "dropgroup": 13,
+    "dropconfig": "10001,10002,10003",
+    "weight": 50,
+    "id": 103
+  }
+}

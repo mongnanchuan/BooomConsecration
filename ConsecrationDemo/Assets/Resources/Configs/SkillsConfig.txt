@@ -1,0 +1,24 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "10001": {
+    "$type": "SkillsConfig, Assembly-CSharp",
+    "name": "死神献祭",
+    "desc": "11111",
+    "cooldown": 3,
+    "id": 10001
+  },
+  "10002": {
+    "$type": "SkillsConfig, Assembly-CSharp",
+    "name": "觉醒刀刃",
+    "desc": "22222",
+    "cooldown": 4,
+    "id": 10002
+  },
+  "10003": {
+    "$type": "SkillsConfig, Assembly-CSharp",
+    "name": "十步杀一人",
+    "desc": "33333",
+    "cooldown": 5,
+    "id": 10003
+  }
+}

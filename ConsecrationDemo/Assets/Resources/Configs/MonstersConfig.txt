@@ -1,0 +1,33 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "90001": {
+    "$type": "MonstersConfig, Assembly-CSharp",
+    "name": "愚蠢村民",
+    "hp": 10,
+    "attact": 3,
+    "range": 2,
+    "ai": 2,
+    "image": "0",
+    "id": 90001
+  },
+  "90002": {
+    "$type": "MonstersConfig, Assembly-CSharp",
+    "name": "小鱼人",
+    "hp": 10,
+    "attact": 4,
+    "range": 1,
+    "ai": 2,
+    "image": "0",
+    "id": 90002
+  },
+  "90003": {
+    "$type": "MonstersConfig, Assembly-CSharp",
+    "name": "神圣天使",
+    "hp": 10,
+    "attact": 5,
+    "range": 3,
+    "ai": 2,
+    "image": "0",
+    "id": 90003
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "20001": {
+    "$type": "GemsConfig, Assembly-CSharp",
+    "name": "苏丹之匣",
+    "desc": "11111",
+    "id": 20001
+  },
+  "20002": {
+    "$type": "GemsConfig, Assembly-CSharp",
+    "name": "骨灰盒",
+    "desc": "22222",
+    "id": 20002
+  },
+  "20003": {
+    "$type": "GemsConfig, Assembly-CSharp",
+    "name": "夏波利利葡萄",
+    "desc": "33333",
+    "id": 20003
+  }
+}
