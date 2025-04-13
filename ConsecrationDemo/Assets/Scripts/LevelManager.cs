@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public CombatManager cm;
     public GameObject[] AltarBlanks;
     public Transform[] CorrectTrans = new Transform[7];
     public GameObject[] AltarIcons = new GameObject[7];
@@ -14,6 +15,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cm = GetComponent<CombatManager>();
         targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
         targetPrepare = GameObject.FindGameObjectsWithTag("Prepare");
         targetCombat = GameObject.FindGameObjectsWithTag("Combat");
@@ -35,6 +37,7 @@ public class LevelManager : MonoBehaviour
 
     public void ReadyAndStart()
     {
+        cm.isInPlayerTurn = true;
         foreach (GameObject altarIconObject in targetAltarIcon)
         {
             Altar al = altarIconObject.GetComponent<Altar>();
