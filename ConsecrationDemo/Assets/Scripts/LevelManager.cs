@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public CombatManager cm;
     public GameObject[] AltarBlanks;
+    public GameObject[] AttackAlert;
     public Transform[] CorrectTrans = new Transform[7];
     public GameObject[] AltarIcons = new GameObject[7];
     GameObject[] targetAltarIcon;
