@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
+    GameObject[] targetButton;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,14 @@ public class LevelManager : MonoBehaviour
         targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
         targetPrepare = GameObject.FindGameObjectsWithTag("Prepare");
         targetCombat = GameObject.FindGameObjectsWithTag("Combat");
+        targetButton = GameObject.FindGameObjectsWithTag("CombatButton");
         foreach (GameObject combatObject in targetCombat)
         {
             combatObject.SetActive(false);
+        }
+        foreach (GameObject buttonObject in targetButton)
+        {
+            buttonObject.SetActive(false);
         }
         for (int i = 0; i < 7; i++)
         {
@@ -54,6 +60,10 @@ public class LevelManager : MonoBehaviour
         foreach (GameObject combatObject in targetCombat)
         {
             combatObject.SetActive(true);
+        }
+        foreach (GameObject buttonObject in targetButton)
+        {
+            buttonObject.SetActive(true);
         }
         foreach (GameObject prepareObject in targetPrepare)
         {

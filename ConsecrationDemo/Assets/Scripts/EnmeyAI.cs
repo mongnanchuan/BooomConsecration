@@ -38,12 +38,10 @@ public class EnmeyAI : MonoBehaviour
         if(cm.isInPlayerTurn && !ActShowing)
         {
             ShowAct();
-            //ShowAttackAlert(Skills[0]);
         }
         if(!cm.isInPlayerTurn && ActShowing)
         {
             ExecuteAct();
-            //Attack(Skills[0]);
         }
     }
 
@@ -62,16 +60,29 @@ public class EnmeyAI : MonoBehaviour
             }
             AlertList.Add(alertHint);
         }
-        //ActShowing = true;
     }
 
     public void Attack(SkillsConfig targetSkill)
     {
         ActShowing = false;
-        float dis_now = Mathf.Abs(cm.Player.GetComponent<Transform>().position.x - EnemyTf.position.x);
-        if(dis_now <= targetSkill.range * 1.5f)
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
+        if(targetSkill.type == 0)
         {
-            cm.Player.GetComponent<Attribute>().Damage(targetSkill.damage);
+            foreach (GameObject character in characters)
+            {
+                if (character != gameObject)
+                {
+                    float dis_now = EnemyTf.position.x - character.GetComponent<Transform>().position.x;
+                    if (!EnemySprite.flipX && dis_now >= 0 && dis_now <= targetSkill.range * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
+                    }
+                    else if (EnemySprite.flipX && dis_now <= 0 && dis_now >= -targetSkill.range * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
+                    }
+                }
+            }
         }
         foreach(GameObject alertHint in AlertList)
         {
@@ -83,13 +94,21 @@ public class EnmeyAI : MonoBehaviour
 
     private void NextTurn()
     {
+        if (cm.Player.GetComponent<Transform>().position.x - EnemyTf.position.x > 0)
+        {
+            EnemySprite.flipX = true;
+        }
+        else
+        {
+            EnemySprite.flipX = false;
+        }
         cm.isInPlayerTurn = true;
     }
 
     public void EnemyMove(int d)
     {
-        ActShowing = false;
         float NewPosX;
+        bool HasBlock = false;
         if(!EnemySprite.flipX)
         {
             NewPosX = EnemyTf.position.x - d * 1.5f;
@@ -98,11 +117,22 @@ public class EnmeyAI : MonoBehaviour
         {
             NewPosX = EnemyTf.position.x + d * 1.5f;
         }
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
         if (NewPosX <= 6f && NewPosX >= -6f)
         {
-            EnemyTf.position = new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z);
+            foreach (GameObject character in characters)
+            {
+                if(character.name != "MainRole" && character.GetComponent<Transform>().position.x == NewPosX)
+                {
+                    HasBlock = true;
+                    break;
+                }
+            }
+            if(!HasBlock)
+            {
+                EnemyTf.position = new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z);
+            }
         }
-        Invoke("NextTurn", 1f);
     }
 
     public void ShowAct()
@@ -129,6 +159,8 @@ public class EnmeyAI : MonoBehaviour
         else if(ActMark == 1)
         {
             EnemyMove(1);
+            ActShowing = false;
+            Invoke("NextTurn", 1f);
         }
     }
 }

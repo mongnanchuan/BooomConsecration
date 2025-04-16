@@ -9,11 +9,15 @@ public class CombatManager : MonoBehaviour
     public GameObject Player;
     private Transform PlayerTf;
     private SpriteRenderer PlayerSprite;
+    private SkillsConfig BaseAttack = new SkillsConfig();
     // Start is called before the first frame update
     void Start()
     {
         PlayerTf = Player.GetComponent<Transform>();
         PlayerSprite = Player.GetComponent<SpriteRenderer>();
+        BaseAttack.damage = 2;
+        BaseAttack.type = 0;
+        BaseAttack.range = 1;
     }
 
     // Update is called once per frame
@@ -44,6 +48,10 @@ public class CombatManager : MonoBehaviour
                     PlayerMove(+1);
                 }
             }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                Attack(BaseAttack);
+            }
         }
 
 
@@ -55,19 +63,47 @@ public class CombatManager : MonoBehaviour
         {
             isInPlayerTurn = false;
         }
-        else
-        {
-            isInPlayerTurn = true;
-        }
     }
 
     public void PlayerMove(int d)
     {
         float NewPosX = PlayerTf.position.x + d * 1.5f;
-        if(NewPosX <= 6f && NewPosX >= -6f)
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
+        if (NewPosX <= 6f && NewPosX >= -6f)
         {
+            foreach(GameObject character in characters)
+            {
+                if(character.name != "MainRole" && character.GetComponent<Transform>().position.x == NewPosX)
+                {
+                    character.GetComponent<EnmeyAI>().EnemyMove(1);
+                }
+            }
             PlayerTf.position = new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z);
             TurnEnd();
         }
+    }
+
+    public void Attack(SkillsConfig targetSkill)
+    {
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
+        if(targetSkill.type == 0)
+        {
+            foreach (GameObject character in characters)
+            {
+                if(character.name != "MainRole")
+                {
+                    float dis_now = Player.GetComponent<Transform>().position.x - character.GetComponent<Transform>().position.x;
+                    if (!PlayerSprite.flipX && dis_now >= 0 && dis_now <= targetSkill.range * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
+                    }
+                    else if (PlayerSprite.flipX && dis_now <= 0 && dis_now >= -targetSkill.range * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
+                    }
+                }
+            }
+        }
+        TurnEnd();
     }
 }
