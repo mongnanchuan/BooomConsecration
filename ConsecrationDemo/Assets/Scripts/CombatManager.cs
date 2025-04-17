@@ -67,6 +67,19 @@ public class CombatManager : MonoBehaviour
                     }
                 }
             }
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            {
+                int index = (int)(PlayerTf.position.x / 1.5f + 4);
+                if (lm.AltarIcons[index] != null)
+                {
+                    Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
+                    if (targetAltar.SkillIndex == 0)
+                    {
+                        Player.GetComponent<Attribute>().Damage(1);
+                        targetAltar.SkillIndex = 1;
+                    }
+                }
+            }
         }
     }
 

@@ -15,6 +15,10 @@ public class Altar : MonoBehaviour
     private GameObject InfoCanvas;
     private bool isDragging = false;
     public bool isFinished = false;
+    public List<SkillsConfig> Skills = new List<SkillsConfig>();
+    public int SkillIndex = 0;
+    public int CD;
+    private GameObject CDText;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,17 @@ public class Altar : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
+        SkillsConfig test1 = new SkillsConfig();
+        test1.type = 10001;
+        test1.damage = 2;
+        test1.cooldown = 3;
+        Skills.Add(test1);
+        SkillsConfig test2 = new SkillsConfig();
+        test2.type = 10002;
+        test2.damage = 2;
+        Skills.Add(test2);
+        CD = 0;
+        CDText = transform.Find("Canvas1/CDText").gameObject;
     }
     private void OnMouseDrag()
     {
@@ -55,7 +70,7 @@ public class Altar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CDText.GetComponent<Text>().text = CD.ToString();
     }
 
     private void OnMouseEnter()
@@ -111,5 +126,51 @@ public class Altar : MonoBehaviour
             transform.position = startPos;
             index_before = -1;
         }
+    }
+
+    public void UseSkill(GameObject Trigger)
+    {
+        Transform TriggerTf = Trigger.GetComponent<Transform>();
+        SpriteRenderer TriggerSprite = Trigger.GetComponent<SpriteRenderer>();
+        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
+        SkillsConfig Skill = Skills[SkillIndex];
+        switch (Skill.type)
+        {
+            case 10001:
+                foreach (GameObject character in characters)
+                {
+                    float dis_now = TriggerTf.position.x - character.GetComponent<Transform>().position.x;
+                    if (!TriggerSprite.flipX && dis_now >= 0 && dis_now <= 1 * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(Skill.damage);
+                    }
+                    else if (TriggerSprite.flipX && dis_now <= 0 && dis_now >= -1 * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(Skill.damage);
+                    }
+                }
+                break;
+            case 10002:
+                foreach (GameObject character in characters)
+                {
+                    float dis_now = Mathf.Abs(TriggerTf.position.x - character.GetComponent<Transform>().position.x);
+                    if (dis_now <= 1 * 1.5f)
+                    {
+                        character.GetComponent<Attribute>().Damage(Skill.damage);
+                    }
+                }
+                SkillIndex = 0;
+                break;
+        }
+        CD = Skills[0].cooldown;
+    }
+
+    public void Sacrifice()
+    {
+        if(SkillIndex == 0)
+        {
+            SkillIndex++;
+        }
+
     }
 }
