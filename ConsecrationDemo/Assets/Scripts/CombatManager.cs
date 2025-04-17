@@ -10,6 +10,7 @@ public class CombatManager : MonoBehaviour
     private Transform PlayerTf;
     private SpriteRenderer PlayerSprite;
     private SkillsConfig BaseAttack = new SkillsConfig();
+    private LevelManager lm;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class CombatManager : MonoBehaviour
         BaseAttack.damage = 2;
         BaseAttack.type = 0;
         BaseAttack.range = 1;
+        lm = GetComponent<LevelManager>();
     }
 
     // Update is called once per frame
@@ -52,9 +54,20 @@ public class CombatManager : MonoBehaviour
             {
                 Attack(BaseAttack);
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                int index = (int)(PlayerTf.position.x / 1.5f + 4);
+                if (lm.AltarIcons[index] != null)
+                {
+                    Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
+                    if(targetAltar.CD == 0)
+                    {
+                        targetAltar.UseSkill(Player);
+                        TurnEnd();
+                    }
+                }
+            }
         }
-
-
     }
 
     public void TurnEnd()
