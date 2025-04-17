@@ -1,0 +1,27 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "20001": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "死光之匣",
+    "desc": "伤害+2",
+    "id": 20001
+  },
+  "20002": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "屠夫之钉",
+    "desc": "若此技能造成了击杀，刷新冷却",
+    "id": 20002
+  },
+  "20003": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "夏波利利葡萄",
+    "desc": "血祭时，额外受到1点伤害，同时血祭相邻技能",
+    "id": 20003
+  },
+  "20004": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "古尔丹之颅",
+    "desc": "冷却时间+3，此技能发动2次",
+    "id": 20004
+  }
+}
