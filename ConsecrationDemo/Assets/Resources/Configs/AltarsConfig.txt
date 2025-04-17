@@ -1,0 +1,11 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "60001": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "愤怒",
+    "Skill1": 10001,
+    "Skill2": 10002,
+    "image": "0",
+    "id": 60001
+  }
+}

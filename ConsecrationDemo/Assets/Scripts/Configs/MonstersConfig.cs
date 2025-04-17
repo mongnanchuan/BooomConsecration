@@ -2,8 +2,7 @@ public class MonstersConfig : BaseConfig
 {
     public string name;
     public int hp;
-    public int attact;
-    public int range;
-    public int ai;
+    public int[] skillGroup;
+    public int moveType;
     public string image;
 }

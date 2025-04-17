@@ -9,7 +9,7 @@ public class Altar : MonoBehaviour
     public Vector3 startPos;
     private Collider2D collider2D;
     private Button button;
-    public int Type;
+    public int currentID;
     public int index_before = -1;
     public LevelManager lm;
     private GameObject InfoCanvas;
@@ -18,7 +18,7 @@ public class Altar : MonoBehaviour
     public List<SkillsConfig> Skills = new List<SkillsConfig>();
     public int SkillIndex = 0;
     public int CD;
-    private GameObject CDText;
+    public GameObject CDText;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +27,12 @@ public class Altar : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        SkillsConfig test1 = new SkillsConfig();
-        test1.type = 10001;
-        test1.damage = 2;
-        test1.cooldown = 3;
-        Skills.Add(test1);
-        SkillsConfig test2 = new SkillsConfig();
-        test2.type = 10002;
-        test2.damage = 2;
-        Skills.Add(test2);
+        Debug.Log(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+        SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
+        Skills.Add(skill1);
+        Skills.Add(skill2);
         CD = 0;
-        CDText = transform.Find("Canvas1/CDText").gameObject;
     }
     private void OnMouseDrag()
     {
@@ -134,7 +129,7 @@ public class Altar : MonoBehaviour
         SpriteRenderer TriggerSprite = Trigger.GetComponent<SpriteRenderer>();
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
         SkillsConfig Skill = Skills[SkillIndex];
-        switch (Skill.type)
+        switch (Skill.id)
         {
             case 10001:
                 foreach (GameObject character in characters)

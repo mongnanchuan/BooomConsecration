@@ -1,0 +1,58 @@
+{
+  "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "9000101": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "打击",
+    "desc": "对前方1格造成2点伤害",
+    "attact": 2,
+    "attactType": 1,
+    "useType": 1,
+    "rangeDir": 1,
+    "rangePar": 1,
+    "id": 9000101
+  },
+  "9000201": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "箭雨",
+    "desc": "对目标目前所在位置造成2点伤害",
+    "attact": 2,
+    "attactType": 2,
+    "useType": 3,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "id": 9000201
+  },
+  "9000301": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "冲撞",
+    "desc": "向前冲刺，对碰撞的第一个单位造成2点伤害",
+    "attact": 2,
+    "attactType": 3,
+    "useType": 2,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "id": 9000301
+  },
+  "9000401": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "射击",
+    "desc": "向前射出能量，对第一个单位造成2点伤害",
+    "attact": 2,
+    "attactType": 4,
+    "useType": 2,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "id": 9000401
+  },
+  "9000501": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "旋风斩",
+    "desc": "对前后各1格造成2点伤害",
+    "attact": 2,
+    "attactType": 1,
+    "useType": 1,
+    "rangeDir": 3,
+    "rangePar": 1,
+    "id": 9000501
+  }
+}
