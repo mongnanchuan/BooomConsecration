@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterBase : MonoBehaviour
+public class MonsterSkillBase
 {
-    public MonstersConfig monster;
+    public MonsterSkillsConfig monsterSkill;
 
     public virtual void Init() { }
-
 }
