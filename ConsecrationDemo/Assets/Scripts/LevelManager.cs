@@ -5,10 +5,12 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public CombatManager cm;
+    public MonsterManager mm;
     public GameObject[] AltarBlanks;
     public GameObject[] AttackAlert;
-    public Transform[] CorrectTrans = new Transform[7];
-    public GameObject[] AltarIcons = new GameObject[7];
+    public Transform[] CorrectTrans = new Transform[9];
+    public GameObject[] AltarIcons = new GameObject[9];
+    public int levelID = 0;
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
@@ -22,6 +24,21 @@ public class LevelManager : MonoBehaviour
         targetPrepare = GameObject.FindGameObjectsWithTag("Prepare");
         targetCombat = GameObject.FindGameObjectsWithTag("Combat");
         targetButton = GameObject.FindGameObjectsWithTag("CombatButton");
+        for (int i = 0; i < 9; i++)
+        {
+            CorrectTrans[i] = AltarBlanks[i].transform;
+        }
+        PrepareLevel();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    //准备阶段，供玩家排布祭坛
+    public void PrepareLevel()
+    {
         foreach (GameObject combatObject in targetCombat)
         {
             combatObject.SetActive(false);
@@ -30,18 +47,9 @@ public class LevelManager : MonoBehaviour
         {
             buttonObject.SetActive(false);
         }
-        for (int i = 0; i < 7; i++)
-        {
-            CorrectTrans[i] = AltarBlanks[i].transform;
-        }
+        levelID++;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
         cm.isInPlayerTurn = true;
@@ -69,5 +77,7 @@ public class LevelManager : MonoBehaviour
         {
             prepareObject.SetActive(false);
         }
+        mm.levelID = levelID;
+        mm.MonsterGroupInit();
     }
 }

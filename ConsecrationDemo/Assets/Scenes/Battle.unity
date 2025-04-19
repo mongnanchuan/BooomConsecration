@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cm: {fileID: 0}
+  mm: {fileID: 0}
   AltarBlanks:
   - {fileID: 1972878385}
   - {fileID: 534782622}
@@ -238,6 +239,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  levelID: 0
 --- !u!114 &14139763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4273,6 +4275,7 @@ GameObject:
   - component: {fileID: 1359954263}
   - component: {fileID: 1359954262}
   - component: {fileID: 1359954264}
+  - component: {fileID: 1359954265}
   m_Layer: 0
   m_Name: MainRole
   m_TagString: Combat
@@ -4362,6 +4365,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 10
   HPMax: 10
+--- !u!114 &1359954265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359954261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c107bca55985045b8d296bedaf2ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  System: {fileID: 14139758}
 --- !u!1 &1396085925
 GameObject:
   m_ObjectHideFlags: 0

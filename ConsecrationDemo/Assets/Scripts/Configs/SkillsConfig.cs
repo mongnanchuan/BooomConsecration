@@ -7,4 +7,5 @@ public class SkillsConfig : BaseConfig
     public int range;
     public int damage;
     public int move_dis;
+    public int rangeDir;
 }
