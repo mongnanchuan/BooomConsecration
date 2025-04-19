@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
         {
             prepareObject.SetActive(false);
         }
-        mm.levelID = levelID;
-        mm.MonsterGroupInit();
+/*        mm.levelID = levelID;
+        mm.MonsterGroupInit();*/
     }
 }

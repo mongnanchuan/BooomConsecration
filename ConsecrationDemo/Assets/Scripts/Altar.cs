@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -15,7 +17,7 @@ public class Altar : MonoBehaviour
     private GameObject InfoCanvas;
     private bool isDragging = false;
     public bool isFinished = false;
-    public List<SkillsConfig> Skills = new List<SkillsConfig>();
+    public List<SkillBase> Skills = new List<SkillBase>();
     public int SkillIndex = 0;
     public int CD;
     public GameObject CDText;
@@ -27,9 +29,14 @@ public class Altar : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        Debug.Log(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-        SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
+        string skillName1 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1.ToString();
+        string skillName2 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2.ToString();
+        var skill1 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
+        var skill2 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
+        skill1.Init();
+        skill2.Init();
+        /*        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+                SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);*/
         Skills.Add(skill1);
         Skills.Add(skill2);
         CD = 0;
@@ -128,8 +135,8 @@ public class Altar : MonoBehaviour
         Transform TriggerTf = Trigger.GetComponent<Transform>();
         SpriteRenderer TriggerSprite = Trigger.GetComponent<SpriteRenderer>();
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
-        SkillsConfig Skill = Skills[SkillIndex];
-        switch (Skill.id)
+        Skills[SkillIndex].TakeEffect(Trigger);
+/*        switch (Skill.id)
         {
             case 10001:
                 foreach (GameObject character in characters)
@@ -156,8 +163,8 @@ public class Altar : MonoBehaviour
                 }
                 SkillIndex = 0;
                 break;
-        }
-        CD = Skills[0].cooldown;
+        }*/
+        CD = Skills[0].skill.cooldown;
     }
 
     public void Sacrifice()
