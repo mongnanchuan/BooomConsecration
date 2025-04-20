@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerManager : MonoBehaviour
         cm = System.GetComponent<CombatManager>();
         BaseAttack = new Skill80001();
         BaseAttack.Init();
+        DOTween.Init();
     }
 
     // Update is called once per frame
@@ -96,7 +98,8 @@ public class PlayerManager : MonoBehaviour
                     character.GetComponent<EnmeyAI>().EnemyMove(1);
                 }
             }
-            PlayerTf.position = new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z);
+            //PlayerTf.position = new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z);
+            PlayerTf.DOLocalJump(new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z), 0.5f, 1, 0.2f, false);
             cm.TurnEnd();
         }
     }

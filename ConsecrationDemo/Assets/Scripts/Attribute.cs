@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
+
 
 public class Attribute : MonoBehaviour
 {
@@ -10,12 +12,14 @@ public class Attribute : MonoBehaviour
     public int HPMax;
     private GameObject HPObj;
     private GameObject HPNum;
+    private GameObject BodyObject;
 
     // Start is called before the first frame update
     void Start()
     {
         HPObj = transform.Find("Canvas/HP").gameObject;
         HPNum = transform.Find("Canvas/HPNum").gameObject;
+        BodyObject = transform.Find("Body").gameObject;
     }
 
     // Update is called once per frame
@@ -41,6 +45,14 @@ public class Attribute : MonoBehaviour
         {
             HP = newVal;
         }
+        if(num > 0)
+        {
+            if(BodyObject != null)
+            {
+                BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 20, 0.5f);
+            }
+        }
+
     }
 
     public void Die()

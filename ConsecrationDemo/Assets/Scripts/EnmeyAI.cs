@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnmeyAI : MonoBehaviour
 {
     private Transform EnemyTf;
     private SpriteRenderer EnemySprite;
+    public GameObject BodyObject;
+    private Animator BodyAnim;
     public LevelManager lm;
     public CombatManager cm;
     private GameObject[] AttackAlert;
@@ -15,6 +18,7 @@ public class EnmeyAI : MonoBehaviour
     private GameObject canvasSkill;
     public int ActMark = 0;//1-ÒÆ¶¯ 2-¼¼ÄÜ 
     private bool ActShowing = false;
+    public bool IsFaceRight = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,8 @@ public class EnmeyAI : MonoBehaviour
         EnemyTf = GetComponent<Transform>();
         EnemySprite = GetComponent<SpriteRenderer>();
         canvasSkill = transform.Find("CanvasSkill").gameObject;
+        BodyObject = transform.Find("Body").gameObject;
+        BodyAnim = BodyObject.GetComponent<Animator>();
         SkillsConfig test = new SkillsConfig();
         test.type = 0;
         test.range = 2;
@@ -47,10 +53,11 @@ public class EnmeyAI : MonoBehaviour
 
     public void ShowAttackAlert(SkillsConfig targetSkill)
     {
+        BodyAnim.SetTrigger("ChargeBegin");
         for(int i = 0; i < targetSkill.range; i++)
         {
             GameObject alertHint = Instantiate(AttackAlert[targetSkill.type], canvasSkill.transform);
-            if(!EnemySprite.flipX)
+            if(!IsFaceRight)
             {
                 alertHint.transform.localPosition = new Vector3(-110 * (i + 1), -92, 0);
             }
@@ -65,6 +72,7 @@ public class EnmeyAI : MonoBehaviour
     public void Attack(SkillsConfig targetSkill)
     {
         ActShowing = false;
+        BodyAnim.SetTrigger("AttackBegin");
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
         if(targetSkill.type == 0)
         {
@@ -73,11 +81,11 @@ public class EnmeyAI : MonoBehaviour
                 if (character != gameObject)
                 {
                     float dis_now = EnemyTf.position.x - character.GetComponent<Transform>().position.x;
-                    if (!EnemySprite.flipX && dis_now >= 0 && dis_now <= targetSkill.range * 1.5f)
+                    if (!IsFaceRight && dis_now >= 0 && dis_now <= targetSkill.range * 1.5f)
                     {
                         character.GetComponent<Attribute>().Damage(targetSkill.damage);
                     }
-                    else if (EnemySprite.flipX && dis_now <= 0 && dis_now >= -targetSkill.range * 1.5f)
+                    else if (IsFaceRight && dis_now <= 0 && dis_now >= -targetSkill.range * 1.5f)
                     {
                         character.GetComponent<Attribute>().Damage(targetSkill.damage);
                     }
@@ -89,18 +97,22 @@ public class EnmeyAI : MonoBehaviour
             Destroy(alertHint);
         }
         AlertList.Clear();
-        Invoke("NextTurn", 1f);
+        Invoke("NextTurn", 0.5f);
     }
 
     private void NextTurn()
     {
         if (cm.Player.GetComponent<Transform>().position.x - EnemyTf.position.x > 0)
         {
-            EnemySprite.flipX = true;
+            //EnemySprite.flipX = true;
+            IsFaceRight = true;
+            BodyObject.transform.DOLocalRotate(new Vector3(0, 180, 0), 0.2f);
         }
         else
         {
-            EnemySprite.flipX = false;
+            //EnemySprite.flipX = false;
+            IsFaceRight = false;
+            BodyObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f);
         }
         cm.isInPlayerTurn = true;
     }
@@ -109,7 +121,7 @@ public class EnmeyAI : MonoBehaviour
     {
         float NewPosX;
         bool HasBlock = false;
-        if(!EnemySprite.flipX)
+        if(!IsFaceRight)
         {
             NewPosX = EnemyTf.position.x - d * 1.5f;
         }
@@ -130,7 +142,8 @@ public class EnmeyAI : MonoBehaviour
             }
             if(!HasBlock)
             {
-                EnemyTf.position = new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z);
+                //EnemyTf.position = new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z);
+                EnemyTf.DOLocalJump(new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z), 0.5f, 1, 0.2f, false);
             }
         }
     }
@@ -160,7 +173,7 @@ public class EnmeyAI : MonoBehaviour
         {
             EnemyMove(1);
             ActShowing = false;
-            Invoke("NextTurn", 1f);
+            Invoke("NextTurn", 0.3f);
         }
     }
 }
