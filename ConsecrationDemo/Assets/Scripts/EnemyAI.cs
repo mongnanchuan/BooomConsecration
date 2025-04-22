@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class EnmeyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
     private Transform EnemyTf;
     private SpriteRenderer EnemySprite;
@@ -117,7 +117,7 @@ public class EnmeyAI : MonoBehaviour
         cm.isInPlayerTurn = true;
     }
 
-    public void EnemyMove(int d)
+    public void EnemyMove(int d, string Type)
     {
         float NewPosX;
         bool HasBlock = false;
@@ -143,7 +143,15 @@ public class EnmeyAI : MonoBehaviour
             if(!HasBlock)
             {
                 //EnemyTf.position = new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z);
-                EnemyTf.DOLocalJump(new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z), 0.5f, 1, 0.2f, false);
+                GetComponent<Attribute>().PosNow += d;
+                if(Type == "Jump")
+                {
+                    EnemyTf.DOLocalJump(new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z), 0.5f, 1, 0.2f, false);
+                }
+                else if(Type == "Slide")
+                {
+                    EnemyTf.DOMove(new Vector3(NewPosX, EnemyTf.position.y, EnemyTf.position.z), 0.2f, false);
+                }
             }
         }
     }
@@ -171,7 +179,7 @@ public class EnmeyAI : MonoBehaviour
         }
         else if(ActMark == 1)
         {
-            EnemyMove(1);
+            EnemyMove(1, "Jump");
             ActShowing = false;
             Invoke("NextTurn", 0.3f);
         }

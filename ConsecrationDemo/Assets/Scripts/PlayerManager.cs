@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 else
                 {
-                    PlayerMove(-1);
+                    PlayerMove(-1, "Jump");
                 }
             }
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 else
                 {
-                    PlayerMove(+1);
+                    PlayerMove(+1, "Jump");
                 }
             }
             if (Input.GetKeyDown(KeyCode.J))
@@ -85,7 +85,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void PlayerMove(int d)
+    public void PlayerMove(int d, string Type)
     {
         float NewPosX = PlayerTf.position.x + d * 1.5f;
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
@@ -95,11 +95,19 @@ public class PlayerManager : MonoBehaviour
             {
                 if (character.name != "MainRole" && character.GetComponent<Transform>().position.x == NewPosX)
                 {
-                    character.GetComponent<EnmeyAI>().EnemyMove(1);
+                    character.GetComponent<EnemyAI>().EnemyMove(1, "Slide");
                 }
             }
             //PlayerTf.position = new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z);
-            PlayerTf.DOLocalJump(new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z), 0.5f, 1, 0.2f, false);
+            GetComponent<Attribute>().PosNow += d;
+            if(Type == "Jump")
+            {
+                PlayerTf.DOLocalJump(new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z), 0.5f, 1, 0.2f, false);
+            }
+            else if(Type == "Slide")
+            {
+                PlayerTf.DOMove(new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z), 0.2f, false);
+            }
             cm.TurnEnd();
         }
     }

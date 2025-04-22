@@ -15,13 +15,14 @@ public enum Effect_Type
 public class Effect
 {
     public Effect_Type type;//效果类型
-    public int userPos;//使用者的位置
+    public GameObject Taker;
 
-    public int demage;//伤害值
+    public int damage;//伤害值
     public int heal;//治疗值
     public List<int> addBuffID;//BUFF列表
     public List<int> RemoveBuffID;//BUFF列表
-    public Vector2 forceMovePos;//（方向（1=向右，-1=向左，0=传送），目标位置编号）
+    public int forceMoveDis;
+    public int portalMovePos;
 }
 
 

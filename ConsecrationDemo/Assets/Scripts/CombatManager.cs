@@ -34,27 +34,4 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void Attack(SkillsConfig targetSkill)
-    {
-        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
-        if(targetSkill.type == 0)
-        {
-            foreach (GameObject character in characters)
-            {
-                if(character.name != "MainRole")
-                {
-                    float dis_now = Player.GetComponent<Transform>().position.x - character.GetComponent<Transform>().position.x;
-                    if (!PlayerSprite.flipX && dis_now >= 0 && dis_now <= targetSkill.range * 1.5f)
-                    {
-                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
-                    }
-                    else if (PlayerSprite.flipX && dis_now <= 0 && dis_now >= -targetSkill.range * 1.5f)
-                    {
-                        character.GetComponent<Attribute>().Damage(targetSkill.damage);
-                    }
-                }
-            }
-        }
-        TurnEnd();
-    }
 }
