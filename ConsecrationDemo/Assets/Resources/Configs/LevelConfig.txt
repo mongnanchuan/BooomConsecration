@@ -1,5 +1,39 @@
 {
   "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "80000": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001,
+      90001,
+      90001
+    ],
+    "group1Pos": [
+      0,
+      4,
+      8
+    ],
+    "group2ID": [
+      90001,
+      90001,
+      90001
+    ],
+    "group2Pos": [
+      0,
+      4,
+      8
+    ],
+    "group3ID": [
+      90001,
+      90001,
+      90001
+    ],
+    "group3Pos": [
+      0,
+      4,
+      8
+    ],
+    "id": 80000
+  },
   "80001": {
     "$type": "LevelConfig, Assembly-CSharp",
     "group1ID": [

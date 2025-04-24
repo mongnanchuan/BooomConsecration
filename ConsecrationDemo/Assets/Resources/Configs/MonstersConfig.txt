@@ -7,7 +7,7 @@
     "skillGroup": [
       9000101
     ],
-    "moveType": 1,
+    "moveType": 0,
     "image": "0",
     "id": 90001
   },
@@ -18,7 +18,7 @@
     "skillGroup": [
       9000201
     ],
-    "moveType": 3,
+    "moveType": 1,
     "image": "0",
     "id": 90002
   },
@@ -29,7 +29,7 @@
     "skillGroup": [
       9000301
     ],
-    "moveType": 3,
+    "moveType": 1,
     "image": "0",
     "id": 90003
   },
@@ -40,7 +40,7 @@
     "skillGroup": [
       9000401
     ],
-    "moveType": 2,
+    "moveType": 1,
     "image": "0",
     "id": 90004
   },
@@ -51,7 +51,7 @@
     "skillGroup": [
       9000501
     ],
-    "moveType": 1,
+    "moveType": 0,
     "image": "0",
     "id": 90005
   }
