@@ -12,9 +12,11 @@
         monsterSkill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(9000201);
     }
 
-    public override void GetEffects(List<MonsterTempData> monsData, int playerPos)
+    public override List<Effect> GetEffects(List<MonsterTempData> monsData, MonsterBase mons, int playerPos)
     {
         Init();
+        List<Effect> effects = new List<Effect>();
+        return effects;
     }
 
 }

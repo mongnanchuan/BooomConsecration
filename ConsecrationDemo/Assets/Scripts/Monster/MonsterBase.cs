@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -28,24 +29,38 @@ public class MonsterBase : MonoBehaviour
     //位置改动后的通知
     public event Action<int, int> OnPosSetted;
 
+    //效果处理变量
+    public bool isEffectDone = false;
+    public int waitCount = 0;
+
     public virtual void Init() { }
 
     //回合开始进行判断
-    public void StartTurn(List<MonsterTempData> monsterData,int playerPos)
+    public IEnumerator HandleTurnWithEffect(int playerPos)
     {
-        if(isOnUse)
+        List<MonsterTempData> monsterData = MonsterManager.Instance.currentMonstersData
+        .Select(kv => new MonsterTempData { num = kv.Key, pos = kv.Value.pos, obj = kv.Value.obj })
+        .ToList();
+
+        if (isOnUse)
         {
             //Todo:
             //技能触发效果
             MonsterSkillBase useSkill = MonsterSkillFactory.Create(currentSkillID);
-            if(useSkill!=null)
+            var effects = useSkill.GetEffects(monsterData, this, playerPos);
+
+            if (effects == null || effects.Count == 0)
+                isEffectDone = true;
+
+            foreach (var effect in effects)
             {
-                useSkill.GetEffects(monsterData, playerPos);
+                AddEffectAndHandle(effect);
             }
+            yield return new WaitUntil(() => isEffectDone);
 
             for (int i = 0; i < zone.childCount; i++)
             {
-                GameObject.DestroyImmediate(zone.GetChild(i).gameObject);
+                GameObject.Destroy(zone.GetChild(i).gameObject);
             }
 
             currentSkillID = 0;
@@ -55,9 +70,9 @@ public class MonsterBase : MonoBehaviour
             else
                 currentSkillCount++;
 
-            return;
+            yield break;
         }
-        else
+        else//不放技能咋办
         {
             if (playerPos > currentPos)
                 isToRight = true;
@@ -78,34 +93,36 @@ public class MonsterBase : MonoBehaviour
             }
 
             var skill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(currentSkillID);
+            Transform zoneParent = skill.attactType==2 ? MonsterManager.Instance.transform : this.transform;
+            zone.SetParent(zoneParent);
             switch (skill.attactType)
             {
                 case 1:
                     if(Mathf.Abs(currentPos-playerPos)<= skill.rangePar)
                     {
                         ReadyToUseSkill(currentSkillID, playerPos);
-                        return;
+                        yield break;
                     }
                     break;
                 case 2:
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return;
+                    yield break;
                 case 3:
                     if (isBeBlock)
-                        return;
+                        yield break;
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return;
+                    yield break;
                 case 4:
                     if (isBeBlock)
-                        return;
+                        yield break;
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return;
+                    yield break;
                 default:
                     break;
             }
             //不放技能也不蓄力就移动
             if (isBeBlock)
-                return;
+                yield break;
 
             int[] monstersPos = new int[monsterData.Count];
             for (int i = 0; i < monsterData.Count; i++)
@@ -118,8 +135,19 @@ public class MonsterBase : MonoBehaviour
                 int newPos = Move(monstersPos, playerPos);
                 attribute.MoveNewPos(newPos);
             }
-            return;
+            yield break;
         }
+    }
+
+    private void AddEffectAndHandle(Effect effect)
+    {
+        waitCount++;
+        var attr = effect.Taker;
+        attr.HandleEffect(effect, () =>
+        {
+            waitCount--;
+            if (waitCount <= 0) isEffectDone = true;
+        }, AddEffectAndHandle); // 注意这里把自己传下去
     }
 
     //蓄力函数

@@ -117,9 +117,11 @@ public class MonsterConfigClassGenerator
         monsterSkill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>({id});
     }}
 
-    public override void GetEffects(List<MonsterTempData> monsData, int playerPos)
+    public override List<Effect> GetEffects(List<MonsterTempData> monsData, MonsterBase mons, int playerPos)
     {{
         Init();
+        List<Effect> effects = new List<Effect>();
+        return effects;
     }}
 
 }}";

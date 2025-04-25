@@ -3,11 +3,11 @@
   "9000101": {
     "$type": "MonsterSkillsConfig, Assembly-CSharp",
     "name": "打击",
-    "desc": "对前方1格造成2点伤害",
+    "desc": "对前方3格造成2点伤害并击退3格",
     "attact": 2,
     "attactType": 1,
     "rangeDir": 1,
-    "rangePar": 1,
+    "rangePar": 3,
     "posPar": [
       0
     ],

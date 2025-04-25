@@ -10,10 +10,10 @@ public class MonsterSkillBase
 
     public virtual void Init() { }
 
-    public virtual void GetEffects(List<MonsterTempData> monsData, int playerPos)
+    public virtual List<Effect> GetEffects(List<MonsterTempData> monsData, MonsterBase mons, int playerPos)
     {
         List<Effect> effects = new List<Effect>();
-        return;
+        return effects;
     }
 
     public void SkillTypeDeal(int id)

@@ -80,11 +80,11 @@ public class MonsterManager : MonoBehaviour
             HashSet<int> currentPosNum = new(currentMonstersData.Values.Select(pos => pos.Item1)); 
             currentPosNum.Add(playerPos);
             int monsterPos_Num = FindClosestPos(monsterPos_TempNum, 9, currentPosNum);
-            Vector2 monsterPos_Vec = SwitchPos.IntToVector2(monsterPos_Num);
 
             GameObject prefab = Resources.Load<GameObject>($"Monsters/Monster{monsterID}");
-            GameObject monster = GameObject.Instantiate(prefab, monsterPos_Vec, Quaternion.identity, transform);
-            
+            GameObject monster = GameObject.Instantiate(prefab, transform);
+            monster.GetComponent<Attribute>().MoveNewPos(monsterPos_Num);
+
             MonsterBase tempBase = monster.GetComponent<MonsterBase>();
             tempBase.Init();
             tempBase.OnPosSetted += RecordingPosChange;
@@ -107,10 +107,13 @@ public class MonsterManager : MonoBehaviour
         currentMonstersData[monsCount] = (newPos, currentMonstersData[monsCount].obj);
     }
 
-
+    public void StartMonsterTurn(int playerPos)
+    {
+        StartCoroutine(HandleMonsterTurnCoroutine(playerPos));
+    }
 
     //开始所有怪物回合
-    public void StartMonsterTurn(int playerPos)
+    private IEnumerator HandleMonsterTurnCoroutine(int playerPos)
     {
         //删除掉已经没有的怪物
         List<int> toRemove = new List<int>();
@@ -128,17 +131,8 @@ public class MonsterManager : MonoBehaviour
         //剩下的怪物按照序号顺序一个一个判断执行内容
         foreach (var item in currentMonstersData.OrderBy(pair => pair.Key))
         {
-
-            List<MonsterTempData> monsterInfos = currentMonstersData.Select(kv => new MonsterTempData
-            {
-                num = kv.Key,
-                pos = kv.Value.pos,
-                obj = kv.Value.obj
-            }).ToList();
-
             MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
-            int[] monsPos = currentMonstersData.OrderBy(p => p.Key).Select(v => v.Value.pos).ToArray();
-            currentBase.StartTurn(monsterInfos,playerPos);
+            yield return StartCoroutine(currentBase.HandleTurnWithEffect(playerPos));
         }
         //开始玩家回合
         OnPlayerTurnStart?.Invoke();
