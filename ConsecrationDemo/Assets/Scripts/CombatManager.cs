@@ -12,11 +12,16 @@ public class CombatManager : MonoBehaviour
     private SkillsConfig BaseAttack = new SkillsConfig();
     private LevelManager lm;
     // Start is called before the first frame update
+    public Attribute player;
     void Start()
     {
-/*        BaseAttack.damage = 2;
-        BaseAttack.type = 0;
-        BaseAttack.range = 1;*/
+        if (MonsterManager.Instance != null)
+        {
+            MonsterManager.Instance.OnPlayerTurnStart += TurnStart;
+        }
+        /*        BaseAttack.damage = 2;
+                BaseAttack.type = 0;
+                BaseAttack.range = 1;*/
     }
 
     // Update is called once per frame
@@ -32,6 +37,12 @@ public class CombatManager : MonoBehaviour
             isInPlayerTurn = false;
             //通知MonsterManager行动
         }
+        MonsterManager.Instance.StartMonsterTurn(player.PosNow);
+    }
+
+    public void TurnStart()
+    {
+        isInPlayerTurn = true;
     }
 
 }

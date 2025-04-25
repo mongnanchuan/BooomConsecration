@@ -10,16 +10,30 @@ public class MonsterSkillBase
 
     public virtual void Init() { }
 
-    public virtual List<Effect> GetEffects()
+    public virtual void GetEffects(List<MonsterTempData> monsData, int playerPos)
     {
         List<Effect> effects = new List<Effect>();
-        return effects;
+        return;
     }
 
-    public void GetRolePos(int playerPos, List<int> monstersPos)
+    public void SkillTypeDeal(int id)
     {
-        this.playerPos = playerPos;
-        monsterPosGroup = monstersPos;
+        var skill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(id);
+        switch (skill.attactType)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
     }
+
+
 
 }

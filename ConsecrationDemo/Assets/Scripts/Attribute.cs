@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-
+using System;
 
 public class Attribute : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class Attribute : MonoBehaviour
     private GameObject HPNum;
     private GameObject BodyObject;
     public List<int> BuffPool;
+
+    public event Action<int> OnPosChange;
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +35,18 @@ public class Attribute : MonoBehaviour
 
     public void HandleEffect(Effect targetEffect)
     {
-        switch (targetEffect.type)
-        {
-            case Effect_Type.MakeDamage:
-                Damage(targetEffect.damage);
-                break;
-            case Effect_Type.Healing:
-                Heal(targetEffect.heal);
-                break;
-            case Effect_Type.ForceMove:
-                ForceMove(targetEffect.forceMoveDis);
-                break;
-        }
+            switch (targetEffect.type)
+            {
+                case Effect_Type.MakeDamage:
+                    Damage(targetEffect.damage);
+                    break;
+                case Effect_Type.Healing:
+                    Heal(targetEffect.heal);
+                    break;
+                case Effect_Type.ForceMove:
+                    ForceMove(targetEffect.forceMoveDis);
+                    break;
+            }
     }
 
     public void Damage(int num)
@@ -90,15 +92,22 @@ public class Attribute : MonoBehaviour
 
     public void ForceMove(int forceMoveDis)
     {
-        if (GetComponent<PlayerManager>())
+        for (int i = 0; i < Mathf.Abs(forceMoveDis); i++)
         {
-            GetComponent<PlayerManager>().PlayerMove(forceMoveDis, "Slide");
-            return;
+            int tempPos = PosNow + (i + 1) * (int)Mathf.Sign(forceMoveDis);
+            GameObject obj = MonsterManager.Instance.GetMonsterAtPosition(tempPos);
+            if(obj!=null)
+            {
+                return;
+            }
         }
-        else if (GetComponent<EnemyAI>())
-        {
-            GetComponent<EnemyAI>().EnemyMove(forceMoveDis, "Slide");
-        }
+    }
+
+    public void MoveNewPos(int num)
+    {
+        PosNow = num;
+        this.transform.position = SwitchPos.IntToVector2(PosNow);
+        OnPosChange?.Invoke(PosNow);
     }
 
     public void Die()

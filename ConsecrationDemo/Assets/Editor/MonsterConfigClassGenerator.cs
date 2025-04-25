@@ -103,12 +103,23 @@ public class MonsterConfigClassGenerator
                 }
 
                 // 生成类文件的内容
-                var classContent = $@"public class {className} : MonsterSkillBase
+                var classContent = $@"
+    using System.Collections.Generic;
+    public class {className} : MonsterSkillBase
 {{
+        static MonsterSkill{id}()
+    {{
+        MonsterSkillFactory.Register({id}, typeof(MonsterSkill{id}));
+    }}
 
     public override void Init()
     {{
         monsterSkill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>({id});
+    }}
+
+    public override void GetEffects(List<MonsterTempData> monsData, int playerPos)
+    {{
+        Init();
     }}
 
 }}";

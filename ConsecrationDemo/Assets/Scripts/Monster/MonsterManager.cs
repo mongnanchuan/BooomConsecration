@@ -4,8 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class MonsterTempData
+{
+    public int num;
+    public int pos;
+    public GameObject obj;
+}
+
 public class MonsterManager : MonoBehaviour
 {
+    public static MonsterManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public int levelID;
     public List<int[]> monsterGroupIDs;//关卡表中的3波怪物ID
     public List<int[]> monsterGroupPoss;//关卡表中的3波怪物位置
@@ -14,6 +33,9 @@ public class MonsterManager : MonoBehaviour
     //目前的怪物数据，key=怪物编号，value=位置（序号），怪物obj
     public Dictionary<int,(int pos,GameObject obj)> currentMonstersData;
     public int count;//编号时用的序号
+
+    //怪物回合行动结束
+    public event Action OnPlayerTurnStart;
 
     public void MonsterGroupInit()
     {
@@ -65,6 +87,7 @@ public class MonsterManager : MonoBehaviour
             
             MonsterBase tempBase = monster.GetComponent<MonsterBase>();
             tempBase.Init();
+            tempBase.OnPosSetted += RecordingPosChange;
             if (monsterPos_Num < playerPos)
                 tempBase.isToRight = true;
             else
@@ -79,6 +102,14 @@ public class MonsterManager : MonoBehaviour
         currentGroupCount++;
     }
 
+    private void RecordingPosChange(int monsCount, int newPos)
+    {
+        currentMonstersData[monsCount] = (newPos, currentMonstersData[monsCount].obj);
+    }
+
+
+
+    //开始所有怪物回合
     public void StartMonsterTurn(int playerPos)
     {
         //删除掉已经没有的怪物
@@ -91,21 +122,26 @@ public class MonsterManager : MonoBehaviour
                 toRemove.Add(item.Key);
             }
         }
-        foreach (int key in toRemove)
-        {
+        foreach (int key in toRemove)    
             currentMonstersData.Remove(key);
-        }
 
         //剩下的怪物按照序号顺序一个一个判断执行内容
         foreach (var item in currentMonstersData.OrderBy(pair => pair.Key))
         {
-            MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
-            int[] monsPos = currentMonstersData.Values.Select(v => v.pos).ToArray();
-            int newPos = currentBase.StartTurn(monsPos,playerPos);
 
-            //更新字典中的怪物位置
-            currentMonstersData[item.Key] = (newPos, item.Value.obj);
+            List<MonsterTempData> monsterInfos = currentMonstersData.Select(kv => new MonsterTempData
+            {
+                num = kv.Key,
+                pos = kv.Value.pos,
+                obj = kv.Value.obj
+            }).ToList();
+
+            MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
+            int[] monsPos = currentMonstersData.OrderBy(p => p.Key).Select(v => v.Value.pos).ToArray();
+            currentBase.StartTurn(monsterInfos,playerPos);
         }
+        //开始玩家回合
+        OnPlayerTurnStart?.Invoke();
     }
 
     //刷怪时避免占位重复
@@ -125,4 +161,13 @@ public class MonsterManager : MonoBehaviour
         return -1;
     }
 
+    public GameObject GetMonsterAtPosition(int pos)
+    {
+        foreach (var kv in currentMonstersData)
+        {
+            if (kv.Value.pos == pos)
+                return kv.Value.obj;
+        }
+        return null;
+    }
 }

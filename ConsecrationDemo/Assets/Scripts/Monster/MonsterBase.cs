@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class MonsterBase : MonoBehaviour
 {
@@ -23,17 +25,23 @@ public class MonsterBase : MonoBehaviour
     public GameObject warningZone4;//威胁类型4显示
     public Vector2 offset;//威胁类型3/4相对位置调整值
 
+    //位置改动后的通知
+    public event Action<int, int> OnPosSetted;
 
     public virtual void Init() { }
 
     //回合开始进行判断
-    public int StartTurn(int[] monstersPos,int playerPos)
+    public void StartTurn(List<MonsterTempData> monsterData,int playerPos)
     {
         if(isOnUse)
         {
-            int newPos = currentPos;
             //Todo:
             //技能触发效果
+            MonsterSkillBase useSkill = MonsterSkillFactory.Create(currentSkillID);
+            if(useSkill!=null)
+            {
+                useSkill.GetEffects(monsterData, playerPos);
+            }
 
             for (int i = 0; i < zone.childCount; i++)
             {
@@ -47,7 +55,7 @@ public class MonsterBase : MonoBehaviour
             else
                 currentSkillCount++;
 
-            return newPos;
+            return;
         }
         else
         {
@@ -63,9 +71,9 @@ public class MonsterBase : MonoBehaviour
             int max = Mathf.Max(currentPos, playerPos);
             currentSkillID = monster.skillGroup[currentSkillCount];
 
-            for (int i = 0; i < monstersPos.Length; i++)
+            for (int i = 0; i < monsterData.Count; i++)
             {
-                if (monstersPos[i] > min && monstersPos[i] < max)
+                if (monsterData[i].pos > min && monsterData[i].pos < max)
                     isBeBlock = true;
             }
 
@@ -76,38 +84,41 @@ public class MonsterBase : MonoBehaviour
                     if(Mathf.Abs(currentPos-playerPos)<= skill.rangePar)
                     {
                         ReadyToUseSkill(currentSkillID, playerPos);
-                        return currentPos;
+                        return;
                     }
                     break;
                 case 2:
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return currentPos;
+                    return;
                 case 3:
                     if (isBeBlock)
-                        return currentPos;
+                        return;
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return currentPos;
+                    return;
                 case 4:
                     if (isBeBlock)
-                        return currentPos;
+                        return;
                     ReadyToUseSkill(currentSkillID, playerPos);
-                    return currentPos;
+                    return;
                 default:
                     break;
             }
-
             //不放技能也不蓄力就移动
             if (isBeBlock)
-                return currentPos;
+                return;
+
+            int[] monstersPos = new int[monsterData.Count];
+            for (int i = 0; i < monsterData.Count; i++)
+            {
+                monstersPos[i] = monsterData[i].pos;
+            }
 
             if(monster.moveType == 0)
             {
                 int newPos = Move(monstersPos, playerPos);
-                currentPos = newPos;
-                this.transform.position = SwitchPos.IntToVector2(currentPos);
+                attribute.MoveNewPos(newPos);
             }
-            return currentPos;
-
+            return;
         }
     }
 
@@ -213,6 +224,13 @@ public class MonsterBase : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(dir.x), dir.y, dir.z);
         else
             transform.localScale = new Vector3(Mathf.Abs(dir.x), dir.y, dir.z);
+    }
+
+    //设置位置并汇报
+    public void OnPosBeSet(int posNum)
+    {
+        currentPos = posNum;
+        OnPosSetted?.Invoke(count, currentPos);
     }
 
 }

@@ -8,6 +8,7 @@ public class Monster90001 : MonsterBase
         currentSkillCount = 0;
         currentSkillID = 0;
         isOnUse = false;
+        attribute.OnPosChange += OnPosBeSet;
     }
 
 }
