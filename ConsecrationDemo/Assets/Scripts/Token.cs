@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Altar : MonoBehaviour
+public class Token : MonoBehaviour
 {
     public Vector3 startPos;
     private Collider2D collider2D;
@@ -20,7 +20,6 @@ public class Altar : MonoBehaviour
     public List<SkillBase> Skills = new List<SkillBase>();
     public int SkillIndex = 0;
     public int CD;
-    public GameObject CDText;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +56,7 @@ public class Altar : MonoBehaviour
         {
             for (int i = 0; i < 9; i++)
             {
-                if (near(lm.AltarCorrectTrans[i]))
+                if (near(lm.TokenCorrectTrans[i]))
                 {
                     move(i);
                     isDragging = false;
@@ -72,7 +71,7 @@ public class Altar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CDText.GetComponent<Text>().text = CD.ToString();
+        
     }
 
     private void OnMouseEnter()
@@ -101,78 +100,32 @@ public class Altar : MonoBehaviour
     {
         if (index_before >= 0)
         {
-            lm.AltarIcons[index_before] = null;
+            lm.TokenIcons[index_before] = null;
         }
         if (id >= 0)
         {
-            if (lm.AltarIcons[id] != null)
+            if (lm.TokenIcons[id] != null)
             {
                 if (index_before >= 0)
                 {
-                    lm.AltarIcons[index_before] = lm.AltarIcons[id];
-                    lm.AltarIcons[id].transform.position = new Vector2(lm.AltarCorrectTrans[index_before].position.x, lm.AltarCorrectTrans[index_before].position.y);
-                    lm.AltarIcons[id].GetComponent<Altar>().index_before = index_before;
+                    lm.TokenIcons[index_before] = lm.TokenIcons[id];
+                    lm.TokenIcons[id].transform.position = new Vector2(lm.TokenCorrectTrans[index_before].position.x, lm.TokenCorrectTrans[index_before].position.y);
+                    lm.TokenIcons[id].GetComponent<Token>().index_before = index_before;
                 }
                 else
                 {
-                    lm.AltarIcons[id].transform.position = lm.AltarIcons[id].GetComponent<Altar>().startPos;
-                    lm.AltarIcons[id].GetComponent<Altar>().index_before = -1;
+                    lm.TokenIcons[id].transform.position = lm.TokenIcons[id].GetComponent<Token>().startPos;
+                    lm.TokenIcons[id].GetComponent<Token>().index_before = -1;
                 }
             }
-            lm.AltarIcons[id] = gameObject;
+            lm.TokenIcons[id] = gameObject;
             index_before = id;
-            transform.position = new Vector2(lm.AltarCorrectTrans[id].position.x, lm.AltarCorrectTrans[id].position.y);
+            transform.position = new Vector2(lm.TokenCorrectTrans[id].position.x, lm.TokenCorrectTrans[id].position.y);
         }
         else
         {
             transform.position = startPos;
             index_before = -1;
         }
-    }
-
-    public void UseSkill(GameObject Trigger)
-    {
-        Transform TriggerTf = Trigger.GetComponent<Transform>();
-        SpriteRenderer TriggerSprite = Trigger.GetComponent<SpriteRenderer>();
-        GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
-        Skills[SkillIndex].TakeEffect(Trigger);
-/*        switch (Skill.id)
-        {
-            case 10001:
-                foreach (GameObject character in characters)
-                {
-                    float dis_now = TriggerTf.position.x - character.GetComponent<Transform>().position.x;
-                    if (!TriggerSprite.flipX && dis_now >= 0 && dis_now <= 1 * 1.5f)
-                    {
-                        character.GetComponent<Attribute>().Damage(Skill.damage);
-                    }
-                    else if (TriggerSprite.flipX && dis_now <= 0 && dis_now >= -1 * 1.5f)
-                    {
-                        character.GetComponent<Attribute>().Damage(Skill.damage);
-                    }
-                }
-                break;
-            case 10002:
-                foreach (GameObject character in characters)
-                {
-                    float dis_now = Mathf.Abs(TriggerTf.position.x - character.GetComponent<Transform>().position.x);
-                    if (dis_now <= 1 * 1.5f)
-                    {
-                        character.GetComponent<Attribute>().Damage(Skill.damage);
-                    }
-                }
-                SkillIndex = 0;
-                break;
-        }*/
-        CD = Skills[0].skill.cooldown;
-    }
-
-    public void Sacrifice()
-    {
-        if(SkillIndex == 0)
-        {
-            SkillIndex++;
-        }
-
     }
 }

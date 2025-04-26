@@ -7,9 +7,12 @@ public class LevelManager : MonoBehaviour
     public CombatManager cm;
     public MonsterManager mm;
     public GameObject[] AltarBlanks;
+    public GameObject[] TokenBlanks;
     public GameObject[] AttackAlert;
-    public Transform[] CorrectTrans = new Transform[9];
+    public Transform[] AltarCorrectTrans = new Transform[9];
     public GameObject[] AltarIcons = new GameObject[9];
+    public Transform[] TokenCorrectTrans = new Transform[9];
+    public GameObject[] TokenIcons = new GameObject[9];
     public int levelID;
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
@@ -26,7 +29,8 @@ public class LevelManager : MonoBehaviour
         targetButton = GameObject.FindGameObjectsWithTag("CombatButton");
         for (int i = 0; i < 9; i++)
         {
-            CorrectTrans[i] = AltarBlanks[i].transform;
+            AltarCorrectTrans[i] = AltarBlanks[i].transform;
+            TokenCorrectTrans[i] = TokenBlanks[i].transform;
         }
         PrepareLevel();
     }
