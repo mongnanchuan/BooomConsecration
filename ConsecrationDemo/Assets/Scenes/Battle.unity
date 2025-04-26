@@ -8687,7 +8687,7 @@ GameObject:
   - component: {fileID: 7647791585665699838}
   m_Layer: 0
   m_Name: HeartToken
-  m_TagString: AltarIcon
+  m_TagString: TokenIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8728,7 +8728,6 @@ MonoBehaviour:
   isFinished: 0
   SkillIndex: 0
   CD: 0
-  CDText: {fileID: 0}
 --- !u!1001 &8096172678574621674
 PrefabInstance:
   m_ObjectHideFlags: 0

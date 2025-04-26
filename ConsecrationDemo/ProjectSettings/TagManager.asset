@@ -9,6 +9,7 @@ TagManager:
   - AltarIcon
   - Combat
   - CombatButton
+  - TokenIcon
   layers:
   - Default
   - TransparentFX

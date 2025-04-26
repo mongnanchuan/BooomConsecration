@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
         PlayerSprite = GetComponent<SpriteRenderer>();
         lm = System.GetComponent<LevelManager>();
         cm = System.GetComponent<CombatManager>();
+        GetComponent<Attribute>().PosNow = 4;
         BaseAttack = new Skill80001();
         BaseAttack.Init();
         DOTween.Init();

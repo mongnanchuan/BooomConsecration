@@ -28,16 +28,6 @@ public class Token : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        string skillName1 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1.ToString();
-        string skillName2 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2.ToString();
-        var skill1 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
-        var skill2 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
-        skill1.Init();
-        skill2.Init();
-        /*        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-                SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);*/
-        Skills.Add(skill1);
-        Skills.Add(skill2);
         CD = 0;
     }
     private void OnMouseDrag()
