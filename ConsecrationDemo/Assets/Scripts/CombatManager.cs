@@ -12,7 +12,7 @@ public class CombatManager : MonoBehaviour
     private SkillsConfig BaseAttack = new SkillsConfig();
     private LevelManager lm;
     // Start is called before the first frame update
-    public Attribute player;
+    public Attribute playerAttr;
     void Start()
     {
         if (MonsterManager.Instance != null)
@@ -37,7 +37,7 @@ public class CombatManager : MonoBehaviour
             isInPlayerTurn = false;
             //通知MonsterManager行动
         }
-        MonsterManager.Instance.StartMonsterTurn(player.PosNow);
+        MonsterManager.Instance.StartMonsterTurn(PlayerPosReport.Instance.GetPlayerPos());
     }
 
     public void TurnStart()

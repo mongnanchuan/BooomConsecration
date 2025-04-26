@@ -47,6 +47,27 @@ public class MonsterSkill9000101 : MonsterSkillBase
                     };
                     effects.Add(effect2);
                 }
+                if (playerPos == hurtPos)
+                {
+                    Effect effect1 = new Effect()
+                    {
+                        type = Effect_Type.MakeDamage,
+                        Taker = PlayerPosReport.Instance.gameObject.GetComponent<Attribute>(),
+                        Ganker = mons.GetComponent<Attribute>(),
+                        damage = monsterSkill.attact
+                    };
+                    effects.Add(effect1);
+
+                    Effect effect2 = new Effect()
+                    {
+                        type = Effect_Type.ForceMove,
+                        Taker = PlayerPosReport.Instance.gameObject.GetComponent<Attribute>(),
+                        Ganker = mons.GetComponent<Attribute>(),
+                        forceMoveDis = mons.isToRight ? 3 : -3
+                    };
+                    effects.Add(effect2);
+                }
+
             }
         }
 

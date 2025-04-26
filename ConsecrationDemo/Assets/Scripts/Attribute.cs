@@ -25,7 +25,7 @@ public class Attribute : MonoBehaviour
     {
         HPObj = transform.Find("Canvas/HP").gameObject;
         HPNum = transform.Find("Canvas/HPNum").gameObject;
-        BodyObject = transform.Find("Body").gameObject;
+        BodyObject = transform.Find("Body")?.gameObject;
     }
 
     // Update is called once per frame
@@ -133,6 +133,11 @@ public class Attribute : MonoBehaviour
     //用一定速度移动到目标位置
     public IEnumerator MoveWithSpeed(int pos)
     {
+        if (pos > 8)
+            pos = 8;
+        if (pos < 0)
+            pos = 0;
+
         Vector2 startPos = transform.position;
         Vector2 endPos = SwitchPos.IntToVector2(pos);
         float distance = Vector2.Distance(startPos, endPos);

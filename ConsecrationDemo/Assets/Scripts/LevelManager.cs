@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public GameObject[] AttackAlert;
     public Transform[] CorrectTrans = new Transform[9];
     public GameObject[] AltarIcons = new GameObject[9];
-    public int levelID = 0;
+    public int levelID;
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
         {
             buttonObject.SetActive(false);
         }
-        levelID++;
+        //levelID++;
     }
     //准备完毕，进入新关卡
     public void ReadyAndStart()
@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
         {
             prepareObject.SetActive(false);
         }
+        MonsterManager.Instance.MonsterGroupInit(levelID);
 /*        mm.levelID = levelID;
         mm.MonsterGroupInit();*/
     }

@@ -37,8 +37,9 @@ public class MonsterManager : MonoBehaviour
     //怪物回合行动结束
     public event Action OnPlayerTurnStart;
 
-    public void MonsterGroupInit()
+    public void MonsterGroupInit(int level)
     {
+        levelID = level;
         if(monsterGroupIDs == null)
             monsterGroupIDs = new List<int[]>();
         else
@@ -63,6 +64,8 @@ public class MonsterManager : MonoBehaviour
         monsterGroupPoss.Add(levelConfig.group3Pos);
         currentGroupCount = 0;
         count = 1;
+
+        SetNewMonsters(PlayerPosReport.Instance.GetPlayerPos());
     }
 
     public void SetNewMonsters(int playerPos)
