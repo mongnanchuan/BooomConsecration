@@ -140,7 +140,7 @@ public class Attribute : MonoBehaviour
 
         Vector2 startPos = transform.position;
         Vector2 endPos = SwitchPos.IntToVector2(pos);
-        float distance = Vector2.Distance(startPos, endPos);
+/*        float distance = Vector2.Distance(startPos, endPos);
         float duration = distance / moveSpeed; // 总耗时 = 距离 / 速度
         float elapsed = 0f;
 
@@ -150,12 +150,13 @@ public class Attribute : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / duration); // 插值进度 [0, 1]
             transform.position = Vector3.Lerp(startPos, endPos, t); // 插值移动
             yield return null;
-        }
-
-        transform.position = endPos;
+        }*/
+        //transform.position = endPos;
         PosNow = pos;
+        Tweener _tweener = transform.DOMove(endPos, 0.2f, false);
         OnPosChange?.Invoke(PosNow);
-        yield break;
+        yield return _tweener.WaitForCompletion();
+        //yield break;
     }
 
     public void MoveNewPos(int num)
