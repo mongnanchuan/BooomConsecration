@@ -11,9 +11,17 @@ public class PlayerManager : MonoBehaviour
     private LevelManager lm;
     private CombatManager cm;
     public SkillBase BaseAttack;
-    // Start is called before the first frame update
+    public Attribute attr;
+
+    public bool isToRight = true;
+
+    //效果处理变量
+    public bool isEffectDone = false;
+    public int waitCount = 0;
+
     void Start()
     {
+        attr = GetComponent<Attribute>();
         PlayerTf = GetComponent<Transform>();
         PlayerSprite = GetComponent<SpriteRenderer>();
         lm = System.GetComponent<LevelManager>();
@@ -32,24 +40,28 @@ public class PlayerManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
-                if (PlayerSprite.flipX)
+                if (isToRight)
                 {
                     PlayerSprite.flipX = false;
+                    isToRight = false;
                 }
                 else
                 {
-                    PlayerMove(-1, "Jump");
+                    if(attr.PosNow != 0)
+                    StartCoroutine(MoveWithEffect(false));
                 }
             }
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
-                if (!PlayerSprite.flipX)
+                if (!isToRight)
                 {
                     PlayerSprite.flipX = true;
+                    isToRight = true;
                 }
                 else
                 {
-                    PlayerMove(+1, "Jump");
+                    if(attr.PosNow != 8)
+                    StartCoroutine(MoveWithEffect(true));
                 }
             }
             if (Input.GetKeyDown(KeyCode.J))
@@ -112,4 +124,62 @@ public class PlayerManager : MonoBehaviour
             cm.TurnEnd();
         }
     }
+
+    public IEnumerator MoveWithEffect(bool isToRight)
+    {
+        int newPos = isToRight ? attr.PosNow + 1 : attr.PosNow - 1;
+        Vector3 newVec = SwitchPos.IntToVector2(newPos);
+        //transform.DOMove(newVec, 0.2f, false);
+        transform.DOLocalJump(newVec, 0.5f, 1, 0.2f, false);
+
+        List<Effect> effects = new List<Effect>();
+
+        foreach (var mons in MonsterManager.Instance.currentMonstersData)
+        {
+            if(mons.Value.pos == newPos)
+            {
+                Effect effect1 = new Effect()
+                {
+                    type = Effect_Type.ForceJump,
+                    Taker = mons.Value.obj.GetComponent<Attribute>(),
+                    Ganker = this.attr,
+                    portalMovePos = attr.PosNow
+                };
+                effects.Add(effect1);
+            }
+        }
+        attr.PosNow = newPos;
+
+       if (effects.Count == 0)
+          isEffectDone = true;
+
+       foreach (var effect in effects)
+       {
+            yield return StartCoroutine(AddEffectAndHandle(effect));
+       }
+       yield return new WaitUntil(() => isEffectDone);
+       //yield return new WaitForSeconds(2f);
+
+       cm.TurnEnd();
+    }
+
+    private IEnumerator AddEffectAndHandle(Effect effect)
+    {
+        waitCount++;
+        var attr = effect.Taker;
+
+        // 用于跟踪效果处理完成的一个标志
+        bool isEffectHandled = false;
+
+        // 处理效果，并在完成时设置标志
+        yield return StartCoroutine(attr.HandleEffect(effect, () =>
+        {
+            isEffectHandled = true;
+            waitCount--;
+            if (waitCount <= 0) isEffectDone = true;
+        }, effect => StartCoroutine(AddEffectAndHandle(effect)))); // 确保使用 StartCoroutine 来传递自身
+        // 等待效果处理完成
+        yield return new WaitUntil(() => isEffectHandled);
+    }
+
 }

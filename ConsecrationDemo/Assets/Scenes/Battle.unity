@@ -5371,6 +5371,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   System: {fileID: 14139758}
+  attr: {fileID: 0}
+  isToRight: 0
+  isEffectDone: 0
+  waitCount: 0
 --- !u!114 &1359954266
 MonoBehaviour:
   m_ObjectHideFlags: 0

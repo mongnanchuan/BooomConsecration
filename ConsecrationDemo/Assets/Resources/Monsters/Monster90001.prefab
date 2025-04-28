@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5094934084756531102}
   m_Layer: 0
   m_Name: Monster90001
-  m_TagString: Untagged
+  m_TagString: Combat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   HPMax: 0
   PosNow: 0
   BuffPool: 
+  moveSpeed: 3
 --- !u!114 &5094934084756531102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +79,8 @@ MonoBehaviour:
   warningZone3: {fileID: 8572816352213329621, guid: 5e7338de810ebdb469f4095bbe1c59da, type: 3}
   warningZone4: {fileID: 8285357688114848940, guid: 005f1add5253fcc4fbe4861f120bd285, type: 3}
   offset: {x: 0.61, y: 1.32}
+  isEffectDone: 0
+  waitCount: 0
 --- !u!1 &3088774509858358561
 GameObject:
   m_ObjectHideFlags: 0

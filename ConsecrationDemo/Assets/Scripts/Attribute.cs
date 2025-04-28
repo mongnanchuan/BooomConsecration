@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
 
+
 public class Attribute : MonoBehaviour
 {
     public int HP;
@@ -35,7 +36,7 @@ public class Attribute : MonoBehaviour
         HPNum.GetComponent<Text>().text = HP + "/" + HPMax;
     }
 
-    public void HandleEffect(Effect targetEffect,Action onFinished = null, Action<Effect> addEffectCallback = null)
+    public IEnumerator HandleEffect(Effect targetEffect,Action onFinished = null, Action<Effect> addEffectCallback = null)
     {
         switch (targetEffect.type)
         {
@@ -49,7 +50,10 @@ public class Attribute : MonoBehaviour
                 onFinished?.Invoke();
                 break;
             case Effect_Type.ForceMove:
-                StartCoroutine(ForceMove(targetEffect.forceMoveDis, onFinished, addEffectCallback));
+                yield return StartCoroutine(ForceMove(targetEffect.forceMoveDis, onFinished, addEffectCallback));
+                break;
+            case Effect_Type.ForceJump:
+                yield return StartCoroutine(ForceJump(targetEffect.portalMovePos, onFinished, addEffectCallback));
                 break;
         }
     }
@@ -131,6 +135,12 @@ public class Attribute : MonoBehaviour
                 collisionMons = obj;
                 break;
             }
+            if(tempPos == PlayerPosReport.Instance.GetPlayerPos())
+            {
+                collisionMons = PlayerPosReport.Instance.gameObject;
+                break;
+            }
+            if(tempPos <= 8 && tempPos >= 0)
             newPos = tempPos;
         }
         if(collisionMons != null && addEffectCallback != null)
@@ -150,33 +160,47 @@ public class Attribute : MonoBehaviour
             };
             addEffectCallback(effectToSelf);
         }
+        PosNow = newPos;
+        OnPosChange?.Invoke(PosNow);
         yield return StartCoroutine(MoveWithSpeed(newPos));
         onFinished?.Invoke();
     }
 
+    //强制跳跃
+    public IEnumerator ForceJump(int pos, Action onFinished, Action<Effect> addEffectCallback = null)
+    {
+        bool isJump = false;
+        int newPos = PosNow;
+        GameObject obj = MonsterManager.Instance.GetMonsterAtPosition(pos);
+        if (obj == null)
+        {
+            newPos = pos;
+            isJump = true;
+        }
+        if (isJump)
+        {
+            Debug.Log(newPos);
+            yield return StartCoroutine(JumpMove(newPos));
+        }
+
+        PosNow = newPos;
+        OnPosChange?.Invoke(PosNow);
+        onFinished?.Invoke();
+    }
+
+    //强制跳跃
+    public IEnumerator JumpMove(int pos)
+    {
+        Vector3 newVec = (Vector3)SwitchPos.IntToVector2(pos);
+        yield return transform.DOLocalJump(newVec, 0.5f, 1, 0.2f, false).WaitForCompletion();
+    }
+
+
     //用一定速度移动到目标位置
     public IEnumerator MoveWithSpeed(int pos)
     {
-        if (pos > 8)
-            pos = 8;
-        if (pos < 0)
-            pos = 0;
-
         Vector2 startPos = transform.position;
         Vector2 endPos = SwitchPos.IntToVector2(pos);
-/*        float distance = Vector2.Distance(startPos, endPos);
-        float duration = distance / moveSpeed; // 总耗时 = 距离 / 速度
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration); // 插值进度 [0, 1]
-            transform.position = Vector3.Lerp(startPos, endPos, t); // 插值移动
-            yield return null;
-        }*/
-        //transform.position = endPos;
-        PosNow = pos;
         Tweener _tweener = transform.DOMove(endPos, 0.2f, false);
         yield return _tweener.WaitForCompletion();
         OnPosChange?.Invoke(PosNow);

@@ -43,7 +43,7 @@ public class MonsterSkill9000101 : MonsterSkillBase
                         type = Effect_Type.ForceMove,
                         Taker = item.obj.GetComponent<Attribute>(),
                         Ganker = mons.GetComponent<Attribute>(),
-                        forceMoveDis = mons.isToRight ? 3 : -3
+                        forceMoveDis = mons.isToRight ? 2 : -2
                     };
                     effects.Add(effect2);
                 }
@@ -63,11 +63,10 @@ public class MonsterSkill9000101 : MonsterSkillBase
                         type = Effect_Type.ForceMove,
                         Taker = PlayerPosReport.Instance.gameObject.GetComponent<Attribute>(),
                         Ganker = mons.GetComponent<Attribute>(),
-                        forceMoveDis = mons.isToRight ? 3 : -3
+                        forceMoveDis = mons.isToRight ? 2 : -2
                     };
                     effects.Add(effect2);
                 }
-
             }
         }
 

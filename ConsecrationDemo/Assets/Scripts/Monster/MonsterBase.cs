@@ -53,16 +53,16 @@ public class MonsterBase : MonoBehaviour
             if (effects == null || effects.Count == 0)
                 isEffectDone = true;
 
-            foreach (var effect in effects)
-            {
-                AddEffectAndHandle(effect);
-            }
-            yield return new WaitUntil(() => isEffectDone);
-
             for (int i = 0; i < zone.childCount; i++)
             {
                 GameObject.Destroy(zone.GetChild(i).gameObject);
             }
+
+            foreach (var effect in effects)
+            {
+                yield return StartCoroutine(AddEffectAndHandle(effect));
+            }
+            yield return new WaitUntil(() => isEffectDone);
 
             currentSkillID = 0;
             isOnUse = false;
@@ -140,15 +140,23 @@ public class MonsterBase : MonoBehaviour
         }
     }
 
-    private void AddEffectAndHandle(Effect effect)
+    private IEnumerator AddEffectAndHandle(Effect effect)
     {
         waitCount++;
         var attr = effect.Taker;
-        attr.HandleEffect(effect, () =>
+
+        // 用于跟踪效果处理完成的一个标志
+        bool isEffectHandled = false;
+
+        // 处理效果，并在完成时设置标志
+        yield return StartCoroutine(attr.HandleEffect(effect, () =>
         {
+            isEffectHandled = true;
             waitCount--;
             if (waitCount <= 0) isEffectDone = true;
-        }, AddEffectAndHandle); // 注意这里把自己传下去
+        }, effect => StartCoroutine(AddEffectAndHandle(effect)))); // 确保使用 StartCoroutine 来传递自身
+        // 等待效果处理完成
+        yield return new WaitUntil(() => isEffectHandled);
     }
 
     //蓄力函数

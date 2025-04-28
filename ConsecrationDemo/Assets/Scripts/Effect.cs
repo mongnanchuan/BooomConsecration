@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum Effect_Type
 {
-    ForceMove,//强制移动
+    ForceMove,//强制直线移动
+    ForceJump,//强制传送
     MakeDamage,//伤害
     Healing,//治疗
     AddBuff,//加Buff/Debuff
