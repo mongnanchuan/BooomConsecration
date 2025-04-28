@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class MonsterBase : MonoBehaviour
@@ -248,10 +249,13 @@ public class MonsterBase : MonoBehaviour
     public void SetDir()
     {
         Vector3 dir = transform.localScale;
+        GameObject BodyObject = transform.Find("Body")?.gameObject;
         if (isToRight)
-            transform.localScale = new Vector3(-Mathf.Abs(dir.x), dir.y, dir.z);
+            //transform.localScale = new Vector3(-Mathf.Abs(dir.x), dir.y, dir.z);
+            BodyObject.transform.DOLocalRotate(new Vector3(0, 180, 0), 0.2f);
         else
-            transform.localScale = new Vector3(Mathf.Abs(dir.x), dir.y, dir.z);
+            //transform.localScale = new Vector3(Mathf.Abs(dir.x), dir.y, dir.z);
+            BodyObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f);
     }
 
     //设置位置并汇报

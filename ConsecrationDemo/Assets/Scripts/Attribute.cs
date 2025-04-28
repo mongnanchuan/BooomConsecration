@@ -40,6 +40,7 @@ public class Attribute : MonoBehaviour
         switch (targetEffect.type)
         {
             case Effect_Type.MakeDamage:
+                //StartCoroutine(Damage(targetEffect.damage));
                 Damage(targetEffect.damage);
                 onFinished?.Invoke();
                 break;
@@ -55,11 +56,12 @@ public class Attribute : MonoBehaviour
 
     public void Damage(int num)
     {
-        if(num > 0)
+        if (num > 0)
         {
-            if(BodyObject != null)
+            if (BodyObject != null)
             {
-                BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 20, 0.5f);
+                BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 8, 1);
+                //BodyObject.transform.DOShakePosition(0.2f, 1f, 2, 50, true);
             }
             int newVal = HP - num;
             if (newVal <= 0)
@@ -73,6 +75,28 @@ public class Attribute : MonoBehaviour
             }
         }
     }
+
+    /*    public IEnumerator Damage(int num)
+        {
+            if (num > 0)
+            {
+                int newVal = HP - num;
+                if (newVal <= 0)
+                {
+                    HP = 0;
+                    Die();
+                }
+                else
+                {
+                    HP = newVal;
+                }
+                if (BodyObject != null)
+                {
+                    Tweener _tweener = BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 20, 0.5f);
+                    yield return _tweener.WaitForCompletion();
+                }
+            }
+        }*/
 
     public void Heal(int num)
     {
@@ -154,8 +178,8 @@ public class Attribute : MonoBehaviour
         //transform.position = endPos;
         PosNow = pos;
         Tweener _tweener = transform.DOMove(endPos, 0.2f, false);
-        OnPosChange?.Invoke(PosNow);
         yield return _tweener.WaitForCompletion();
+        OnPosChange?.Invoke(PosNow);
         //yield break;
     }
 
@@ -167,7 +191,9 @@ public class Attribute : MonoBehaviour
             num = 0;
 
         PosNow = num;
-        this.transform.position = SwitchPos.IntToVector2(PosNow);
+        Vector2 endPos = SwitchPos.IntToVector2(PosNow);
+        transform.DOLocalJump(endPos, 0.5f, 1, 0.2f, false);
+        //this.transform.position = SwitchPos.IntToVector2(PosNow);
         OnPosChange?.Invoke(PosNow);
     }
 
