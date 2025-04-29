@@ -64,6 +64,7 @@ public class Altar : MonoBehaviour
                     return;
                 }
             }
+            //回到初始位置
             move(-1);
             isDragging = false;
         }
@@ -93,8 +94,8 @@ public class Altar : MonoBehaviour
 
     private bool near(Transform correctTrans)
     {
-        return (Mathf.Abs(transform.position.x - correctTrans.position.x) <= 0.5f &&
-           Mathf.Abs(transform.position.y - correctTrans.position.y) <= 0.5f);
+        return (Mathf.Abs(transform.position.x - correctTrans.position.x) <= 0.75f &&
+           Mathf.Abs(transform.position.y - correctTrans.position.y) <= 0.75f);
     }
 
     private void move(int id)
@@ -112,21 +113,24 @@ public class Altar : MonoBehaviour
                     lm.AltarIcons[index_before] = lm.AltarIcons[id];
                     lm.AltarIcons[id].transform.position = new Vector2(lm.AltarCorrectTrans[index_before].position.x, lm.AltarCorrectTrans[index_before].position.y);
                     lm.AltarIcons[id].GetComponent<Altar>().index_before = index_before;
+                    lm.AltarIcons[id].GetComponent<Altar>().startPos = lm.AltarIcons[id].transform.position;
                 }
                 else
                 {
-                    lm.AltarIcons[id].transform.position = lm.AltarIcons[id].GetComponent<Altar>().startPos;
+                    lm.AltarIcons[id].transform.position = startPos;
                     lm.AltarIcons[id].GetComponent<Altar>().index_before = -1;
+                    lm.AltarIcons[id].GetComponent<Altar>().startPos = lm.AltarIcons[id].transform.position;
                 }
             }
             lm.AltarIcons[id] = gameObject;
             index_before = id;
             transform.position = new Vector2(lm.AltarCorrectTrans[id].position.x, lm.AltarCorrectTrans[id].position.y);
+            startPos = transform.position;
         }
         else
         {
             transform.position = startPos;
-            index_before = -1;
+            
         }
     }
 

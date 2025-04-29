@@ -101,21 +101,23 @@ public class Token : MonoBehaviour
                     lm.TokenIcons[index_before] = lm.TokenIcons[id];
                     lm.TokenIcons[id].transform.position = new Vector2(lm.TokenCorrectTrans[index_before].position.x, lm.TokenCorrectTrans[index_before].position.y);
                     lm.TokenIcons[id].GetComponent<Token>().index_before = index_before;
+                    lm.TokenIcons[id].GetComponent<Token>().startPos = lm.TokenIcons[id].transform.position;
                 }
                 else
                 {
-                    lm.TokenIcons[id].transform.position = lm.TokenIcons[id].GetComponent<Token>().startPos;
+                    lm.TokenIcons[id].transform.position = startPos;
                     lm.TokenIcons[id].GetComponent<Token>().index_before = -1;
+                    lm.TokenIcons[id].GetComponent<Token>().startPos = lm.TokenIcons[id].transform.position;
                 }
             }
             lm.TokenIcons[id] = gameObject;
             index_before = id;
             transform.position = new Vector2(lm.TokenCorrectTrans[id].position.x, lm.TokenCorrectTrans[id].position.y);
+            startPos = transform.position;
         }
         else
         {
             transform.position = startPos;
-            index_before = -1;
         }
     }
 }
