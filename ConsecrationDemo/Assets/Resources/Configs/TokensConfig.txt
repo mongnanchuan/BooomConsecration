@@ -2,26 +2,62 @@
   "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
   "20001": {
     "$type": "TokensConfig, Assembly-CSharp",
-    "name": "死光之匣",
-    "desc": "伤害+2",
+    "name": "精密的双指",
+    "desc": "冷却时间-1",
     "id": 20001
   },
   "20002": {
     "$type": "TokensConfig, Assembly-CSharp",
-    "name": "屠夫之钉",
-    "desc": "若此技能造成了击杀，刷新冷却",
+    "name": "错乱的思绪",
+    "desc": "使用后，使随机1格刷新冷却时间",
     "id": 20002
   },
   "20003": {
     "$type": "TokensConfig, Assembly-CSharp",
-    "name": "夏波利利葡萄",
-    "desc": "血祭时，额外受到1点伤害，同时血祭相邻技能",
+    "name": "纠缠的原初",
+    "desc": "主动血祭时额外受到1点伤害，同时血祭前方1格",
     "id": 20003
   },
   "20004": {
     "$type": "TokensConfig, Assembly-CSharp",
-    "name": "古尔丹之颅",
-    "desc": "冷却时间+3，此技能发动2次",
+    "name": "断裂的萌发",
+    "desc": "使用后恢复1点生命",
     "id": 20004
+  },
+  "20005": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "绝望的撕咬",
+    "desc": "伤害+1",
+    "id": 20005
+  },
+  "20006": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "谨慎的步伐",
+    "desc": "位移距离+1",
+    "id": 20006
+  },
+  "20007": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "束缚的手掌",
+    "desc": "伤害范围+1",
+    "id": 20007
+  },
+  "20008": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "识破的谎言",
+    "desc": "使用后获得1个额外回合",
+    "id": 20008
+  },
+  "20009": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "贪婪的喧嚣",
+    "desc": "血祭时不消耗生命值",
+    "id": 20009
+  },
+  "20010": {
+    "$type": "TokensConfig, Assembly-CSharp",
+    "name": "隐蔽的凝视",
+    "desc": "使描述中的第一个数字+1",
+    "id": 20010
   }
 }
