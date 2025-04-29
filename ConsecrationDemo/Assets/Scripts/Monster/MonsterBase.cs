@@ -47,7 +47,7 @@ public class MonsterBase : MonoBehaviour
         {
             //Todo:
             //技能触发效果
-            MonsterSkillBase useSkill = MonsterSkillFactory.Create(currentSkillID);
+            MonsterSkillBase useSkill = SkillFactory.MCreate(currentSkillID);
             var effects = useSkill.GetEffects(monsterData, this, playerPos);
 
             if (effects == null || effects.Count == 0)

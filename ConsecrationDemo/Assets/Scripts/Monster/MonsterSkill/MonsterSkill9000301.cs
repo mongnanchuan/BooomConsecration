@@ -4,7 +4,7 @@
 {
         static MonsterSkill9000301()
     {
-        MonsterSkillFactory.Register(9000301, typeof(MonsterSkill9000301));
+        SkillFactory.Register(9000301, typeof(MonsterSkill9000301));
     }
 
     public override void Init()

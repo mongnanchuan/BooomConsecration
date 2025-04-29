@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public CombatManager cm;
-    public MonsterManager mm;
+
     public GameObject[] AltarBlanks;
     public GameObject[] TokenBlanks;
     public GameObject[] AttackAlert;
@@ -82,7 +82,6 @@ public class LevelManager : MonoBehaviour
             prepareObject.SetActive(false);
         }
         MonsterManager.Instance.MonsterGroupInit(levelID);
-/*        mm.levelID = levelID;
-        mm.MonsterGroupInit();*/
+        PlayerPosReport.Instance.attr.healthInit();
     }
 }

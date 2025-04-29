@@ -86,10 +86,11 @@ public class MonsterManager : MonoBehaviour
 
             GameObject prefab = Resources.Load<GameObject>($"Monsters/Monster{monsterID}");
             GameObject monster = GameObject.Instantiate(prefab, transform);
-            monster.GetComponent<Attribute>().MoveNewPos(monsterPos_Num);
 
             MonsterBase tempBase = monster.GetComponent<MonsterBase>();
             tempBase.Init();
+            tempBase.attribute.MoveNewPos(monsterPos_Num);
+            tempBase.attribute.healthInit();//³õÊ¼»¯ÑªÌõ
             tempBase.OnPosSetted += RecordingPosChange;
             if (monsterPos_Num < playerPos)
                 tempBase.isToRight = true;

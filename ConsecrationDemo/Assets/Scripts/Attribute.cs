@@ -12,28 +12,32 @@ public class Attribute : MonoBehaviour
     public int HP;
     public int HPMax;
     public int PosNow;
-    private GameObject HPObj;
-    private GameObject HPNum;
+    //private GameObject HPObj;
+    //private GameObject HPNum;
     private GameObject BodyObject;
     public List<int> BuffPool;
 
     public float moveSpeed = 20f;
+    public int additionalTurn = 0;
 
     public event Action<int> OnPosChange;
 
     // Start is called before the first frame update
     void Start()
     {
-        HPObj = transform.Find("Canvas/HP").gameObject;
-        HPNum = transform.Find("Canvas/HPNum").gameObject;
         BodyObject = transform.Find("Body")?.gameObject;
+    }
+
+    public void healthInit()
+    {
+        HealthBarManager.Instance.HealthBarInit(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        HPObj.GetComponent<Image>().fillAmount = (float)HP / HPMax;
-        HPNum.GetComponent<Text>().text = HP + "/" + HPMax;
+        //HPObj.GetComponent<Image>().fillAmount = (float)HP / HPMax;
+        //HPNum.GetComponent<Text>().text = HP + "/" + HPMax;
     }
 
     public IEnumerator HandleEffect(Effect targetEffect,Action onFinished = null, Action<Effect> addEffectCallback = null)
@@ -179,7 +183,7 @@ public class Attribute : MonoBehaviour
         }
         if (isJump)
         {
-            Debug.Log(newPos);
+            
             yield return StartCoroutine(JumpMove(newPos));
         }
 

@@ -10,7 +10,7 @@ public class Skill80001 : SkillBase
     }
     public override void TakeEffect(GameObject User)
     {
-        MakeDamage(User);
+        //MakeDamage(User);
     }
 
 }

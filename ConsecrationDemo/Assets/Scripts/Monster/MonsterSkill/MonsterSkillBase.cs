@@ -6,7 +6,6 @@ public class MonsterSkillBase
 {
     public MonsterSkillsConfig monsterSkill;
     public int playerPos;
-    public List<int> monsterPosGroup;
 
     public virtual void Init() { }
 
@@ -16,22 +15,21 @@ public class MonsterSkillBase
         return effects;
     }
 
-    public void SkillTypeDeal(int id)
+    public List<Attribute> GetRoleInArea(List<int> area)
     {
-        var skill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(id);
-        switch (skill.attactType)
+        List<Attribute> attrs = new List<Attribute>();
+        int playerPos = PlayerPosReport.Instance.attr.PosNow;
+        foreach (var pos in area)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
+            foreach (var mons in MonsterManager.Instance.currentMonstersData.Values)
+            {
+                if (pos == mons.pos)
+                    attrs.Add(mons.obj.GetComponent<Attribute>());
+            }
+            if (pos == playerPos)
+                attrs.Add(PlayerPosReport.Instance.attr);
         }
+        return attrs;
     }
 
 

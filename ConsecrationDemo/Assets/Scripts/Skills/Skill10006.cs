@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill10002 : SkillBase
+public class Skill10006 : SkillBase
 {
-    //对前方2格造成3点伤害
-    static Skill10002()
+    //吸收相邻单位各1点生命值
+    static Skill10006()
     {
-        SkillFactory.Register(10002, typeof(Skill10002));
+        SkillFactory.Register(10006, typeof(Skill10006));
     }
     public override void Init()
     {
-        skill = ConfigManager.Instance.GetConfig<SkillsConfig>(10002);
+        skill = ConfigManager.Instance.GetConfig<SkillsConfig>(10006);
     }
     public override List<Effect> GetEffects()
     {
@@ -21,10 +21,11 @@ public class Skill10002 : SkillBase
         bool dir = attrP.GetComponent<PlayerManager>().isToRight;
         for (int i = 0; i < skill.range; i++)
         {
-            area.Add(dir ? attrP.PosNow + i + 1 : attrP.PosNow - i - 1);
+            area.Add(attrP.PosNow + i + 1);
+            area.Add(attrP.PosNow - i - 1);
         }
 
-        List<Attribute> taker = new List<Attribute>();
+        List<Attribute> taker = new List<Attribute>(); 
         taker = GetRoleInArea(area);
 
         foreach (var attr in taker)
@@ -37,6 +38,14 @@ public class Skill10002 : SkillBase
                 damage = skill.damage
             };
             effects.Add(effect1);
+            Effect effect2 = new Effect()
+            {
+                type = Effect_Type.Healing,
+                Taker = attrP,
+                Ganker = attrP,
+                damage = skill.damage
+            };
+            effects.Add(effect2);
         }
 
         return effects;

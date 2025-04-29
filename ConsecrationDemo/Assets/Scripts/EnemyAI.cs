@@ -30,15 +30,12 @@ public class EnemyAI : MonoBehaviour
         canvasSkill = transform.Find("CanvasSkill").gameObject;
         BodyObject = transform.Find("Body").gameObject;
         BodyAnim = BodyObject.GetComponent<Animator>();
-        SkillsConfig test = new SkillsConfig();
-        test.type = 0;
-        test.range = 2;
-        test.damage = 1;
-        Skills.Add(test);
-        ShowAct();
+        //ShowAct();
     }
 
-    // Update is called once per frame
+
+    /*
+    Update is called once per frame
     void Update()
     {
         if(cm.isInPlayerTurn && !ActShowing)
@@ -51,6 +48,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    
     public void ShowAttackAlert(SkillsConfig targetSkill)
     {
         BodyAnim.SetTrigger("ChargeBegin");
@@ -184,4 +182,5 @@ public class EnemyAI : MonoBehaviour
             Invoke("NextTurn", 0.3f);
         }
     }
+    */
 }

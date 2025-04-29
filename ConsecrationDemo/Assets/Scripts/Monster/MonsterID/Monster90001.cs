@@ -4,11 +4,15 @@ public class Monster90001 : MonsterBase
     {
         monster = ConfigManager.Instance.GetConfig<MonstersConfig>(90001);
         attribute = GetComponent<Attribute>();
+        attribute.HPMax = monster.hp;
+        attribute.HP = monster.hp;
+        attribute.OnPosChange += OnPosBeSet;
+
         skillCount = monster.skillGroup.Length;
         currentSkillCount = 0;
         currentSkillID = 0;
         isOnUse = false;
-        attribute.OnPosChange += OnPosBeSet;
+       
     }
 
 }

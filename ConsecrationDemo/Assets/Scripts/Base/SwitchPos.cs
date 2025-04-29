@@ -10,4 +10,11 @@ public static class SwitchPos
         Vector2 position = new Vector2(Xpos,0f);
         return position;
     }
+
+    public static Vector2 IntToUIPosition(int number)
+    {
+        float Xpos = (number - 4) * 140f;
+        Vector2 position = new Vector2(Xpos, 361f);
+        return position;
+    }
 }

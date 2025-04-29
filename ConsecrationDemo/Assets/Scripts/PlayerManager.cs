@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     public Attribute attr;
 
     public bool isToRight = true;
+    public bool isDoing = false;
 
     //效果处理变量
     public bool isEffectDone = false;
@@ -36,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //处理输入
-        if (cm.isInPlayerTurn)
+        if (cm.isInPlayerTurn && !isDoing)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
@@ -48,7 +49,11 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     if(attr.PosNow != 0)
-                    StartCoroutine(MoveWithEffect(false));
+                    {
+                        isDoing = true;
+                        StartCoroutine(MoveWithEffect(false));
+                    }
+                    
                 }
             }
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -61,13 +66,16 @@ public class PlayerManager : MonoBehaviour
                 else
                 {
                     if(attr.PosNow != 8)
-                    StartCoroutine(MoveWithEffect(true));
+                    {
+                        isDoing = true;
+                        StartCoroutine(MoveWithEffect(true));
+                    }
+                    
                 }
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
-                BaseAttack.TakeEffect(gameObject);
-                cm.TurnEnd();
+                StartCoroutine(UseSkill(10000));
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -98,6 +106,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /*
     public void PlayerMove(int d, string Type)
     {
         float NewPosX = PlayerTf.position.x + d * 1.5f;
@@ -121,10 +130,29 @@ public class PlayerManager : MonoBehaviour
             {
                 PlayerTf.DOMove(new Vector3(NewPosX, PlayerTf.position.y, PlayerTf.position.z), 0.2f, false);
             }
+
+            
             cm.TurnEnd();
         }
     }
+    */
 
+    public IEnumerator UseSkill(int skillID,int tokenID = 0)
+    {
+        SkillBase useSkill = SkillFactory.PCreate(skillID);
+        var effects = useSkill.GetEffects();
+
+        if (effects == null || effects.Count == 0)
+            isEffectDone = true;
+
+        foreach (var effect in effects)
+        {
+            yield return StartCoroutine(AddEffectAndHandle(effect));
+        }
+        yield return new WaitUntil(() => isEffectDone);
+    }
+
+    //移动和交换位置
     public IEnumerator MoveWithEffect(bool isToRight)
     {
         int newPos = isToRight ? attr.PosNow + 1 : attr.PosNow - 1;
@@ -158,9 +186,9 @@ public class PlayerManager : MonoBehaviour
             yield return StartCoroutine(AddEffectAndHandle(effect));
        }
        yield return new WaitUntil(() => isEffectDone);
-       //yield return new WaitForSeconds(2f);
-
-       cm.TurnEnd();
+        //yield return new WaitForSeconds(2f);
+        isDoing = false;
+       StartCoroutine(cm.TurnEnd());
     }
 
     private IEnumerator AddEffectAndHandle(Effect effect)

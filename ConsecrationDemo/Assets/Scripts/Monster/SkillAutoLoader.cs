@@ -20,6 +20,17 @@ public static class SkillAutoLoader
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.TypeHandle);
         }
 
-        Debug.Log($"技能系统已加载 {allSkillTypes.Count()} 个技能类。");
+        var newBaseType = typeof(SkillBase);
+        //获取当前 AppDomain 下所有非抽象的技能类（继承自 MonsterSkillBase）
+        var newAllSkillTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .Where(t => t.IsSubclassOf(newBaseType) && !t.IsAbstract);
+
+        foreach (var type in newAllSkillTypes)
+        {
+            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.TypeHandle);
+        }
+
+        Debug.Log($"技能系统已加载 {allSkillTypes.Count()}+ {newAllSkillTypes.Count()}个技能类。");
     }
 }
