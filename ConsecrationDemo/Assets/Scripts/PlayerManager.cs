@@ -100,6 +100,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         GetComponent<Attribute>().Damage(1);
                         targetAltar.SkillIndex = 1;
+                        lm.AltarBlanks[index].GetComponentInParent<FloorConfig>().ShowCompleteGod(targetAltar);
                     }
                 }
             }

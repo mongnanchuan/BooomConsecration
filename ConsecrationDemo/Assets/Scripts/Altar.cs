@@ -21,6 +21,7 @@ public class Altar : MonoBehaviour
     public int SkillIndex = 0;
     public int CD;
     public GameObject CDText;
+    public Sprite GodImage;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,8 @@ public class Altar : MonoBehaviour
         Skills.Add(skill1);
         Skills.Add(skill2);
         CD = 0;
+        string imagePath = "Gods/" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "god";
+        GodImage = Resources.Load(imagePath, typeof(Sprite)) as Sprite ;
     }
     private void OnMouseDrag()
     {
@@ -73,7 +76,7 @@ public class Altar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CDText.GetComponent<Text>().text = CD.ToString();
+        //CDText.GetComponent<Text>().text = CD.ToString();
     }
 
     private void OnMouseEnter()

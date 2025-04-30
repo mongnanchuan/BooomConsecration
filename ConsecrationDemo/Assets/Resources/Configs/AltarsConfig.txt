@@ -5,7 +5,79 @@
     "name": "愤怒",
     "Skill1": 10001,
     "Skill2": 10002,
-    "image": "0",
+    "image": null,
     "id": 60001
+  },
+  "60002": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "冲突",
+    "Skill1": 10003,
+    "Skill2": 10004,
+    "image": null,
+    "id": 60002
+  },
+  "60003": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "狂乱",
+    "Skill1": 10005,
+    "Skill2": 10006,
+    "image": null,
+    "id": 60003
+  },
+  "60004": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "勾结",
+    "Skill1": 10007,
+    "Skill2": 10008,
+    "image": null,
+    "id": 60004
+  },
+  "60005": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "膨胀",
+    "Skill1": 10009,
+    "Skill2": 10010,
+    "image": null,
+    "id": 60005
+  },
+  "60006": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "诡计",
+    "Skill1": 10011,
+    "Skill2": 10012,
+    "image": null,
+    "id": 60006
+  },
+  "60007": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "排挤",
+    "Skill1": 10013,
+    "Skill2": 10014,
+    "image": null,
+    "id": 60007
+  },
+  "60008": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "引诱",
+    "Skill1": 10015,
+    "Skill2": 10016,
+    "image": null,
+    "id": 60008
+  },
+  "60009": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "针对",
+    "Skill1": 10017,
+    "Skill2": 10018,
+    "image": null,
+    "id": 60009
+  },
+  "60010": {
+    "$type": "AltarsConfig, Assembly-CSharp",
+    "name": "讥讽",
+    "Skill1": 10019,
+    "Skill2": 10020,
+    "image": null,
+    "id": 60010
   }
 }

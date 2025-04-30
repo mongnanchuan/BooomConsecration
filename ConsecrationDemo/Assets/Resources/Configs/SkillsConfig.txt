@@ -13,7 +13,7 @@
   },
   "10001": {
     "$type": "SkillsConfig, Assembly-CSharp",
-    "name": "狂暴",
+    "name": "愤怒",
     "desc": "对前方1格造成2点伤害",
     "cooldown": 4,
     "damage": 2,
@@ -24,7 +24,7 @@
   },
   "10002": {
     "$type": "SkillsConfig, Assembly-CSharp",
-    "name": "狂暴",
+    "name": "愤怒",
     "desc": "对前方2格造成3点伤害",
     "cooldown": 4,
     "damage": 3,
