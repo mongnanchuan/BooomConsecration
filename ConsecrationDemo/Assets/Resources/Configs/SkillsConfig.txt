@@ -36,7 +36,7 @@
   "10003": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "冲突",
-    "desc": "向前冲撞，对第一个角色造成2点伤害",
+    "desc": "向前冲撞，对第一个单位造成2点伤害",
     "cooldown": 4,
     "damage": 2,
     "range": 0,
@@ -47,7 +47,7 @@
   "10004": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "冲突",
-    "desc": "向前冲撞，对第一个角色造成3点伤害并击退1格",
+    "desc": "向前冲撞，对第一个单位造成3点伤害并击退1格",
     "cooldown": 4,
     "damage": 3,
     "range": 0,
@@ -168,7 +168,7 @@
   "10015": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "引诱",
-    "desc": "后退1格，将前方单位拉拽到相邻位置",
+    "desc": "后退1格，将前方第一个单位拉拽到相邻位置",
     "cooldown": 4,
     "damage": 0,
     "range": 0,
@@ -179,7 +179,7 @@
   "10016": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "引诱",
-    "desc": "后退1格，将前方单位拉拽到相邻位置，之后立即使用技能",
+    "desc": "后退1格，将前方第一个单位拉拽到相邻位置，之后立即使用技能",
     "cooldown": 4,
     "damage": 0,
     "range": 0,
