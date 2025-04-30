@@ -34,6 +34,8 @@ public class MonsterBase : MonoBehaviour
     public bool isEffectDone = false;
     public int waitCount = 0;
 
+    public int posAddjust = 0;
+
     public virtual void Init() { }
 
     //回合开始进行判断
@@ -48,7 +50,10 @@ public class MonsterBase : MonoBehaviour
             //Todo:
             //技能触发效果
             MonsterSkillBase useSkill = SkillFactory.MCreate(currentSkillID);
-            var effects = useSkill.GetEffects(monsterData, this, playerPos);
+            useSkill.Init();
+            if (useSkill.monsterSkill.posPar[0] == -1)
+                useSkill.monsterSkill.posPar[0] = posAddjust;
+            var effects = useSkill.GetEffects(this);
 
             if (effects == null || effects.Count == 0)
                 isEffectDone = true;
@@ -107,6 +112,7 @@ public class MonsterBase : MonoBehaviour
                     break;
                 case 2:
                     ReadyToUseSkill(currentSkillID, playerPos);
+                    posAddjust = playerPos;
                     yield break;
                 case 3:
                     if (isBeBlock)

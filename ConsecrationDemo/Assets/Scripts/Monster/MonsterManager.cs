@@ -30,6 +30,9 @@ public class MonsterManager : MonoBehaviour
     public List<int[]> monsterGroupPoss;//关卡表中的3波怪物位置
     public int currentGroupCount;//目前的组数计数
 
+    public List<int> currentGroupID;
+    public List<int> currrentGroupPos;
+
     //目前的怪物数据，key=怪物编号，value=位置（序号），怪物obj
     public Dictionary<int,(int pos,GameObject obj)> currentMonstersData;
     public int count;//编号时用的序号
@@ -65,17 +68,29 @@ public class MonsterManager : MonoBehaviour
         currentGroupCount = 0;
         count = 1;
 
-        SetNewMonsters(PlayerPosReport.Instance.GetPlayerPos());
+        SetSummonMonsters(monsterGroupIDs[currentGroupCount].ToList(), monsterGroupPoss[currentGroupCount].ToList());
+        currentGroupCount++;
+        SetNewMonsters();
     }
 
-    public void SetNewMonsters(int playerPos)
+    public void SetSummonMonsters(List<int> monsG,List<int> posG)
     {
-        //获得当前组ID
-        int[] currentGroupID = monsterGroupIDs[currentGroupCount];
-        //获得当前组位置
-        int[] currrentGroupPos = monsterGroupPoss[currentGroupCount];
+        currentGroupID = monsG;
+        currrentGroupPos = posG;
+    }
 
-        for (int i = 0; i < currentGroupID.Length; i++)
+    public void TimeToNewMonsterGroup()
+    {
+        // TODO: 实现刷怪提示,实现延迟1回合
+        SetSummonMonsters(monsterGroupIDs[currentGroupCount].ToList(), monsterGroupPoss[currentGroupCount].ToList());
+        currentGroupCount++;
+        SetNewMonsters();
+    }
+
+    public void SetNewMonsters()
+    {
+        int playerPos = PlayerPosReport.Instance.GetPlayerPos();
+        for (int i = 0; i < currentGroupID.Count; i++)
         {
             int monsterID = currentGroupID[i];
             int monsterPos_TempNum = currrentGroupPos[i];
@@ -103,7 +118,6 @@ public class MonsterManager : MonoBehaviour
             monster.GetComponent<MonsterBase>().currentPos = monsterPos_Num;
             count++;
         }
-        currentGroupCount++;
     }
 
     private void RecordingPosChange(int monsCount, int newPos)
@@ -138,6 +152,10 @@ public class MonsterManager : MonoBehaviour
             MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
             yield return StartCoroutine(currentBase.HandleTurnWithEffect(playerPos));
         }
+
+        if (currentMonstersData.Count <= 1)
+            TimeToNewMonsterGroup();
+
         //开始玩家回合
         OnPlayerTurnStart?.Invoke();
     }
@@ -168,4 +186,5 @@ public class MonsterManager : MonoBehaviour
         }
         return null;
     }
+
 }

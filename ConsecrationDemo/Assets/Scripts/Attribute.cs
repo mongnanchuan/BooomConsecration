@@ -227,6 +227,14 @@ public class Attribute : MonoBehaviour
 
     public void Die()
     {
-
+        if(GetComponent<PlayerManager>() == null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            //”Œœ∑ ß∞‹ΩÁ√Ê
+        }
+        
     }
 }

@@ -23,6 +23,14 @@ public class Skill10004 : SkillBase
 
         if(taker != null)
         {
+            Effect effect2 = new Effect()
+            {
+                type = Effect_Type.ForceMove,
+                Taker = attrP,
+                Ganker = attrP,
+                forceMoveDis = taker.PosNow - attrP.PosNow + (dir ? -1 : 1)
+            };
+            effects.Add(effect2);
             Effect effect1 = new Effect()
             {
                 type = Effect_Type.MakeDamage,
@@ -31,14 +39,6 @@ public class Skill10004 : SkillBase
                 damage = skill.damage
             };
             effects.Add(effect1);
-            Effect effect2 = new Effect()
-            {
-                type = Effect_Type.ForceMove,
-                Taker = attrP,
-                Ganker = attrP,
-                forceMoveDis = taker.PosNow - attrP.PosNow + (dir?-1:1)
-            };
-            effects.Add(effect2);
             Effect effect3 = new Effect()
             {
                 type = Effect_Type.ForceMove,

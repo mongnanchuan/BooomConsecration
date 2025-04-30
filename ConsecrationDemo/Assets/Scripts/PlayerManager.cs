@@ -140,6 +140,7 @@ public class PlayerManager : MonoBehaviour
     public IEnumerator UseSkill(int skillID,int tokenID = 0)
     {
         SkillBase useSkill = SkillFactory.PCreate(skillID);
+        useSkill.Init();
         var effects = useSkill.GetEffects();
 
         if (effects == null || effects.Count == 0)
