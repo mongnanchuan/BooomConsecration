@@ -51,8 +51,6 @@ public class MonsterBase : MonoBehaviour
             //技能触发效果
             MonsterSkillBase useSkill = SkillFactory.MCreate(currentSkillID);
             useSkill.Init();
-            if (useSkill.monsterSkill.posPar[0] == -1)
-                useSkill.monsterSkill.posPar[0] = posAddjust;
             var effects = useSkill.GetEffects(this);
 
             if (effects == null || effects.Count == 0)

@@ -8,6 +8,7 @@ public class Monster90002 : MonsterBase
         attribute.HPMax = monster.hp;
         attribute.HP = monster.hp;
         attribute.OnPosChange += OnPosBeSet;
+
         skillCount = monster.skillGroup.Length;
         currentSkillCount = 0;
         currentSkillID = 0;

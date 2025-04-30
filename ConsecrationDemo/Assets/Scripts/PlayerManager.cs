@@ -75,6 +75,7 @@ public class PlayerManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
+                isDoing = true;
                 StartCoroutine(UseSkill(10000));
             }
             if (Input.GetKeyDown(KeyCode.Space))
@@ -152,6 +153,8 @@ public class PlayerManager : MonoBehaviour
             yield return StartCoroutine(AddEffectAndHandle(effect));
         }
         yield return new WaitUntil(() => isEffectDone);
+        isDoing = false;
+        StartCoroutine(cm.TurnEnd());
     }
 
     //移动和交换位置

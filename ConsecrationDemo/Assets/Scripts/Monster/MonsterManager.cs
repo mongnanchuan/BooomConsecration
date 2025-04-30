@@ -82,6 +82,11 @@ public class MonsterManager : MonoBehaviour
     public void TimeToNewMonsterGroup()
     {
         // TODO: 实现刷怪提示,实现延迟1回合
+        if (currentGroupCount >= 3)
+        {
+            Debug.Log("怪刷完了要赢了");
+            return;
+        }
         SetSummonMonsters(monsterGroupIDs[currentGroupCount].ToList(), monsterGroupPoss[currentGroupCount].ToList());
         currentGroupCount++;
         SetNewMonsters();
@@ -98,6 +103,9 @@ public class MonsterManager : MonoBehaviour
             HashSet<int> currentPosNum = new(currentMonstersData.Values.Select(pos => pos.Item1)); 
             currentPosNum.Add(playerPos);
             int monsterPos_Num = FindClosestPos(monsterPos_TempNum, 9, currentPosNum);
+
+            if (monsterPos_Num == -1)
+                return;
 
             GameObject prefab = Resources.Load<GameObject>($"Monsters/Monster{monsterID}");
             GameObject monster = GameObject.Instantiate(prefab, transform);
@@ -133,29 +141,35 @@ public class MonsterManager : MonoBehaviour
     //开始所有怪物回合
     private IEnumerator HandleMonsterTurnCoroutine(int playerPos)
     {
-        //删除掉已经没有的怪物
         List<int> toRemove = new List<int>();
-        foreach (var item in currentMonstersData)
+        foreach (var mons in currentMonstersData)
         {
-            GameObject obj = item.Value.obj;
+            GameObject obj = mons.Value.obj;
             if (obj == null)
             {
-                toRemove.Add(item.Key);
+                toRemove.Add(mons.Key);
             }
         }
-        foreach (int key in toRemove)    
+        foreach (int key in toRemove)
             currentMonstersData.Remove(key);
 
+        var currentMonstersList = currentMonstersData.OrderBy(pair => pair.Key).ToList();
         //剩下的怪物按照序号顺序一个一个判断执行内容
-        foreach (var item in currentMonstersData.OrderBy(pair => pair.Key))
+        foreach (var item in currentMonstersList)
         {
-            MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
-            yield return StartCoroutine(currentBase.HandleTurnWithEffect(playerPos));
+            if (item.Value.obj != null)
+            {
+                MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
+
+                if (currentBase != null)
+                    yield return StartCoroutine(currentBase.HandleTurnWithEffect(playerPos));
+            }
         }
 
         if (currentMonstersData.Count <= 1)
             TimeToNewMonsterGroup();
 
+        yield return new WaitForSeconds(0.1f);
         //开始玩家回合
         OnPlayerTurnStart?.Invoke();
     }
@@ -185,6 +199,18 @@ public class MonsterManager : MonoBehaviour
                 return kv.Value.obj;
         }
         return null;
+    }
+
+    //怪物的销毁
+    public void DestroyMonster(int count)
+    {
+        Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
+        
+        HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
+        Destroy(currentMonstersData[count].obj);
+
+        currentMonstersData.Remove(count);
+        
     }
 
 }

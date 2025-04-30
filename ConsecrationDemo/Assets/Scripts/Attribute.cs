@@ -229,7 +229,7 @@ public class Attribute : MonoBehaviour
     {
         if(GetComponent<PlayerManager>() == null)
         {
-            Destroy(this.gameObject);
+            MonsterManager.Instance.DestroyMonster(GetComponent<MonsterBase>().count);
         }
         else
         {
