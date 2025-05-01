@@ -23,6 +23,7 @@ public class Attribute : MonoBehaviour
     public event Action<int> OnPosChange;
 
     public Animator BodyAnim;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -183,17 +184,17 @@ public class Attribute : MonoBehaviour
     //Ç¿ÖÆÌøÔ¾
     public IEnumerator ForceJump(int pos, Action onFinished, Action<Effect> addEffectCallback = null)
     {
+        Debug.Log(gameObject.name);
         bool isJump = false;
         int newPos = PosNow;
         GameObject obj = MonsterManager.Instance.GetMonsterAtPosition(pos);
-        if (obj == null)
+        if (obj == null || obj.GetComponent<Attribute>().PosNow != pos)
         {
             newPos = pos;
             isJump = true;
         }
         if (isJump)
         {
-            
             yield return StartCoroutine(JumpMove(newPos));
         }
 

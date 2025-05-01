@@ -34,6 +34,7 @@ public class CombatManager : MonoBehaviour
         if(attr.additionalTurn > 0)
         {
             attr.additionalTurn--;
+            CDUpdate();
             yield break;
         }
         else

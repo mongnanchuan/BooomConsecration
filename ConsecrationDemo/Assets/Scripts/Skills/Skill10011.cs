@@ -25,6 +25,7 @@ public class Skill10011 : SkillBase
         if(tempPos == attrP.PosNow)
         {
             TipsManager.Instance.ShowTip("使用失败，无法前进");
+            PlayerPosReport.Instance.GetComponent<PlayerManager>().useDefeat = true;
             return null;
         }
         else

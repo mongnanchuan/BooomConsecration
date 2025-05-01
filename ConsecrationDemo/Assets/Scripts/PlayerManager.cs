@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
 
     private GameObject BodyObject;
 
+    public bool useDefeat = false;
 
     void Start()
     {
@@ -145,6 +146,11 @@ public class PlayerManager : MonoBehaviour
     }
     */
 
+    public void TestSkill(int id)
+    {
+        StartCoroutine(UseSkill(id));
+    }
+
     public IEnumerator UseSkill(int skillID,int tokenID = 0)
     {
         SkillBase useSkill = SkillFactory.PCreate(skillID);
@@ -154,13 +160,22 @@ public class PlayerManager : MonoBehaviour
         if (effects == null || effects.Count == 0)
             isEffectDone = true;
 
-        foreach (var effect in effects)
+        if(effects != null && effects.Count != 0)
         {
-            yield return StartCoroutine(AddEffectAndHandle(effect));
+            foreach (var effect in effects)
+            {
+                yield return StartCoroutine(AddEffectAndHandle(effect));
+            }
+            yield return new WaitUntil(() => isEffectDone);
         }
-        yield return new WaitUntil(() => isEffectDone);
+        
         isDoing = false;
-        StartCoroutine(cm.TurnEnd());
+
+        if (!useDefeat)
+            StartCoroutine(cm.TurnEnd());
+        else
+            useDefeat = false;
+
     }
 
     //移动和交换位置

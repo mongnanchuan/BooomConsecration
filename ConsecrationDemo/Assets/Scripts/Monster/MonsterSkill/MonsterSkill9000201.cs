@@ -19,13 +19,17 @@ public class MonsterSkill9000201 : MonsterSkillBase
     {
         List<Effect> effects = new List<Effect>();
         List<int> area = new List<int>();
-
         area.Add(mons.posAddjust);
 
         List<Attribute> getHurt = GetRoleInArea(area);
 
         foreach (var attr in getHurt)
         {
+            if(mons.GetComponent<Attribute>() == attr)
+            {
+                Debug.Log("打自己怪怪的");
+                return effects;
+            }
             Effect effect1 = new Effect()
             {
                 type = Effect_Type.MakeDamage,

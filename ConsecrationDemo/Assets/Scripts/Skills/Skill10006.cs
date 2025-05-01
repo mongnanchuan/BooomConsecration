@@ -43,7 +43,7 @@ public class Skill10006 : SkillBase
                 type = Effect_Type.Healing,
                 Taker = attrP,
                 Ganker = attrP,
-                damage = skill.damage
+                heal = skill.damage
             };
             effects.Add(effect2);
         }

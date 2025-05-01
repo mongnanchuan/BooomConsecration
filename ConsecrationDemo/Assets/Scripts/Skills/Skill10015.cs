@@ -26,6 +26,7 @@ public class Skill10015 : SkillBase
         if(tempPos == attrP.PosNow)
         {
             TipsManager.Instance.ShowTip("使用失败，无法后退");
+            PlayerPosReport.Instance.GetComponent<PlayerManager>().useDefeat = true;
             return null;
         }
         else

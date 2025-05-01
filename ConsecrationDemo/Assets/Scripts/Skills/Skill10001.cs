@@ -29,6 +29,7 @@ public class Skill10001 : SkillBase
 
         foreach (var attr in taker)
         {
+            //Debug.Log(attr.gameObject.name);
             Effect effect1 = new Effect()
             {
                 type = Effect_Type.MakeDamage,

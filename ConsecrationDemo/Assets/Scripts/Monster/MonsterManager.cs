@@ -130,6 +130,7 @@ public class MonsterManager : MonoBehaviour
 
     private void RecordingPosChange(int monsCount, int newPos)
     {
+        if(currentMonstersData.ContainsKey(monsCount))
         currentMonstersData[monsCount] = (newPos, currentMonstersData[monsCount].obj);
     }
 

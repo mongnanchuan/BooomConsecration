@@ -23,13 +23,18 @@ public class Skill10019 : SkillBase
 
         if(taker != null)
         {
-            
+            int tempM = taker.PosNow;
+            int tempP = attrP.PosNow;
+
+            taker.PosNow = -1;
+            attrP.PosNow = -1;
+
             Effect effect1 = new Effect()
             {
                 type = Effect_Type.ForceJump,
                 Taker = attrP,
                 Ganker = attrP,
-                portalMovePos = taker.PosNow
+                portalMovePos = tempM
             };
             effects.Add(effect1);
             Effect effect2 = new Effect()
@@ -37,13 +42,14 @@ public class Skill10019 : SkillBase
                 type = Effect_Type.ForceJump,
                 Taker = taker,
                 Ganker = attrP,
-                portalMovePos = attrP.PosNow
+                portalMovePos = tempP
             };
             effects.Add(effect2);
         }
         else
         {
             TipsManager.Instance.ShowTip("使用失败，前方没有单位");
+            PlayerPosReport.Instance.GetComponent<PlayerManager>().useDefeat = true;
             return null;
         }
 
