@@ -22,10 +22,13 @@ public class Attribute : MonoBehaviour
 
     public event Action<int> OnPosChange;
 
+    public Animator BodyAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         BodyObject = transform.Find("Body")?.gameObject;
+        BodyAnim = BodyObject.GetComponent<Animator>();
     }
 
     public void healthInit()
@@ -68,7 +71,14 @@ public class Attribute : MonoBehaviour
         {
             if (BodyObject != null)
             {
-                BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 8, 1);
+                if(gameObject.name == "MainRole")
+                {
+                    BodyAnim.SetTrigger("Hit");
+                }
+                else
+                {
+                    BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 8, 1);
+                }
                 //BodyObject.transform.DOShakePosition(0.2f, 1f, 2, 50, true);
             }
             int newVal = HP - num;

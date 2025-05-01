@@ -7,7 +7,6 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject System;
     private Transform PlayerTf;
-    private SpriteRenderer PlayerSprite;
     private LevelManager lm;
     private CombatManager cm;
     public SkillBase BaseAttack;
@@ -20,11 +19,14 @@ public class PlayerManager : MonoBehaviour
     public bool isEffectDone = false;
     public int waitCount = 0;
 
+    private GameObject BodyObject;
+
+
     void Start()
     {
         attr = GetComponent<Attribute>();
         PlayerTf = GetComponent<Transform>();
-        PlayerSprite = GetComponent<SpriteRenderer>();
+        BodyObject = transform.Find("Body")?.gameObject;
         lm = System.GetComponent<LevelManager>();
         cm = System.GetComponent<CombatManager>();
         GetComponent<Attribute>().PosNow = 4;
@@ -43,7 +45,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (isToRight)
                 {
-                    PlayerSprite.flipX = false;
+                    //PlayerSprite.flipX = false;
+                    BodyObject.transform.DOLocalRotate(new Vector3(0, 180, 0), 0.2f);
                     isToRight = false;
                 }
                 else
@@ -60,7 +63,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (!isToRight)
                 {
-                    PlayerSprite.flipX = true;
+                    //PlayerSprite.flipX = true;
+                    BodyObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.2f);
                     isToRight = true;
                 }
                 else

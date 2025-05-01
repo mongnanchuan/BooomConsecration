@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 31f9863cbcbc4ec409dfc1e4edcf6732, type: 3}
     m_FontSize: 20
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -328,6 +328,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 10
   HPMax: 10
+  PosNow: 0
+  BuffPool: 
+  moveSpeed: 20
+  additionalTurn: 0
 --- !u!1 &5108088734198449568
 GameObject:
   m_ObjectHideFlags: 0
