@@ -76,7 +76,27 @@ public class Altar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //CDText.GetComponent<Text>().text = CD.ToString();
+        if(CD > 0)
+        {
+            CDText.GetComponent<Text>().text = CD.ToString();
+            //ÀäÈ´ÖÐ·µ»ØÏÔÊ¾Icon×´Ì¬
+            if(index_before >= 0 && lm.AltarBlanks[index_before].GetComponentInParent<FloorConfig>().godObject.activeSelf == true)
+            {
+                lm.AltarBlanks[index_before].GetComponentInParent<FloorConfig>().BackToIcon(this);
+            }
+        }
+        else
+        {
+            CDText.GetComponent<Text>().text = "";
+            //ÀäÈ´Íê±ÏÏÔÊ¾ÕÚÕÖ×´Ì¬
+            if (index_before >= 0 && lm.Preparing == false)
+            {
+                if (SkillIndex == 0 && lm.AltarBlanks[index_before].GetComponentInParent<FloorConfig>().godObject.activeSelf == false)
+                {
+                    lm.AltarBlanks[index_before].GetComponentInParent<FloorConfig>().ShowHalfGod(this);
+                }
+            }
+        }
     }
 
     private void OnMouseEnter()

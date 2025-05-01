@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     public Attribute attr;
     void Start()
     {
+        lm = GetComponent<LevelManager>();
         if (MonsterManager.Instance != null)
         {
             MonsterManager.Instance.OnPlayerTurnStart += TurnStart;
@@ -39,6 +40,7 @@ public class CombatManager : MonoBehaviour
         {
             if (isInPlayerTurn)
                 isInPlayerTurn = false;
+                CDUpdate();
             yield return new WaitForSeconds(0.5f);
             MonsterManager.Instance.StartMonsterTurn(PlayerPosReport.Instance.GetPlayerPos());
         }
@@ -47,6 +49,21 @@ public class CombatManager : MonoBehaviour
     public void TurnStart()
     {
         isInPlayerTurn = true;
+    }
+
+    public void CDUpdate()
+    {
+        for(int i = 0; i < 9; i ++)
+        {
+            if(lm.AltarIcons[i] != null)
+            {
+                Altar targetAltar = lm.AltarIcons[i].GetComponent<Altar>();
+                if (targetAltar.CD > 0)
+                {
+                    targetAltar.CD--;
+                }
+            }
+        }
     }
 
 }

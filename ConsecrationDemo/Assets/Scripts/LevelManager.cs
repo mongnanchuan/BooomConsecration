@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] TokenCorrectTrans = new Transform[9];
     public GameObject[] TokenIcons = new GameObject[9];
     public int levelID;
+    public bool Preparing;
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
@@ -43,6 +44,7 @@ public class LevelManager : MonoBehaviour
     //准备阶段，供玩家排布祭坛
     public void PrepareLevel()
     {
+        Preparing = true;
         foreach (GameObject combatObject in targetCombat)
         {
             combatObject.SetActive(false);
@@ -56,6 +58,7 @@ public class LevelManager : MonoBehaviour
     //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
+        Preparing = false;
         cm.isInPlayerTurn = true;
         foreach (GameObject altarIconObject in targetAltarIcon)
         {

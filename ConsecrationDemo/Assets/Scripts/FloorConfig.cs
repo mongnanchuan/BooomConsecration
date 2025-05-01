@@ -6,13 +6,13 @@ public class FloorConfig : MonoBehaviour
 {
     public GameObject altarObject;
     public GameObject godObject;
-    public GameObject crackObject;
+    public GameObject crackMaskObject;
     // Start is called before the first frame update
     void Start()
     {
         altarObject = transform.Find("altar").gameObject;
         godObject = transform.Find("god").gameObject;
-        crackObject = transform.Find("crack").gameObject;
+        crackMaskObject = transform.Find("crack").gameObject;
     }
 
     // Update is called once per frame
@@ -23,7 +23,9 @@ public class FloorConfig : MonoBehaviour
 
     public void ShowHalfGod(Altar targetAltar)
     {
-        crackObject.SetActive(true);
+        altarObject.SetActive(false);
+        targetAltar.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        crackMaskObject.SetActive(true);
         godObject.GetComponent<SpriteRenderer>().sprite = targetAltar.GodImage;
         godObject.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         godObject.SetActive(true);
@@ -31,8 +33,15 @@ public class FloorConfig : MonoBehaviour
 
     public void ShowCompleteGod(Altar targetAltar)
     {
-        crackObject.SetActive(false);
+        crackMaskObject.SetActive(false);
         godObject.GetComponent<SpriteRenderer>().sprite = targetAltar.GodImage;
         godObject.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
+    }
+
+    public void BackToIcon(Altar targetAltar)
+    {
+        godObject.SetActive(false);
+        altarObject.SetActive(true);
+        targetAltar.gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

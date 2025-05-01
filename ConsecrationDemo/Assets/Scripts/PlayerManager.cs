@@ -93,14 +93,16 @@ public class PlayerManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
+                //Ï×¼À
                 int index = (int)(PlayerTf.position.x / 1.5f + 4);
                 if (lm.AltarIcons[index] != null)
                 {
                     Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
-                    if (targetAltar.SkillIndex == 0)
+                    if (targetAltar.SkillIndex == 0 && targetAltar.CD == 0)
                     {
                         GetComponent<Attribute>().Damage(1);
                         targetAltar.SkillIndex = 1;
+                        //Ï×¼ÀºóÏÔÊ¾ÍêÈ«×´Ì¬
                         lm.AltarBlanks[index].GetComponentInParent<FloorConfig>().ShowCompleteGod(targetAltar);
                     }
                 }
