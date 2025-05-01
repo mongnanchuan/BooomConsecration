@@ -184,7 +184,6 @@ public class Attribute : MonoBehaviour
     //Ç¿ÖÆÌøÔ¾
     public IEnumerator ForceJump(int pos, Action onFinished, Action<Effect> addEffectCallback = null)
     {
-        Debug.Log(gameObject.name);
         bool isJump = false;
         int newPos = PosNow;
         GameObject obj = MonsterManager.Instance.GetMonsterAtPosition(pos);

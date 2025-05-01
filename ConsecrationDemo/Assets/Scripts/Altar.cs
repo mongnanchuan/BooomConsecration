@@ -17,7 +17,7 @@ public class Altar : MonoBehaviour
     private GameObject InfoCanvas;
     private bool isDragging = false;
     public bool isFinished = false;
-    public List<SkillBase> Skills = new List<SkillBase>();
+    public List<int> Skills = new List<int>();
     public int SkillIndex = 0;
     public int CD;
     public GameObject CDText;
@@ -30,16 +30,10 @@ public class Altar : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        string skillName1 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1.ToString();
-        string skillName2 = "Skill" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2.ToString();
-        var skill1 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
-        var skill2 = (SkillBase)System.Activator.CreateInstance(Type.GetType(skillName1));
-        skill1.Init();
-        skill2.Init();
         /*        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
                 SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);*/
-        Skills.Add(skill1);
-        Skills.Add(skill2);
+        Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+        Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
         CD = 0;
         string imagePath = "Gods/" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "god";
         GodImage = Resources.Load(imagePath, typeof(Sprite)) as Sprite ;
@@ -157,12 +151,23 @@ public class Altar : MonoBehaviour
         }
     }
 
+    public int GetSkillInfo()
+    {
+        return Skills[SkillIndex];
+    }
+
+    public void IntoCD()
+    {
+        CD = ConfigManager.Instance.GetConfig<SkillsConfig>(Skills[SkillIndex]).cooldown;
+        SkillIndex = 0;
+    }
+
     public void UseSkill(GameObject Trigger)
     {
         Transform TriggerTf = Trigger.GetComponent<Transform>();
         SpriteRenderer TriggerSprite = Trigger.GetComponent<SpriteRenderer>();
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Combat");
-        Skills[SkillIndex].TakeEffect(Trigger);
+        //Skills[SkillIndex].TakeEffect(Trigger);
 /*        switch (Skill.id)
         {
             case 10001:
@@ -191,7 +196,7 @@ public class Altar : MonoBehaviour
                 SkillIndex = 0;
                 break;
         }*/
-        CD = Skills[0].skill.cooldown;
+        //CD = Skills[0].skill.cooldown;
     }
 
     public void Sacrifice()

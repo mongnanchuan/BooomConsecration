@@ -85,14 +85,16 @@ public class PlayerManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                int index = (int)(PlayerTf.position.x / 1.5f + 4);
+                //int index = (int)(PlayerTf.position.x / 1.5f + 4);
+                int index = attr.PosNow;
                 if (lm.AltarIcons[index] != null)
                 {
                     Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
                     if (targetAltar.CD == 0)
                     {
-                        targetAltar.UseSkill(gameObject);
-                        cm.TurnEnd();
+                        int skill = targetAltar.GetSkillInfo();
+                        Debug.Log(skill);
+                        StartCoroutine(UseSkill(skill,0,targetAltar));
                     }
                 }
             }
@@ -151,7 +153,7 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(UseSkill(id));
     }
 
-    public IEnumerator UseSkill(int skillID,int tokenID = 0)
+    public IEnumerator UseSkill(int skillID,int tokenID = 0,Altar al = null)
     {
         SkillBase useSkill = SkillFactory.PCreate(skillID);
         useSkill.Init();
@@ -172,10 +174,13 @@ public class PlayerManager : MonoBehaviour
         isDoing = false;
 
         if (!useDefeat)
+        {
+            if (al != null)
+                al.IntoCD();
             StartCoroutine(cm.TurnEnd());
+        }
         else
             useDefeat = false;
-
     }
 
     //移动和交换位置
