@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3237515016937527822, guid: ee4f1d9073f729845ab5fce4b0f2f27d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4334133093897503341, guid: ee4f1d9073f729845ab5fce4b0f2f27d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1685,6 +1685,7 @@ MonoBehaviour:
   moveSpeed: 20
   additionalTurn: 0
   BodyAnim: {fileID: 0}
+  isDead: 0
 --- !u!1001 &221382072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5668,6 +5669,7 @@ MonoBehaviour:
   moveSpeed: 20
   additionalTurn: 0
   BodyAnim: {fileID: 0}
+  isDead: 0
 --- !u!114 &1284544594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6051,6 +6053,7 @@ MonoBehaviour:
   moveSpeed: 20
   additionalTurn: 0
   BodyAnim: {fileID: 0}
+  isDead: 0
 --- !u!114 &1359954265
 MonoBehaviour:
   m_ObjectHideFlags: 0
