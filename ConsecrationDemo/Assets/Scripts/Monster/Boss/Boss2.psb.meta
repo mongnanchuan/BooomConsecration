@@ -502,8 +502,8 @@ ScriptedImporter:
     spriteBone:
     - name: bone_8
       guid: fc93676079917634baf7dd56f507acc4
-      position: {x: 121.25949, y: 0.00009336248, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9666854, w: 0.25596762}
+      position: {x: 121.25929, y: -0.00018087117, z: 0}
+      rotation: {x: 0, y: 0, z: 0.96668535, w: 0.25596777}
       length: 211.60815
       parentId: 1
       color:
@@ -512,8 +512,8 @@ ScriptedImporter:
     - name: bone_7
       guid: ed6319434a353184ba862280320a5dd4
       position: {x: 148.63391, y: 201.82101, z: 0}
-      rotation: {x: 0, y: 0, z: 0.89410335, w: 0.44786078}
-      length: 121.25939
+      rotation: {x: 0, y: 0, z: 0.8941034, w: 0.44786063}
+      length: 121.2594
       parentId: -1
       color:
         serializedVersion: 2
@@ -4354,16 +4354,16 @@ ScriptedImporter:
     - name: bone_7
       guid: ed6319434a353184ba862280320a5dd4
       position: {x: 102.63391, y: 68.821014, z: 0}
-      rotation: {x: 0, y: 0, z: 0.89410335, w: 0.44786078}
-      length: 121.25939
+      rotation: {x: 0, y: 0, z: 0.8941034, w: 0.44786063}
+      length: 121.2594
       parentId: -1
       color:
         serializedVersion: 2
         rgba: 4278223103
     - name: bone_8
       guid: fc93676079917634baf7dd56f507acc4
-      position: {x: 121.25941, y: 0.000015610643, z: 0}
-      rotation: {x: 0, y: 0, z: 0.96668535, w: 0.25596762}
+      position: {x: 121.259315, y: -0.00008069261, z: 0}
+      rotation: {x: 0, y: 0, z: 0.9666853, w: 0.25596777}
       length: 211.60815
       parentId: 0
       color:
@@ -4841,7 +4841,7 @@ ScriptedImporter:
     spriteBone:
     - name: bone_4
       guid: fed5c081a6ff7304197cde3879b94ca0
-      position: {x: 85.25308, y: 22.923462, z: 0}
+      position: {x: 85.25305, y: 22.923462, z: 0}
       rotation: {x: 0, y: 0, z: 0.6804835, w: 0.7327634}
       length: 47.37313
       parentId: -1
@@ -6250,7 +6250,7 @@ ScriptedImporter:
         rgba: 4278255615
     - name: bone_4
       guid: fed5c081a6ff7304197cde3879b94ca0
-      position: {x: 305.5491, y: -0.0001555736, z: 0}
+      position: {x: 305.5491, y: -0.00012507716, z: 0}
       rotation: {x: 0, y: 0, z: -0.05556458, w: 0.9984551}
       length: 47.373135
       parentId: 1
@@ -6278,16 +6278,16 @@ ScriptedImporter:
     - name: bone_7
       guid: ed6319434a353184ba862280320a5dd4
       position: {x: 126.23316, y: 51.329823, z: 0}
-      rotation: {x: 0, y: 0, z: 0.29782128, w: 0.9546217}
-      length: 121.25941
+      rotation: {x: 0, y: 0, z: 0.29782143, w: 0.9546216}
+      length: 121.259415
       parentId: 1
       color:
         serializedVersion: 2
         rgba: 4278223103
     - name: bone_8
       guid: fc93676079917634baf7dd56f507acc4
-      position: {x: 121.25944, y: 0.000011759976, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9666854, w: 0.25596762}
+      position: {x: 121.259384, y: -0.000058668105, z: 0}
+      rotation: {x: 0, y: 0, z: 0.96668535, w: 0.2559678}
       length: 211.60812
       parentId: 5
       color:
@@ -6431,7 +6431,7 @@ ScriptedImporter:
       order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
-    pivot: {x: 0.4766696, y: 0.1749781}
+    pivot: {x: 0.47666973, y: 0.05443761}
     boneReadOnly: 0
   sharedRigSpriteImportData: []
   sharedRigCharacterData:
@@ -6468,7 +6468,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   mosaicLayers: 1
   characterMode: 1
-  documentPivot: {x: 0.4766696, y: 0.1749781}
+  documentPivot: {x: 0.47666973, y: 0.05443761}
   documentAlignment: 9
   importHiddenLayers: 0
   layerMappingOption: 2

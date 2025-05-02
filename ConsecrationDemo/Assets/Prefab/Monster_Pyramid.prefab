@@ -332,6 +332,7 @@ MonoBehaviour:
   BuffPool: 
   moveSpeed: 20
   additionalTurn: 0
+  BodyAnim: {fileID: 0}
 --- !u!1 &5108088734198449568
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,15 +723,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d89d777ebafb2094da222ec89f5d458e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d89d777ebafb2094da222ec89f5d458e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.65
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d89d777ebafb2094da222ec89f5d458e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.65
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: d89d777ebafb2094da222ec89f5d458e, type: 3}
       propertyPath: m_LocalPosition.x
