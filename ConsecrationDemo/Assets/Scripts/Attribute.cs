@@ -64,7 +64,7 @@ public class Attribute : MonoBehaviour
                 yield return StartCoroutine(ForceJump(targetEffect.portalMovePos, onFinished, addEffectCallback));
                 break;
             case Effect_Type.Sacrificing:
-                GetComponent<PlayerManager>()?.Sacrifice(targetEffect.sacrificeID);
+                GetComponent<PlayerManager>()?.Sacrifice(out int temp,targetEffect.sacrificeID);
                 onFinished?.Invoke();
                 break;
             case Effect_Type.UseSkillIm:
@@ -250,7 +250,7 @@ public class Attribute : MonoBehaviour
             MonsterManager.Instance.DestroyMonster(GetComponent<MonsterBase>().count);
             List<int> scar = new List<int>();
             scar.Add(PosNow);
-            PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(scar);
+            PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(out int temp, scar);
         }
         else
         {

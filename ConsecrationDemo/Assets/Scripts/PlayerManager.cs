@@ -91,9 +91,10 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 //献祭
-                bool takedemage = Sacrifice();
-                if(takedemage)
-                    GetComponent<Attribute>().Damage(1);
+                int takeDamage = 0;
+                bool success = Sacrifice(out takeDamage);
+                if(success)
+                    GetComponent<Attribute>().Damage(takeDamage);
                 else
                     TipsManager.Instance.ShowTip("无技能可以血祭");
             }
@@ -140,8 +141,19 @@ public class PlayerManager : MonoBehaviour
             if (targetAltar.CD == 0)
             {
                 int skill = targetAltar.GetSkillInfo();
-                //Debug.Log(skill);
-                StartCoroutine(UseSkill(skill, 0, targetAltar));
+                Token token = null;
+                if (lm.TokenIcons[index] != null)
+                {
+                    token = lm.TokenIcons[index].GetComponent<Token>();
+                }
+                if(token!= null)
+                {
+                    StartCoroutine(UseSkill(skill, token.currentID, targetAltar));
+                }
+                else
+                {
+                    StartCoroutine(UseSkill(skill, 0, targetAltar));
+                }
                 return true;
             }
         }
@@ -149,30 +161,49 @@ public class PlayerManager : MonoBehaviour
         return false;
     }
 
-    public bool Sacrifice(List<int> skillIDG = null)
+    public bool Sacrifice(out int damage, List<int> skillPosG = null)
     {
         List<int> sPos = new List<int>();
-        bool isOK = false;
-        if (skillIDG == null)
+        damage = 0;
+        if (skillPosG == null)
             sPos.Add(attr.PosNow);
         else
-            sPos = skillIDG;
+            sPos = skillPosG;
         //int index = (int)(PlayerTf.position.x / 1.5f + 4);
         foreach (var index in sPos)
         {
             if (lm.AltarIcons[index] != null)
             {
                 Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
+                int token = targetAltar.tokenID;
+
                 if (targetAltar.SkillIndex == 0 && targetAltar.CD == 0)
                 {
                     targetAltar.SkillIndex = 1;
                     //献祭后显示完全状态
                     lm.AltarBlanks[index].GetComponentInParent<FloorConfig>().ShowCompleteGod(targetAltar);
-                    isOK = true;
+                    damage += 1;
+
+                    if (token == 20009)
+                        damage -= 1;
+
+                    if (token == 20003)
+                    {
+                        damage += 1;
+                        List<int> front = new List<int>();
+                        int tempPos = isToRight ? index + 1 : index - 1;
+
+                        if (tempPos >= 0 && tempPos <= 8)
+                            front.Add(tempPos);
+
+                        int tempD;
+                        Sacrifice(out tempD, front);
+                    }
+                    return true;
                 }
             }
         }
-        return isOK;
+        return false;
     }
 
 
@@ -185,7 +216,14 @@ public class PlayerManager : MonoBehaviour
     {
         SkillBase useSkill = SkillFactory.PCreate(skillID);
         useSkill.Init();
+
+        if (tokenID == 20007)
+            useSkill.Deal20007();
+
         var effects = useSkill.GetEffects();
+
+        if (tokenID != 0 && tokenID != 20007)
+            effects = useSkill.DealToken(tokenID, effects);
 
         if (effects == null || effects.Count == 0)
             isEffectDone = true;
@@ -205,7 +243,26 @@ public class PlayerManager : MonoBehaviour
         if (!useDefeat)
         {
             if (al != null)
+            {
                 al.IntoCD();
+                if(tokenID == 20002)
+                {
+                    List<Altar> tempAl = new List<Altar>();
+                    foreach (var item in lm.AltarIcons)
+                    {
+                        if (item == null)
+                            continue;
+
+                        if (item.GetComponent<Altar>().CD != 0)
+                            tempAl.Add(item.GetComponent<Altar>());
+                    }
+                    int ramdomNum = Random.Range(0, tempAl.Count);
+                    tempAl[ramdomNum].CD = 0;
+
+
+                }
+            }
+                
             StartCoroutine(cm.TurnEnd());
         }
         else

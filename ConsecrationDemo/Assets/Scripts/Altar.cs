@@ -12,6 +12,7 @@ public class Altar : MonoBehaviour
     private Collider2D collider2D;
     private Button button;
     public int currentID;
+    public int tokenID = 0;
     public int index_before = -1;
     public LevelManager lm;
     private GameObject InfoCanvas;
@@ -159,6 +160,10 @@ public class Altar : MonoBehaviour
     public void IntoCD()
     {
         CD = ConfigManager.Instance.GetConfig<SkillsConfig>(Skills[SkillIndex]).cooldown;
+        if (tokenID == 20001)
+        {
+            CD -= 1;
+        }
         SkillIndex = 0;
     }
 
