@@ -19,7 +19,7 @@ public class Skill10009 : SkillBase
         Attribute attrP = PlayerPosReport.Instance.attr;
         List<int> area = new List<int>();
         bool dir = attrP.GetComponent<PlayerManager>().isToRight;
-        for (int i = 0; i < skill.range; i++)
+        for (int i = 0; i < skill.range + rangeOffset; i++)
         {
             area.Add(attrP.PosNow + i + 1);
             area.Add(attrP.PosNow - i - 1);

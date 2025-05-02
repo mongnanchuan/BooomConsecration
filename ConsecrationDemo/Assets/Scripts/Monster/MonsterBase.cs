@@ -63,7 +63,8 @@ public class MonsterBase : MonoBehaviour
 
             foreach (var effect in effects)
             {
-                yield return StartCoroutine(AddEffectAndHandle(effect));
+                if (effect.Taker != null)
+                    yield return StartCoroutine(AddEffectAndHandle(effect));
             }
             yield return new WaitUntil(() => isEffectDone);
 

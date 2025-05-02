@@ -63,6 +63,14 @@ public class Attribute : MonoBehaviour
             case Effect_Type.ForceJump:
                 yield return StartCoroutine(ForceJump(targetEffect.portalMovePos, onFinished, addEffectCallback));
                 break;
+            case Effect_Type.Sacrificing:
+                GetComponent<PlayerManager>()?.Sacrifice(targetEffect.sacrificeID);
+                onFinished?.Invoke();
+                break;
+            case Effect_Type.UseSkillIm:
+                if(!GetComponent<PlayerManager>().UseSkillOutside())
+                    onFinished?.Invoke();
+                break;
         }
     }
 
@@ -237,9 +245,12 @@ public class Attribute : MonoBehaviour
 
     public void Die()
     {
-        if(GetComponent<PlayerManager>() == null)
+        if(GetComponent<MonsterBase>() != null)
         {
             MonsterManager.Instance.DestroyMonster(GetComponent<MonsterBase>().count);
+            List<int> scar = new List<int>();
+            scar.Add(PosNow);
+            PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(scar);
         }
         else
         {

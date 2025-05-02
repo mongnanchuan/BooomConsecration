@@ -6,6 +6,12 @@ public class SkillBase
 {
     public SkillsConfig skill;
     public CombatManager cm;
+
+    public SkillsConfig fgasf;
+
+    public int rangeOffset = 0;
+    //public Effect tokenEffect;
+
     void Start()
     {
         cm = GameObject.FindGameObjectWithTag("System").GetComponent<CombatManager>();
@@ -65,9 +71,54 @@ public class SkillBase
         return isToRight ? tempPos - 1 : tempPos + 1;
     }
 
-    public void DealToken(int tokenID)
+    public void Deal20007()
     {
-        
+        rangeOffset = 1;
+    }
+
+    public List<Effect> DealToken(int tokenID,List<Effect> original)
+    {
+        List<Effect> newEffects = original;
+        Attribute attrP = PlayerPosReport.Instance.attr;
+
+        switch (tokenID)
+        {
+            case 20004:
+                Effect tokenEffect = new Effect()
+                {
+                    type = Effect_Type.Healing,
+                    Taker = attrP,
+                    Ganker = attrP,
+                    heal = 1
+                };
+                newEffects.Add(tokenEffect);
+                break;
+            case 20005:
+                if (original != null && original.Count == 0)
+                {
+                    foreach (var effect in newEffects)
+                    {
+                        if (effect.type == Effect_Type.MakeDamage)
+                            effect.damage += 1;
+                    }
+                }
+                break;
+            case 20006:
+                if (original != null && original.Count == 0)
+                {
+                    foreach (var effect in newEffects)
+                    {
+                        if (effect.type == Effect_Type.ForceMove
+                            && effect.Taker != attrP)
+                            effect.forceMoveDis += 1;
+                    }
+                }
+                break;
+            case 20008:
+                attrP.additionalTurn += 1;
+                break;
+        }
+        return newEffects;
     }
 
     /*

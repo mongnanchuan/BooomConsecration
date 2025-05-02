@@ -10,6 +10,8 @@ public enum Effect_Type
     Healing,//治疗
     AddBuff,//加Buff/Debuff
     RemoveBuff,//消Buff/Debuff
+    Sacrificing,//献祭
+    UseSkillIm //使用技能
 }
 
 
@@ -26,6 +28,7 @@ public class Effect
     public int forceMoveDis;//强制位移的距离（方向用正负号表示）
     public int portalMovePos;//传送移动的位置
     public int collisionDamage; //碰撞伤害
+    public List<int> sacrificeID;//献祭列表
 }
 
 

@@ -33,7 +33,7 @@
   "20006": {
     "$type": "TokensConfig, Assembly-CSharp",
     "name": "谨慎的步伐",
-    "desc": "位移距离+1",
+    "desc": "击退距离+1",
     "id": 20006
   },
   "20007": {

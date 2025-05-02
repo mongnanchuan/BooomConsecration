@@ -85,34 +85,17 @@ public class PlayerManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //int index = (int)(PlayerTf.position.x / 1.5f + 4);
-                int index = attr.PosNow;
-                if (lm.AltarIcons[index] != null)
-                {
-                    Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
-                    if (targetAltar.CD == 0)
-                    {
-                        int skill = targetAltar.GetSkillInfo();
-                        Debug.Log(skill);
-                        StartCoroutine(UseSkill(skill,0,targetAltar));
-                    }
-                }
+                if(!UseSkillOutside())
+                    TipsManager.Instance.ShowTip("无技能可以使用");
             }
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 //献祭
-                int index = (int)(PlayerTf.position.x / 1.5f + 4);
-                if (lm.AltarIcons[index] != null)
-                {
-                    Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
-                    if (targetAltar.SkillIndex == 0 && targetAltar.CD == 0)
-                    {
-                        GetComponent<Attribute>().Damage(1);
-                        targetAltar.SkillIndex = 1;
-                        //献祭后显示完全状态
-                        lm.AltarBlanks[index].GetComponentInParent<FloorConfig>().ShowCompleteGod(targetAltar);
-                    }
-                }
+                bool takedemage = Sacrifice();
+                if(takedemage)
+                    GetComponent<Attribute>().Damage(1);
+                else
+                    TipsManager.Instance.ShowTip("无技能可以血祭");
             }
         }
     }
@@ -148,6 +131,51 @@ public class PlayerManager : MonoBehaviour
     }
     */
 
+    public bool UseSkillOutside()
+    {
+        int index = attr.PosNow;
+        if (lm.AltarIcons[index] != null)
+        {
+            Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
+            if (targetAltar.CD == 0)
+            {
+                int skill = targetAltar.GetSkillInfo();
+                //Debug.Log(skill);
+                StartCoroutine(UseSkill(skill, 0, targetAltar));
+                return true;
+            }
+        }
+        //Debug.Log(lm.AltarIcons[index]);
+        return false;
+    }
+
+    public bool Sacrifice(List<int> skillIDG = null)
+    {
+        List<int> sPos = new List<int>();
+        bool isOK = false;
+        if (skillIDG == null)
+            sPos.Add(attr.PosNow);
+        else
+            sPos = skillIDG;
+        //int index = (int)(PlayerTf.position.x / 1.5f + 4);
+        foreach (var index in sPos)
+        {
+            if (lm.AltarIcons[index] != null)
+            {
+                Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
+                if (targetAltar.SkillIndex == 0 && targetAltar.CD == 0)
+                {
+                    targetAltar.SkillIndex = 1;
+                    //献祭后显示完全状态
+                    lm.AltarBlanks[index].GetComponentInParent<FloorConfig>().ShowCompleteGod(targetAltar);
+                    isOK = true;
+                }
+            }
+        }
+        return isOK;
+    }
+
+
     public void TestSkill(int id)
     {
         StartCoroutine(UseSkill(id));
@@ -166,6 +194,7 @@ public class PlayerManager : MonoBehaviour
         {
             foreach (var effect in effects)
             {
+                if(effect.Taker != null)
                 yield return StartCoroutine(AddEffectAndHandle(effect));
             }
             yield return new WaitUntil(() => isEffectDone);

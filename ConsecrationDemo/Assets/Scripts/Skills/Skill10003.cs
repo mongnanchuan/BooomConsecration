@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Skill10003 : SkillBase
 {
-    //向前冲撞，对第一个角色造成2点伤害
+    //向前冲撞，对第一个单位造成2点伤害
     static Skill10003()
     {
         SkillFactory.Register(10003, typeof(Skill10003));
