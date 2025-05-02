@@ -12,7 +12,7 @@ public class HealthBarManager : MonoBehaviour
 
     public GameObject healthBar;
     public GameObject healthDot;
-
+    public Vector3 offset;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,9 +41,10 @@ public class HealthBarManager : MonoBehaviour
     {
         if (allHealthBars.TryGetValue(attr, out GameObject bar))
         {
-            // 更新血条位置和宽度
             RectTransform barRect = bar.GetComponent<RectTransform>();
-            barRect.anchoredPosition = SwitchPos.IntToUIPosition(attr.PosNow);
+            Vector3 worldPos = attr.transform.position; // 假设 attr 具有 Transform 组件
+            Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos + offset); // 将世界坐标转换为屏幕坐标
+            barRect.anchoredPosition = screenPos; // 更新血条的位置
 
             for (int i = 0; i < bar.transform.childCount; i++)
             {

@@ -19,6 +19,7 @@ public class MonsterBase : MonoBehaviour
     public bool isToRight = false;//朝向
 
     public bool isOnUse;//是否在蓄力
+    public Vector2 shootOffect;
 
     public Transform zone;//装威胁范围显示的父节点
     public GameObject warningZone1;//威胁类型1显示
@@ -26,6 +27,9 @@ public class MonsterBase : MonoBehaviour
     public GameObject warningZone3;//威胁类型3显示
     public GameObject warningZone4;//威胁类型4显示
     public Vector2 offset;//威胁类型3/4相对位置调整值
+
+    public GameObject bullet;
+    public GameObject slime;
 
     //位置改动后的通知
     public event Action<int, int> OnPosSetted;
@@ -64,6 +68,36 @@ public class MonsterBase : MonoBehaviour
             {
                 GameObject.Destroy(zone.GetChild(i).gameObject);
             }
+
+            if (useSkill.monsterSkill.attactType == 4)
+            {
+                int endPos = -1;
+                if (effects == null || effects.Count == 0)
+                    endPos = isToRight ? 8 : 0;
+                else
+                {
+                    foreach (var effect in effects)
+                    {
+                        if (effect.type == Effect_Type.MakeDamage)
+                            endPos = effect.Taker.PosNow;
+                    }
+                }
+                yield return StartCoroutine(LaunchProjectile(currentPos, endPos));
+            }
+
+            if (useSkill.monsterSkill.attactType == 2)
+            {
+                if(useSkill.monsterSkill.id == 9000201)
+                    yield return StartCoroutine(LaunchProjectile2(currentPos, posAddjust));
+                else
+                {
+                    for (int i = 0; i < useSkill.monsterSkill.posPar.Length; i++)
+                    {
+                        StartCoroutine(LaunchProjectile2(currentPos, useSkill.monsterSkill.posPar[i]));
+                    }
+                }
+            }
+
 
             foreach (var effect in effects)
             {
@@ -284,6 +318,30 @@ public class MonsterBase : MonoBehaviour
     {
         currentPos = posNum;
         OnPosSetted?.Invoke(count, currentPos);
+    }
+
+    private IEnumerator LaunchProjectile(int startPos, int endPos)
+    {
+        GameObject tempBullet = Instantiate(bullet, (Vector2)transform.position + shootOffect, Quaternion.identity, transform);
+        Projectile projectile = tempBullet.GetComponent<Projectile>();
+
+        projectile.type = 1; // 假设你选择飞行型
+        projectile.startPos = startPos;
+        projectile.endPos = endPos;
+
+        yield return StartCoroutine(projectile.Shoot(shootOffect));
+    }
+
+    private IEnumerator LaunchProjectile2(int startPos, int endPos)
+    {
+        GameObject tempBullet = Instantiate(slime, (Vector2)transform.position + shootOffect, Quaternion.identity, transform);
+        Projectile projectile = tempBullet.GetComponent<Projectile>();
+
+        projectile.type = 2; // 假设你选择飞行型
+        projectile.startPos = startPos;
+        projectile.endPos = endPos;
+
+        yield return StartCoroutine(projectile.Shoot(shootOffect));
     }
 
 }

@@ -100,3 +100,4 @@ MonoBehaviour:
   type: 1
   startPos: 0
   endPos: 0
+  projectileSprite: {fileID: 7544414719505463911}

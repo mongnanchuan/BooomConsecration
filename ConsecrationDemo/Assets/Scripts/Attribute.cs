@@ -76,7 +76,8 @@ public class Attribute : MonoBehaviour
         }
     }
 
-    public void Damage(int num)
+
+    public void Damage(int num,bool isSac = false)
     {
         if (num > 0)
         {
@@ -84,6 +85,7 @@ public class Attribute : MonoBehaviour
             {
                 if(gameObject.name == "MainRole")
                 {
+                    if(!isSac)
                     BodyAnim.SetTrigger("Hit");
                 }
                 else

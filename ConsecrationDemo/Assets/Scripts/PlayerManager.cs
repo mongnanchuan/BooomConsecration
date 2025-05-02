@@ -9,8 +9,9 @@ public class PlayerManager : MonoBehaviour
     private Transform PlayerTf;
     private LevelManager lm;
     private CombatManager cm;
-    public SkillBase BaseAttack;
     public Attribute attr;
+
+    public GameObject bullet;
 
     public bool isToRight = true;
     public bool isDoing = false;
@@ -20,8 +21,11 @@ public class PlayerManager : MonoBehaviour
     public int waitCount = 0;
 
     private GameObject BodyObject;
+    public Animator anim;
 
     public bool useDefeat = false;
+
+    public Vector2 shootOffect;
 
     void Start()
     {
@@ -31,8 +35,7 @@ public class PlayerManager : MonoBehaviour
         lm = System.GetComponent<LevelManager>();
         cm = System.GetComponent<CombatManager>();
         GetComponent<Attribute>().PosNow = 4;
-        BaseAttack = new Skill80001();
-        BaseAttack.Init();
+        anim = BodyObject.GetComponent<Animator>();
         DOTween.Init();
     }
 
@@ -81,6 +84,7 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.J))
             {
                 isDoing = true;
+                anim.SetTrigger("Attack");
                 StartCoroutine(UseSkill(10000));
             }
             if (Input.GetKeyDown(KeyCode.Space))
@@ -94,7 +98,10 @@ public class PlayerManager : MonoBehaviour
                 int takeDamage = 0;
                 bool success = Sacrifice(out takeDamage);
                 if(success)
-                    GetComponent<Attribute>().Damage(takeDamage);
+                {
+                    anim.SetTrigger("Sacrifice");
+                    GetComponent<Attribute>().Damage(takeDamage,true);
+                }
                 else
                     TipsManager.Instance.ShowTip("无技能可以血祭");
             }
@@ -140,6 +147,7 @@ public class PlayerManager : MonoBehaviour
             Altar targetAltar = lm.AltarIcons[index].GetComponent<Altar>();
             if (targetAltar.CD == 0)
             {
+                anim.SetTrigger("Skill");
                 int skill = targetAltar.GetSkillInfo();
                 Token token = null;
                 if (lm.TokenIcons[index] != null)
@@ -201,6 +209,10 @@ public class PlayerManager : MonoBehaviour
                     }
                     return true;
                 }
+                else
+                {
+                    TipsManager.Instance.ShowTip("无法血祭");
+                }
             }
         }
         return false;
@@ -228,7 +240,30 @@ public class PlayerManager : MonoBehaviour
         if (effects == null || effects.Count == 0)
             isEffectDone = true;
 
-        if(effects != null && effects.Count != 0)
+        if(useSkill.skill.id == 10017)
+        {
+            int endPos = -1;
+            if (effects == null || effects.Count == 0)
+                endPos = isToRight ? 8 : 0;
+            else
+            {
+                foreach (var effect in effects)
+                {
+                    if (effect.Taker.GetComponent<MonsterBase>() != null && effect.type == Effect_Type.MakeDamage)
+                        endPos = effect.Taker.PosNow;
+                }
+            }
+            yield return StartCoroutine(LaunchProjectile(attr.PosNow,endPos));
+        }
+
+        if (useSkill.skill.id == 10018)
+        {
+            int endPos = isToRight ? 8 : 0;
+            yield return StartCoroutine(LaunchProjectile(attr.PosNow, endPos));
+        }
+
+
+        if (effects != null && effects.Count != 0)
         {
             foreach (var effect in effects)
             {
@@ -258,8 +293,6 @@ public class PlayerManager : MonoBehaviour
                     }
                     int ramdomNum = Random.Range(0, tempAl.Count);
                     tempAl[ramdomNum].CD = 0;
-
-
                 }
             }
                 
@@ -267,6 +300,18 @@ public class PlayerManager : MonoBehaviour
         }
         else
             useDefeat = false;
+    }
+
+    private IEnumerator LaunchProjectile(int startPos,int endPos)
+    {
+        GameObject tempBullet = Instantiate(bullet,(Vector2)transform.position + shootOffect, Quaternion.identity,transform);
+        Projectile projectile = tempBullet.GetComponent<Projectile>();
+
+        projectile.type = 1; // 假设你选择飞行型
+        projectile.startPos = startPos;
+        projectile.endPos = endPos;
+
+        yield return StartCoroutine(projectile.Shoot(shootOffect));
     }
 
     //移动和交换位置

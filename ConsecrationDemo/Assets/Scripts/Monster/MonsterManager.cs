@@ -206,9 +206,13 @@ public class MonsterManager : MonoBehaviour
     //¹ÖÎïµÄÏú»Ù
     public void DestroyMonster(int count)
     {
-        Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
-        HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
-        currentMonstersData.Remove(count);
+        if(currentMonstersData.ContainsKey(count))
+        {
+            Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
+            HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
+            currentMonstersData.Remove(count);
+        }
+        
     }
 
 }
