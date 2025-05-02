@@ -100,6 +100,7 @@ public class MonsterManager : MonoBehaviour
             int monsterID = currentGroupID[i];
             int monsterPos_TempNum = currrentGroupPos[i];
 
+            //Debug.Log(monsterID);
             HashSet<int> currentPosNum = new(currentMonstersData.Values.Select(pos => pos.Item1)); 
             currentPosNum.Add(playerPos);
             int monsterPos_Num = FindClosestPos(monsterPos_TempNum, 9, currentPosNum);
@@ -158,7 +159,7 @@ public class MonsterManager : MonoBehaviour
         //剩下的怪物按照序号顺序一个一个判断执行内容
         foreach (var item in currentMonstersList)
         {
-            if (item.Value.obj != null)
+            if (!item.Value.obj.GetComponent<Attribute>().isDead)
             {
                 MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
 
@@ -167,7 +168,7 @@ public class MonsterManager : MonoBehaviour
             }
         }
 
-        if (currentMonstersData.Count <= 1)
+        if (currentMonstersData.Count <= 0)
             TimeToNewMonsterGroup();
 
         yield return new WaitForSeconds(0.1f);
@@ -206,12 +207,8 @@ public class MonsterManager : MonoBehaviour
     public void DestroyMonster(int count)
     {
         Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
-        
         HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
-        Destroy(currentMonstersData[count].obj);
-
         currentMonstersData.Remove(count);
-        
     }
 
 }

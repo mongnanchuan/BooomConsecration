@@ -23,6 +23,8 @@ public class Attribute : MonoBehaviour
     public event Action<int> OnPosChange;
 
     public Animator BodyAnim;
+
+    public bool isDead = false;
     
 
     // Start is called before the first frame update
@@ -247,15 +249,25 @@ public class Attribute : MonoBehaviour
     {
         if(GetComponent<MonsterBase>() != null)
         {
-            MonsterManager.Instance.DestroyMonster(GetComponent<MonsterBase>().count);
-            List<int> scar = new List<int>();
-            scar.Add(PosNow);
-            PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(out int temp, scar);
+            isDead = true;
+            StartCoroutine(DieAnim());
         }
         else
         {
             //”Œœ∑ ß∞‹ΩÁ√Ê
         }
         
+    }
+
+    public IEnumerator DieAnim()
+    {
+        BodyAnim.SetTrigger("Die");
+        MonsterManager.Instance.DestroyMonster(GetComponent<MonsterBase>().count);
+
+        yield return new WaitForSeconds(0.6f);
+        List<int> scar = new List<int>();
+        scar.Add(PosNow);
+        PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(out int temp, scar);
+        Destroy(gameObject);
     }
 }

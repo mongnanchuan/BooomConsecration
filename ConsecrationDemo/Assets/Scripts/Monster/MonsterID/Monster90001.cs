@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Monster90001 : MonsterBase
 {
     public override void Init()
@@ -12,6 +14,10 @@ public class Monster90001 : MonsterBase
         currentSkillCount = 0;
         currentSkillID = 0;
         isOnUse = false;
+
+        bodyObject = transform.Find("Body").gameObject;
+        bodyAnim = bodyObject.GetComponent<Animator>();
+
     }
 
 }

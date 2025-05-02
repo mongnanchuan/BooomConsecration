@@ -1,16 +1,90 @@
 {
   "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "111": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001
+    ],
+    "group1Pos": [
+      1
+    ],
+    "group2ID": null,
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 111
+  },
+  "222": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90002
+    ],
+    "group1Pos": [
+      1
+    ],
+    "group2ID": null,
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 222
+  },
+  "333": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90003
+    ],
+    "group1Pos": [
+      1
+    ],
+    "group2ID": null,
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 333
+  },
+  "444": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90004
+    ],
+    "group1Pos": [
+      1
+    ],
+    "group2ID": null,
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 444
+  },
+  "555": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90005
+    ],
+    "group1Pos": [
+      1
+    ],
+    "group2ID": null,
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 555
+  },
   "80000": {
     "$type": "LevelConfig, Assembly-CSharp",
     "group1ID": [
       90001,
-      90001,
-      90002
+      90002,
+      90003,
+      90004,
+      90005
     ],
     "group1Pos": [
       0,
-      3,
-      7
+      8,
+      1,
+      2,
+      3
     ],
     "group2ID": [
       90001,

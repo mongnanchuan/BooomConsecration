@@ -36,6 +36,9 @@ public class MonsterBase : MonoBehaviour
 
     public int posAddjust = 0;
 
+    public GameObject bodyObject;
+    public Animator bodyAnim;
+
     public virtual void Init() { }
 
     //回合开始进行判断
@@ -49,6 +52,7 @@ public class MonsterBase : MonoBehaviour
         {
             //Todo:
             //技能触发效果
+            bodyAnim.SetTrigger("AttackBegin");
             MonsterSkillBase useSkill = SkillFactory.MCreate(currentSkillID);
             useSkill.Init();
             var effects = useSkill.GetEffects(this);
@@ -96,9 +100,9 @@ public class MonsterBase : MonoBehaviour
                 if (monsterData[i].pos > min && monsterData[i].pos < max)
                     isBeBlock = true;
             }
-
             var skill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(currentSkillID);
-            Transform zoneParent = skill.attactType==2 ? MonsterManager.Instance.transform : this.transform;
+            //Debug.Log(skill.id);
+            Transform zoneParent = skill.attactType == 2 ? MonsterManager.Instance.transform : this.transform;
             zone.SetParent(zoneParent);
             switch (skill.attactType)
             {
@@ -121,6 +125,9 @@ public class MonsterBase : MonoBehaviour
                 case 4:
                     if (isBeBlock)
                         yield break;
+                    ReadyToUseSkill(currentSkillID, playerPos);
+                    yield break;
+                case 0:
                     ReadyToUseSkill(currentSkillID, playerPos);
                     yield break;
                 default:
@@ -167,6 +174,7 @@ public class MonsterBase : MonoBehaviour
     //蓄力函数
     public void ReadyToUseSkill(int skillID,int playerPos)
     {
+        bodyAnim.SetTrigger("ChargeBegin");
         var skill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(skillID);
         int type = skill.attactType;
         List<int> waringPoss = new List<int>();
