@@ -23,6 +23,7 @@ public class Altar : MonoBehaviour
     public int CD;
     public GameObject CDText;
     public Sprite GodImage;
+    private Text DescribeText;
 
     // Start is called before the first frame update
     void Start()
@@ -31,13 +32,14 @@ public class Altar : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        /*        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-                SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);*/
+        SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+        SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
         Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
         Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
         CD = 0;
         string imagePath = "Gods/" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "god";
         GodImage = Resources.Load(imagePath, typeof(Sprite)) as Sprite ;
+        DescribeText = transform.Find("Canvas/Image/Text (Legacy)")?.gameObject.GetComponent<Text>();
     }
     private void OnMouseDrag()
     {
@@ -91,6 +93,16 @@ public class Altar : MonoBehaviour
                     lm.AltarBlanks[index_before].GetComponentInParent<FloorConfig>().ShowHalfGod(this);
                 }
             }
+        }
+        if(SkillIndex == 0)
+        {
+            SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
+            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£º\n" + skill.desc;
+        }
+        else
+        {
+            SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
+            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£º\n" + skill.desc;
         }
     }
 

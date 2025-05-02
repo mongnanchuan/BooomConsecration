@@ -148,9 +148,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPos: {x: 0, y: 0, z: 0}
   currentID: 60001
+  tokenID: 0
   index_before: -1
   lm: {fileID: 0}
   isFinished: 0
+  Skills: 
   SkillIndex: 0
   CD: 0
   CDText: {fileID: 2513193824105233324}
@@ -534,7 +536,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6124\u6012\u796D\u575B\n\u4F60\u7684\u4E0B\u4E00\u6B21\u653B\u51FB\u4F24\u5BB3+5\u3002\n\u51B7\u5374\uFF1A5"
+  m_Text: "\u540D\u79F0\uFF1A\n\u4F60\u7684\u4E0B\u4E00\u6B21\u653B\u51FB\u4F24\u5BB3+5"
 --- !u!1 &7439185788482458969
 GameObject:
   m_ObjectHideFlags: 0

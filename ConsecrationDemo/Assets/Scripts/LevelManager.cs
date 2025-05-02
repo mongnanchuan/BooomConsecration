@@ -69,6 +69,14 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
+                if(TokenIcons[al.index_before] != null)
+                {
+                    al.tokenID = TokenIcons[al.index_before].GetComponent<Token>().currentID;
+                }
+                else
+                {
+                    al.tokenID = 0;
+                }
                 al.isFinished = true;
             }
         }

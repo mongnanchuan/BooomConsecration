@@ -10,16 +10,16 @@ public class Token : MonoBehaviour
 {
     public Vector3 startPos;
     private Collider2D collider2D;
+    private SpriteRenderer tokenSp;
     private Button button;
-    public int currentID;
+    public int currentID = 0;
     public int index_before = -1;
     public LevelManager lm;
     private GameObject InfoCanvas;
     private bool isDragging = false;
     public bool isFinished = false;
-    public List<SkillBase> Skills = new List<SkillBase>();
-    public int SkillIndex = 0;
-    public int CD;
+    public Sprite[] changeImage;
+    private Text DescribeText;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,10 @@ public class Token : MonoBehaviour
         collider2D = GetComponent<Collider2D>();
         InfoCanvas = transform.GetChild(0).gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
-        CD = 0;
+        tokenSp = GetComponent<SpriteRenderer>();
+        DescribeText = transform.Find("Canvas/Image/Text")?.gameObject.GetComponent<Text>();
+        TokensConfig targetConfig = ConfigManager.Instance.GetConfig<TokensConfig>(currentID);
+        DescribeText.text = targetConfig.name + "£º\n" + targetConfig.desc;
     }
     private void OnMouseDrag()
     {
@@ -38,6 +41,7 @@ public class Token : MonoBehaviour
             InfoCanvas.SetActive(false);
             transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
                                              Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            tokenSp.sprite = changeImage[0];
         }
     }
     private void OnMouseUp()
@@ -114,6 +118,7 @@ public class Token : MonoBehaviour
             index_before = id;
             transform.position = new Vector2(lm.TokenCorrectTrans[id].position.x, lm.TokenCorrectTrans[id].position.y);
             startPos = transform.position;
+            tokenSp.sprite = changeImage[1];
         }
         else
         {
