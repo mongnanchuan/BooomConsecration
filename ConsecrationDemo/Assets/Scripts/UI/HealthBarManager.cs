@@ -12,6 +12,8 @@ public class HealthBarManager : MonoBehaviour
 
     public GameObject healthBar;
     public GameObject healthDot;
+    public Sprite redDot;
+    public Sprite blackDot;
     public Vector3 offset;
     private void Awake()
     {
@@ -50,11 +52,11 @@ public class HealthBarManager : MonoBehaviour
             {
                 if(i < attr.HP)
                 {
-                    bar.transform.GetChild(i).GetComponent<Image>().color = Color.white;
+                    bar.transform.GetChild(i).GetComponent<Image>().sprite = redDot;
                 }
                 else
                 {
-                    bar.transform.GetChild(i).GetComponent<Image>().color = Color.black;
+                    bar.transform.GetChild(i).GetComponent<Image>().sprite = blackDot;
                 }
             }
         }

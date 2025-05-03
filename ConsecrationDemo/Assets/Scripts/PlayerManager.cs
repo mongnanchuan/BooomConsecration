@@ -86,8 +86,7 @@ public class PlayerManager : MonoBehaviour
             {
                 isDoing = true;
                 anim.SetTrigger("Attack");
-                //Ãÿ–ß≤‚ ‘
-                //cm.ShowFX(2, attr.PosNow + 1);
+                CombatManager.Instance.ShowFX(2, isToRight ? attr.PosNow + 1 : attr.PosNow - 1);
                 StartCoroutine(UseSkill(10000));
             }
             if (Input.GetKeyDown(KeyCode.Space))
@@ -103,6 +102,7 @@ public class PlayerManager : MonoBehaviour
                 if(success)
                 {
                     anim.SetTrigger("Sacrifice");
+                    
                     GetComponent<Attribute>().Damage(takeDamage,true);
                     SacrificeTimes++;
                     if(SacrificeTimes >= 5)

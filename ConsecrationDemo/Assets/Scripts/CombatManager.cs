@@ -5,6 +5,18 @@ using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
+    public static CombatManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public bool isInPlayerTurn = false;
     public GameObject Player;
     private Transform PlayerTf;

@@ -87,7 +87,7 @@ public class MonsterBase : MonoBehaviour
 
             if (useSkill.monsterSkill.attactType == 2)
             {
-                if(useSkill.monsterSkill.id == 9000201)
+                if(useSkill.monsterSkill.id == 9000201 || useSkill.monsterSkill.id == 9000502)
                     yield return StartCoroutine(LaunchProjectile2(currentPos, posAddjust));
                 else
                 {
@@ -261,16 +261,28 @@ public class MonsterBase : MonoBehaviour
             case 3:
                 GameObject zone3 = GameObject.Instantiate(warningZone3, zone);
                 if(isToRight)
+                {
                     zone3.transform.localPosition = offset;
+                    zone3.transform.localScale = new Vector3(-0.6f,0.6f,1);
+                }
                 else
-                    zone3.transform.localPosition = new Vector2(-offset.x,offset.y);
+                {
+                    zone3.transform.localPosition = new Vector2(-offset.x, offset.y);
+                    zone3.transform.localScale = new Vector3(0.6f, 0.6f, 1);
+                }
                 break;
             case 4:
-                GameObject zone4 = GameObject.Instantiate(warningZone3, zone);
+                GameObject zone4 = GameObject.Instantiate(warningZone4, zone);
                 if (isToRight)
+                {
                     zone4.transform.localPosition = offset;
+                    zone4.transform.localScale = new Vector3(-0.5f, 0.5f, 1);
+                }
                 else
+                {
                     zone4.transform.localPosition = new Vector2(-offset.x, offset.y);
+                    zone4.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                }
                 break;
             default:
                 break;

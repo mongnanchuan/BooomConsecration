@@ -28,6 +28,11 @@
         List<Attribute> taker = new List<Attribute>();
         taker = GetRoleInArea(area);
 
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(1, pos);
+        }
+
         foreach (var obj in taker)
         {
             Effect effect1 = new Effect()

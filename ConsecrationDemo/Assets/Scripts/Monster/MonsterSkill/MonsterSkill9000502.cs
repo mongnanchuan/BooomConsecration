@@ -21,6 +21,11 @@ public class MonsterSkill9000502 : MonsterSkillBase
         List<int> area = new List<int>();
         area.Add(mons.posAddjust);
 
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(1, pos);
+        }
+
         List<Attribute> getHurt = GetRoleInArea(area);
 
         foreach (var attr in getHurt)

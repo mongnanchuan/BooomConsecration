@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8733120730481156151}
   - component: {fileID: 8664277574136332304}
+  - component: {fileID: -8336277346481277017}
   m_Layer: 0
   m_Name: WarningZone3
   m_TagString: Untagged
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2080913039
   m_SortingLayer: 1
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1185abf5460e9da45ac8f08adcfcd3a8, type: 3}
+  m_SortingOrder: 30
+  m_Sprite: {fileID: 21300000, guid: 45c844fe4cfd294478233eaa0b8f300c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,3 +85,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8336277346481277017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572816352213329621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12823483e3be60042a0805345c0f52af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndColor: {r: 1, g: 0, b: 0, a: 0.64705884}

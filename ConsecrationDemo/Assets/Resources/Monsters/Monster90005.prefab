@@ -75,13 +75,13 @@ MonoBehaviour:
   currentSkillCount: 0
   isToRight: 0
   isOnUse: 0
-  shootOffect: {x: 0, y: 0}
+  shootOffect: {x: 0, y: 0.7}
   zone: {fileID: 8176579769795037467}
   warningZone1: {fileID: 6290190793203408592, guid: 7c536b2a1565f9245a823ec8d675afd8, type: 3}
   warningZone2: {fileID: 9192069774230018264, guid: 6ebc9b3c0a3b9834e8e1f82266fdb1bc, type: 3}
   warningZone3: {fileID: 8572816352213329621, guid: 5e7338de810ebdb469f4095bbe1c59da, type: 3}
   warningZone4: {fileID: 8285357688114848940, guid: 005f1add5253fcc4fbe4861f120bd285, type: 3}
-  offset: {x: 0.61, y: 1.82}
+  offset: {x: 0.7, y: 1.1}
   bullet: {fileID: 1287728787268944548, guid: f450f79ebdcb5d34e8c81405e6287f39, type: 3}
   slime: {fileID: 5983263293238389368, guid: 18b25d0ab0f95bb439c7b525b3fda3e5, type: 3}
   isEffectDone: 0

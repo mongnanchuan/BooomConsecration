@@ -18,11 +18,17 @@
         List<Effect> effects = new List<Effect>();
         Attribute attr = mons.GetComponent<Attribute>();
         List<int> area = new List<int>();
+
         
         for (int i = 0; i < monsterSkill.rangePar; i++)
         {
             area.Add(attr.PosNow + i + 1);
             area.Add(attr.PosNow - i - 1);
+        }
+
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(1, pos);
         }
 
         List<Attribute> taker = new List<Attribute>();

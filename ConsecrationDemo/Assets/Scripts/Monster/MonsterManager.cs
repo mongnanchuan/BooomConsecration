@@ -240,9 +240,27 @@ public class MonsterManager : MonoBehaviour
     {
         if(currentMonstersData.ContainsKey(count))
         {
+            bool newBoss = false;
+            int bossPos = 0;
+            if(currentMonstersData[count].obj.GetComponent<Monster90005>()!=null)
+            {
+                newBoss = true;
+                bossPos = currentMonstersData[count].pos;
+            }
             Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
             HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
             currentMonstersData.Remove(count);
+
+            if(newBoss)
+            {
+                List<int> tempBoss = new List<int>();
+                List<int> tempPos = new List<int>();
+                tempBoss.Add(90006);
+                tempPos.Add(bossPos);
+                SetSummonMonsters(tempBoss.ToList(),tempPos.ToList());
+                SetNewMonsters(false);
+            }
+
         }
         
     }

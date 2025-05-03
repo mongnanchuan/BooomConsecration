@@ -23,6 +23,11 @@
             area.Add(monsterSkill.posPar[i]);
         }
 
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(1, pos);
+        }
+
         List<Attribute> getHurt = GetRoleInArea(area);
 
         foreach (var attr in getHurt)
