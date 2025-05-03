@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     public bool useDefeat = false;
 
     public Vector2 shootOffect;
+    public int SacrificeTimes = 0;
 
     void Start()
     {
@@ -101,6 +102,15 @@ public class PlayerManager : MonoBehaviour
                 {
                     anim.SetTrigger("Sacrifice");
                     GetComponent<Attribute>().Damage(takeDamage,true);
+                    SacrificeTimes++;
+                    if(SacrificeTimes >= 5)
+                    {
+                        BodyObject.GetComponent<BodyPartManager>().TurnToThird();
+                    }
+                    else if(SacrificeTimes >= 3)
+                    {
+                        BodyObject.GetComponent<BodyPartManager>().TurnToSecond();
+                    }
                 }
                 else
                     TipsManager.Instance.ShowTip("无技能可以血祭");
