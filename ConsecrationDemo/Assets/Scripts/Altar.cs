@@ -102,7 +102,7 @@ public class Altar : MonoBehaviour
         else
         {
             SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
-            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£º\n" + skill.desc;
+            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£¨ÒÑÏ×¼À£©£º\n" + skill.desc;
         }
     }
 
