@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     public CombatManager cm;
-
+    public GameObject UICanvas;
     public GameObject[] AltarBlanks;
     public GameObject[] TokenBlanks;
     public GameObject[] AttackAlert;
@@ -14,11 +15,22 @@ public class LevelManager : MonoBehaviour
     public Transform[] TokenCorrectTrans = new Transform[9];
     public GameObject[] TokenIcons = new GameObject[9];
     public int levelID;
+    public int Selecting = 0; //0-未选择 1-选择祭坛中 2-选择信物中
+    public GameObject SelectPrefab;
     public bool Preparing;
+    public GameObject ConfirmSelectButton;
+    public GameObject ReadyButton;
+    public GameObject Title;
+    public int SelectIndex = 0;
+    public List<GameObject> AllTokenIcons = new List<GameObject>();
+    public List<GameObject> AllAltarIcons = new List<GameObject>();
+    private List<GameObject> NotUseTokenIcons = new List<GameObject>();
+    private List<GameObject> NotUseAltarIcons = new List<GameObject>();
     GameObject[] targetAltarIcon;
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
     GameObject[] targetButton;
+    private GameObject[] ToSpawnObject = new GameObject[2];
 
     // Start is called before the first frame update
     void Start()
@@ -33,17 +45,70 @@ public class LevelManager : MonoBehaviour
             AltarCorrectTrans[i] = AltarBlanks[i].transform;
             TokenCorrectTrans[i] = TokenBlanks[i].transform;
         }
+        AltarAndTokenReset();
         PrepareLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Selecting > 0 && SelectIndex > 0)
+        {
+            ConfirmSelectButton.SetActive(true);
+        }
+        else
+        {
+            ConfirmSelectButton.SetActive(false);
+        }
     }
-    //准备阶段，供玩家排布祭坛
+    //掉落阶段，从当前没获得的祭坛和信物中各选两个
+    public void ShowAltarDrop()
+    {
+        Selecting = 1;
+        for(int i = 0; i < 2; i++)
+        {
+            int random = Random.Range(0, NotUseAltarIcons.Count);
+            GameObject selectButton = Instantiate(SelectPrefab, UICanvas.transform);
+            selectButton.GetComponent<DropSelect>().dropType = 1;
+            selectButton.GetComponent<DropSelect>().Index = i + 1;
+            selectButton.GetComponent<DropSelect>().PrefabObject = NotUseAltarIcons[random];
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i*800, 30);
+            NotUseAltarIcons.RemoveAt(random);
+            if(NotUseAltarIcons.Count == 0)
+            {
+                break;
+            }
+        }
+    }
+    public void ShowTokenDrop()
+    {
+        GameObject[] targetSelects;
+        targetSelects = GameObject.FindGameObjectsWithTag("Select");
+        foreach (GameObject select in targetSelects)
+        {
+            Destroy(select);
+        }
+        Selecting = 2;
+        for (int i = 0; i < 2; i++)
+        {
+            int random = Random.Range(0, NotUseTokenIcons.Count);
+            GameObject selectButton = Instantiate(SelectPrefab, UICanvas.transform);
+            selectButton.GetComponent<DropSelect>().dropType = 2;
+            selectButton.GetComponent<DropSelect>().Index = i + 1;
+            selectButton.GetComponent<DropSelect>().PrefabObject = NotUseTokenIcons[random];
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i * 800, 30);
+            NotUseTokenIcons.RemoveAt(random);
+            if (NotUseAltarIcons.Count == 0)
+            {
+                break;
+            }
+        }
+
+    }
+    //准备阶段，供玩家选择掉落与排布祭坛
     public void PrepareLevel()
     {
+        Title.GetComponent<Text>().text = "选择你的战利品";
         Preparing = true;
         foreach (GameObject combatObject in targetCombat)
         {
@@ -53,18 +118,20 @@ public class LevelManager : MonoBehaviour
         {
             buttonObject.SetActive(false);
         }
+        ShowAltarDrop();
         //levelID++;
     }
     //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
+        ReadyButton.SetActive(false);
         foreach (GameObject altarIconObject in targetAltarIcon)
         {
             Altar al = altarIconObject.GetComponent<Altar>();
             if(al.index_before < 0)
             {
                 //altarIconObject.SetActive(false);
-                //提升需要放置所有祭坛
+                //提示需要放置所有祭坛
                 return;
             }
             else
@@ -96,5 +163,57 @@ public class LevelManager : MonoBehaviour
         cm.isInPlayerTurn = true;
         MonsterManager.Instance.MonsterGroupInit(levelID);
         PlayerPosReport.Instance.attr.healthInit();
+    }
+
+    public void AltarAndTokenReset()
+    {
+        NotUseAltarIcons = AllAltarIcons;
+        NotUseTokenIcons = AllTokenIcons;
+    }
+
+    public void OnComfirmSelect()
+    {
+        GameObject[] targetSelects;
+        GameObject ToSpawn;
+        targetSelects = GameObject.FindGameObjectsWithTag("Select");
+        foreach (GameObject select in targetSelects)
+        {
+            if (select.GetComponent<DropSelect>().Index == SelectIndex)
+            {
+                ToSpawn = select.GetComponent<DropSelect>().PrefabObject;
+                if (ToSpawn.CompareTag("AltarIcon"))
+                {
+                    ToSpawnObject[0] = ToSpawn;
+                    SelectIndex = 0;
+                    ShowTokenDrop();
+                }
+                else if(ToSpawn.CompareTag("TokenIcon"))
+                {
+                    ToSpawnObject[1] = ToSpawn;
+                    SelectIndex = 0;
+                    ShowInstance();
+                }
+                break;
+            }
+        }
+    }
+
+    public void ShowInstance()
+    {
+        Title.GetComponent<Text>().text = "排布你的祭坛和信物";
+        Selecting = 0;
+        GameObject[] targetSelects;
+        targetSelects = GameObject.FindGameObjectsWithTag("Select");
+        foreach (GameObject select in targetSelects)
+        {
+            Destroy(select);
+        }
+        GameObject ToSetAltarIcon = Instantiate(ToSpawnObject[0]);
+        ToSetAltarIcon.transform.position = new Vector3(0, 1.5f, 0);
+        GameObject ToSetTokenIcon = Instantiate(ToSpawnObject[1]);
+        ToSetTokenIcon.transform.position = new Vector3(-5f + (ToSetTokenIcon.GetComponent<Token>().currentID - 20000)*1f, -4.45f, 0);
+        ToSpawnObject[0] = null;
+        ToSpawnObject[1] = null;
+        ReadyButton.SetActive(true);
     }
 }

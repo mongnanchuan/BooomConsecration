@@ -43,7 +43,7 @@ public class Altar : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-        if (lm.Preparing && !isFinished)
+        if (lm.Preparing && !isFinished && lm.Selecting == 0)
         {
             isDragging = true;
             InfoCanvas.SetActive(false);
@@ -97,12 +97,12 @@ public class Altar : MonoBehaviour
         if(SkillIndex == 0)
         {
             SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£º\n" + skill.desc;
+            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£º\n" + skill.desc + "\n" + "ÀäÈ´£º" + skill.cooldown;
         }
         else
         {
             SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
-            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£¨ÒÑÏ×¼À£©£º\n" + skill.desc;
+            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£¨ÒÑÏ×¼À£©£º\n" + skill.desc + "\n" + "ÀäÈ´£º" + skill.cooldown;
         }
     }
 
