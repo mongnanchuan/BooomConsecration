@@ -5,10 +5,11 @@ using DG.Tweening;
 
 public class WarningFlash : MonoBehaviour
 {
+    public Color EndColor;
     // Start is called before the first frame update
     void Start()
     {
-        DOVirtual.Color(new Color(1f, 1f, 1f, 0.8f), new Color(1f, 0f, 0f, 0.8f), 0.4f, c =>
+        DOVirtual.Color(new Color(1f, 1f, 1f, 0.8f), EndColor, 0.4f, c =>
         {
             GetComponent<SpriteRenderer>().material.color = c;
         }).SetLoops(-1, LoopType.Yoyo);

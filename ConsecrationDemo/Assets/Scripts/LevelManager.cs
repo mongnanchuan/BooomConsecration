@@ -58,14 +58,14 @@ public class LevelManager : MonoBehaviour
     //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
-        Preparing = false;
-        cm.isInPlayerTurn = true;
         foreach (GameObject altarIconObject in targetAltarIcon)
         {
             Altar al = altarIconObject.GetComponent<Altar>();
             if(al.index_before < 0)
             {
-                altarIconObject.SetActive(false);
+                //altarIconObject.SetActive(false);
+                //提升需要放置所有祭坛
+                return;
             }
             else
             {
@@ -92,6 +92,8 @@ public class LevelManager : MonoBehaviour
         {
             prepareObject.SetActive(false);
         }
+        Preparing = false;
+        cm.isInPlayerTurn = true;
         MonsterManager.Instance.MonsterGroupInit(levelID);
         PlayerPosReport.Instance.attr.healthInit();
     }
