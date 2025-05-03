@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30946010113843785}
   - component: {fileID: 8804881815900871700}
+  - component: {fileID: 8909697972211580469}
   m_Layer: 0
   m_Name: WarningZone1
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2476, y: 0.2254, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: -2080913039
   m_SortingLayer: 1
   m_SortingOrder: -10
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.23529412}
+  m_Sprite: {fileID: 21300000, guid: 0b0a02ed0e3a6dd4fac44bb4d2182835, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8909697972211580469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6290190793203408592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12823483e3be60042a0805345c0f52af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
