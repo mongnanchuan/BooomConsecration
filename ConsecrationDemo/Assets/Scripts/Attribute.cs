@@ -262,7 +262,7 @@ public class Attribute : MonoBehaviour
         }
         else
         {
-            //”Œœ∑ ß∞‹ΩÁ√Ê
+            StartCoroutine(DieAnimPlayer());
         }
         
     }
@@ -277,5 +277,13 @@ public class Attribute : MonoBehaviour
         scar.Add(PosNow);
         PlayerPosReport.Instance.GetComponent<PlayerManager>().Sacrifice(out int temp, scar);
         Destroy(gameObject);
+    }
+
+    public IEnumerator DieAnimPlayer()
+    {
+        yield return new WaitForSeconds(0.6f);
+        BodyAnim.SetTrigger("Die");
+        yield return new WaitForSeconds(1f);
+        LevelManager.Instance.GameDefeat();
     }
 }

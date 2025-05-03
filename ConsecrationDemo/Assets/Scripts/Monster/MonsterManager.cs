@@ -90,7 +90,8 @@ public class MonsterManager : MonoBehaviour
         {
             if(LevelManager.Instance.levelID == 80008)
             {
-                Debug.Log("ÓÎÏ·Ê¤Àû£¡");
+                LevelManager.Instance.GameVictory();
+                return;
             }
             LevelManager.Instance.PrepareLevel();
             LevelManager.Instance.levelID += 1;

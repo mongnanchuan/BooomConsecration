@@ -44,6 +44,9 @@ public class LevelManager : MonoBehaviour
     GameObject[] targetButton;
     private GameObject[] ToSpawnObject = new GameObject[2];
 
+    public GameObject defeatPanel;
+    public GameObject victoryPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -245,5 +248,17 @@ public class LevelManager : MonoBehaviour
         ToSpawnObject[0] = null;
         ToSpawnObject[1] = null;
         ReadyButton.SetActive(true);
+    }
+
+    public void GameDefeat()
+    {
+        cm.isInPlayerTurn = false;
+        defeatPanel.SetActive(true);
+    }
+
+    public void GameVictory()
+    {
+        cm.isInPlayerTurn = false;
+        victoryPanel.SetActive(true);
     }
 }
