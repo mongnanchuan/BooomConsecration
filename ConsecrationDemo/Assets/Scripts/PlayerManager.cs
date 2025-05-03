@@ -28,11 +28,15 @@ public class PlayerManager : MonoBehaviour
     public Vector2 shootOffect;
     public int SacrificeTimes = 0;
 
-    void Start()
+    private void Awake()
     {
         attr = GetComponent<Attribute>();
-        PlayerTf = GetComponent<Transform>();
         BodyObject = transform.Find("Body")?.gameObject;
+    }
+
+    void Start()
+    {
+        PlayerTf = GetComponent<Transform>();
         lm = System.GetComponent<LevelManager>();
         cm = System.GetComponent<CombatManager>();
         GetComponent<Attribute>().PosNow = 4;
@@ -382,6 +386,14 @@ public class PlayerManager : MonoBehaviour
         }, effect => StartCoroutine(AddEffectAndHandle(effect)))); // 确保使用 StartCoroutine 来传递自身
         // 等待效果处理完成
         yield return new WaitUntil(() => isEffectHandled);
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = new Vector2(0f, 0.2f);
+        BodyObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        isToRight = true;
+        attr.PosNow = 4;
     }
 
 }

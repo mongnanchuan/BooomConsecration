@@ -24,6 +24,7 @@ public class Altar : MonoBehaviour
     public GameObject CDText;
     public Sprite GodImage;
     private Text DescribeText;
+    private Text TitleText;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +40,8 @@ public class Altar : MonoBehaviour
         CD = 0;
         string imagePath = "Gods/" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "god";
         GodImage = Resources.Load(imagePath, typeof(Sprite)) as Sprite ;
-        DescribeText = transform.Find("Canvas/Image/Text (Legacy)")?.gameObject.GetComponent<Text>();
+        DescribeText = transform.Find("Canvas/Image/Text")?.gameObject.GetComponent<Text>();
+        TitleText = transform.Find("Canvas/Image/Name")?.gameObject.GetComponent<Text>();
     }
     private void OnMouseDrag()
     {
@@ -97,12 +99,14 @@ public class Altar : MonoBehaviour
         if(SkillIndex == 0)
         {
             SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
-            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£∫\n" + skill.desc + "\n" + "¿‰»¥£∫" + skill.cooldown;
+            DescribeText.text = skill.desc + "\n\n" + "¿‰»¥£∫ " + skill.cooldown;
+            TitleText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name;
         }
         else
         {
             SkillsConfig skill = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
-            DescribeText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "£®“—œ◊º¿£©£∫\n" + skill.desc + "\n" + "¿‰»¥£∫" + skill.cooldown;
+            DescribeText.text = "“—œ◊º¿£∫\n" + skill.desc + "\n\n" + "¿‰»¥£∫ " + skill.cooldown;
+            TitleText.text = ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name;
         }
     }
 

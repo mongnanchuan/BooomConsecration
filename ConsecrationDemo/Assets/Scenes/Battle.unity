@@ -353,13 +353,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  levelID: 555
+  levelID: 80001
   Selecting: 0
   SelectPrefab: {fileID: 7640104865201285595, guid: 17f4a281fd3eb264586902b292e902bd, type: 3}
   Preparing: 0
   ConfirmSelectButton: {fileID: 45888726}
   ReadyButton: {fileID: 2127392715}
   Title: {fileID: 481098730}
+  HPManager: {fileID: 1176586429}
   SelectIndex: 0
   AllTokenIcons:
   - {fileID: 6456913008620078788, guid: 4c187698cdf4578438b95af66cace9a6, type: 3}
@@ -371,7 +372,6 @@ MonoBehaviour:
   - {fileID: 6456913008620078788, guid: 615b5217be441544f9e4f016a4f3bb61, type: 3}
   - {fileID: 6456913008620078788, guid: d6db59b89c7bd284e97954ef5ff727bb, type: 3}
   - {fileID: 6456913008620078788, guid: e4c62b53b28aa0f429db355a0ac218ef, type: 3}
-  - {fileID: 6456913008620078788, guid: f81fc6fa31147584ead15c5f1eae113e, type: 3}
   AllAltarIcons:
   - {fileID: 867915268697680545, guid: 2b7ecc9007d9d1942b4ab3f1fcb91311, type: 3}
   - {fileID: 867915268697680545, guid: 4ef8df1748be34c4faf363791e02a2e2, type: 3}
@@ -5767,6 +5767,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1176586429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7793505169303691907, guid: 209d96e7e6c97e04b8920955a208a28e, type: 3}
+  m_PrefabInstance: {fileID: 1189398138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1189398138
 PrefabInstance:
   m_ObjectHideFlags: 0

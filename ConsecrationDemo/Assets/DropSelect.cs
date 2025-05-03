@@ -10,6 +10,7 @@ public class DropSelect : MonoBehaviour
     public GameObject PrefabObject;
     private Image Icon;
     private Text Text;
+    private Text Title;
     public LevelManager lm;
     // Start is called before the first frame update
     void Start()
@@ -17,21 +18,23 @@ public class DropSelect : MonoBehaviour
         lm = GameObject.Find("EventSystem").GetComponent<LevelManager>();
         Icon = transform.Find("Image")?.gameObject.GetComponent<Image>();
         Text = transform.Find("Text")?.gameObject.GetComponent<Text>();
+        Title = transform.Find("Title")?.gameObject.GetComponent<Text>();
         Icon.sprite = PrefabObject.GetComponent<SpriteRenderer>().sprite;
         if (dropType == 1)
         {
             AltarsConfig altar = ConfigManager.Instance.GetConfig<AltarsConfig>(PrefabObject.GetComponent<Altar>().currentID);
             SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(altar.Skill1);
             SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(altar.Skill1);
-            Text.text = altar.name + "£º\n"
-                + skill1.desc + "\n\n"
+            Title.text = altar.name;
+            Text.text = skill1.desc + "\n\n"
                 + "Ï×¼Àºó£º" + skill2.desc + "\n\n"
                 + "ÀäÈ´£º" + skill1.cooldown;
         }
         else if (dropType == 2)
         {
             TokensConfig token = ConfigManager.Instance.GetConfig<TokensConfig>(PrefabObject.GetComponent<Token>().currentID);
-            Text.text = token.name + "£º\n" + token.desc;
+            Title.text = token.name;
+            Text.text = token.desc;
         }
     }
 

@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
     public GameObject ConfirmSelectButton;
     public GameObject ReadyButton;
     public GameObject Title;
+    public GameObject HPManager;
     public int SelectIndex = 0;
     public List<GameObject> AllTokenIcons = new List<GameObject>();
     public List<GameObject> AllAltarIcons = new List<GameObject>();
@@ -121,6 +122,8 @@ public class LevelManager : MonoBehaviour
     {
         Title.GetComponent<Text>().text = "选择你的战利品";
         Preparing = true;
+        cm.Player.GetComponent<PlayerManager>().ResetPlayer();
+        HPManager.SetActive(false);
         foreach (GameObject combatObject in targetCombat)
         {
             combatObject.SetActive(false);
@@ -130,12 +133,14 @@ public class LevelManager : MonoBehaviour
             buttonObject.SetActive(false);
         }
         ShowAltarDrop();
+        
         //levelID++;
     }
     //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
         ReadyButton.SetActive(false);
+        HPManager.SetActive(true);
         foreach (GameObject altarIconObject in targetAltarIcon)
         {
             Altar al = altarIconObject.GetComponent<Altar>();
@@ -178,8 +183,10 @@ public class LevelManager : MonoBehaviour
 
     public void AltarAndTokenReset()
     {
-        NotUseAltarIcons = AllAltarIcons;
-        NotUseTokenIcons = AllTokenIcons;
+        NotUseAltarIcons.Clear();
+        AllAltarIcons.ForEach(i => NotUseAltarIcons.Add(i));
+        NotUseTokenIcons.Clear();
+        AllTokenIcons.ForEach(i => NotUseTokenIcons.Add(i));
     }
 
     public void OnComfirmSelect()
@@ -204,7 +211,19 @@ public class LevelManager : MonoBehaviour
                     SelectIndex = 0;
                     ShowInstance();
                 }
-                break;
+            }
+            //把没选的放回池子
+            else
+            {
+                ToSpawn = select.GetComponent<DropSelect>().PrefabObject;
+                if (ToSpawn.CompareTag("AltarIcon"))
+                {
+                    NotUseAltarIcons.Add(ToSpawn);
+                }
+                else if (ToSpawn.CompareTag("TokenIcon"))
+                {
+                    NotUseTokenIcons.Add(ToSpawn);
+                }
             }
         }
     }
