@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviour
                     
                 }
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 isDoing = true;
                 anim.SetTrigger("Attack");
