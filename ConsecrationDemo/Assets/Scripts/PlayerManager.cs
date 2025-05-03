@@ -86,6 +86,8 @@ public class PlayerManager : MonoBehaviour
             {
                 isDoing = true;
                 anim.SetTrigger("Attack");
+                //Ãÿ–ß≤‚ ‘
+                //cm.ShowFX(2, attr.PosNow + 1);
                 StartCoroutine(UseSkill(10000));
             }
             if (Input.GetKeyDown(KeyCode.Space))

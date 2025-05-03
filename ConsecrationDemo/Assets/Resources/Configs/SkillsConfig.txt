@@ -80,7 +80,7 @@
   "10007": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "勾结",
-    "desc": "血祭前方1格的技能",
+    "desc": "献祭前方1格的技能",
     "cooldown": 4,
     "damage": 0,
     "range": 1,
@@ -91,7 +91,7 @@
   "10008": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "勾结",
-    "desc": "血祭相邻1格的2个技能",
+    "desc": "献祭相邻1格的2个技能",
     "cooldown": 4,
     "damage": 0,
     "range": 1,

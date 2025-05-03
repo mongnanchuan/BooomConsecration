@@ -13,6 +13,7 @@ public class CombatManager : MonoBehaviour
     private LevelManager lm;
     // Start is called before the first frame update
     public Attribute attr;
+    public GameObject[] FX;
     void Start()
     {
         lm = GetComponent<LevelManager>();
@@ -65,6 +66,13 @@ public class CombatManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ShowFX(int type, int targetPos)
+    {
+        //type:1-¼ÀÌ³¹¥»÷ 2-Boss¼¼ÄÜ 3-Íæ¼Ò¹¥»÷
+        GameObject SetFX = Instantiate(FX[type]);
+        SetFX.transform.position = SwitchPos.IntToVector2(targetPos) + new Vector2(0, 0.7f);
     }
 
 }

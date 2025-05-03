@@ -285,6 +285,10 @@ MonoBehaviour:
   isInPlayerTurn: 0
   Player: {fileID: 1359954261}
   attr: {fileID: 0}
+  FX:
+  - {fileID: 1216502132209632, guid: a78bef93b41feb94e8ed5c670eb07427, type: 3}
+  - {fileID: 1854899779442152, guid: 5848d6535d700e348932df2c9eeefaf0, type: 3}
+  - {fileID: 1636871764186634, guid: 02348322203fa7b4db671ef8f3a32133, type: 3}
 --- !u!114 &14139764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6080,6 +6084,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   useDefeat: 0
   shootOffect: {x: 0, y: 1.1}
+  SacrificeTimes: 0
 --- !u!114 &1359954266
 MonoBehaviour:
   m_ObjectHideFlags: 0
