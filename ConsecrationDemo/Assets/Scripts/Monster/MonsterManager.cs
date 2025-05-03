@@ -25,6 +25,10 @@ public class MonsterManager : MonoBehaviour
         Instance = this;
     }
 
+    public Transform summonGroup;
+    public GameObject summonPrefab;
+    public bool isShowing = false;
+
     public int levelID;
     public List<int[]> monsterGroupIDs;//关卡表中的3波怪物ID
     public List<int[]> monsterGroupPoss;//关卡表中的3波怪物位置
@@ -70,7 +74,7 @@ public class MonsterManager : MonoBehaviour
 
         SetSummonMonsters(monsterGroupIDs[currentGroupCount].ToList(), monsterGroupPoss[currentGroupCount].ToList());
         currentGroupCount++;
-        SetNewMonsters();
+        SetNewMonsters(false);
     }
 
     public void SetSummonMonsters(List<int> monsG,List<int> posG)
@@ -79,54 +83,82 @@ public class MonsterManager : MonoBehaviour
         currrentGroupPos = posG;
     }
 
-    public void TimeToNewMonsterGroup()
+    public void TimeToNewMonsterGroup(bool isShow)
     {
         // TODO: 实现刷怪提示,实现延迟1回合
-        if (currentGroupCount >= 3)
+        if (currentGroupCount >= 3 || monsterGroupIDs[currentGroupCount][0] == 0)
         {
-            Debug.Log("怪刷完了要赢了");
+            if(LevelManager.Instance.levelID == 80008)
+            {
+                Debug.Log("游戏胜利！");
+            }
+            LevelManager.Instance.PrepareLevel();
+            LevelManager.Instance.levelID += 1;
             return;
         }
         SetSummonMonsters(monsterGroupIDs[currentGroupCount].ToList(), monsterGroupPoss[currentGroupCount].ToList());
         currentGroupCount++;
-        SetNewMonsters();
+        SetNewMonsters(isShow);
     }
 
-    public void SetNewMonsters()
+    public void SetNewMonsters(bool isShow)
     {
-        int playerPos = PlayerPosReport.Instance.GetPlayerPos();
-        for (int i = 0; i < currentGroupID.Count; i++)
+        if (!isShow)
         {
-            int monsterID = currentGroupID[i];
-            int monsterPos_TempNum = currrentGroupPos[i];
+            isShowing = false;
+            for (int j = 0; j < summonGroup.childCount; j++)
+            {
+                Destroy(summonGroup.GetChild(j).gameObject);
+            }
+            int playerPos = PlayerPosReport.Instance.GetPlayerPos();
+            for (int i = 0; i < currentGroupID.Count; i++)
+            {
 
-            //Debug.Log(monsterID);
-            HashSet<int> currentPosNum = new(currentMonstersData.Values.Select(pos => pos.Item1)); 
-            currentPosNum.Add(playerPos);
-            int monsterPos_Num = FindClosestPos(monsterPos_TempNum, 9, currentPosNum);
+                int monsterID = currentGroupID[i];
+                int monsterPos_TempNum = currrentGroupPos[i];
 
-            if (monsterPos_Num == -1)
-                return;
+                //Debug.Log(monsterID);
+                HashSet<int> currentPosNum = new(currentMonstersData.Values.Select(pos => pos.Item1));
+                currentPosNum.Add(playerPos);
+                int monsterPos_Num = FindClosestPos(monsterPos_TempNum, 9, currentPosNum);
 
-            GameObject prefab = Resources.Load<GameObject>($"Monsters/Monster{monsterID}");
-            GameObject monster = GameObject.Instantiate(prefab, transform);
+                if (monsterPos_Num == -1)
+                    return;
 
-            MonsterBase tempBase = monster.GetComponent<MonsterBase>();
-            tempBase.Init();
-            tempBase.attribute.MoveNewPos(monsterPos_Num);
-            tempBase.attribute.healthInit();//初始化血条
-            tempBase.OnPosSetted += RecordingPosChange;
-            if (monsterPos_Num < playerPos)
-                tempBase.isToRight = true;
-            else
-                tempBase.isToRight = false;
-            tempBase.SetDir();
+                GameObject prefab = Resources.Load<GameObject>($"Monsters/Monster{monsterID}");
+                GameObject monster = GameObject.Instantiate(prefab, transform);
 
-            currentMonstersData.Add(count, (monsterPos_Num,monster));
-            monster.GetComponent<MonsterBase>().count = count;
-            monster.GetComponent<MonsterBase>().currentPos = monsterPos_Num;
-            count++;
+                MonsterBase tempBase = monster.GetComponent<MonsterBase>();
+                tempBase.Init();
+                tempBase.attribute.MoveNewPos(monsterPos_Num);
+                tempBase.attribute.healthInit();//初始化血条
+                tempBase.OnPosSetted += RecordingPosChange;
+                if (monsterPos_Num < playerPos)
+                    tempBase.isToRight = true;
+                else
+                    tempBase.isToRight = false;
+                tempBase.SetDir();
+
+                currentMonstersData.Add(count, (monsterPos_Num, monster));
+                monster.GetComponent<MonsterBase>().count = count;
+                monster.GetComponent<MonsterBase>().currentPos = monsterPos_Num;
+                count++;
+
+                //开始玩家回合
+                OnPlayerTurnStart?.Invoke();
+            }
         }
+        else
+        {
+            for (int i = 0; i < currentGroupID.Count; i++)
+            {
+                int tempNum = currrentGroupPos[i];
+                GameObject summon = GameObject.Instantiate(summonPrefab, summonGroup);
+                summon.transform.position = SwitchPos.IntToVector2(tempNum);
+                isShowing = true;
+            }
+        }
+       
     }
 
     private void RecordingPosChange(int monsCount, int newPos)
@@ -168,8 +200,8 @@ public class MonsterManager : MonoBehaviour
             }
         }
 
-        if (currentMonstersData.Count <= 0)
-            TimeToNewMonsterGroup();
+        if (currentMonstersData.Count <= 0 && isShowing == false)
+            TimeToNewMonsterGroup(true);
 
         yield return new WaitForSeconds(0.1f);
         //开始玩家回合

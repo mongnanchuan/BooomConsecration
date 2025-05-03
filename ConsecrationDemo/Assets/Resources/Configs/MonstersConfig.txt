@@ -1,5 +1,16 @@
 {
   "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
+  "90000": {
+    "$type": "MonstersConfig, Assembly-CSharp",
+    "name": "新手三角头",
+    "hp": 3,
+    "skillGroup": [
+      9000001
+    ],
+    "moveType": 0,
+    "image": "0",
+    "id": 90000
+  },
   "90001": {
     "$type": "MonstersConfig, Assembly-CSharp",
     "name": "恐怖三角头",
@@ -47,7 +58,7 @@
   "90005": {
     "$type": "MonstersConfig, Assembly-CSharp",
     "name": "天使像",
-    "hp": 5,
+    "hp": 10,
     "skillGroup": [
       9000501,
       9000502,
@@ -57,5 +68,19 @@
     "moveType": 0,
     "image": "0",
     "id": 90005
+  },
+  "90006": {
+    "$type": "MonstersConfig, Assembly-CSharp",
+    "name": "腐化天使像",
+    "hp": 10,
+    "skillGroup": [
+      9000601,
+      9000602,
+      9000603,
+      9000604
+    ],
+    "moveType": 0,
+    "image": "0",
+    "id": 90006
   }
 }

@@ -1,6 +1,6 @@
 {
   "$type": "System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[BaseConfig, Assembly-CSharp]], mscorlib",
-  "9000101": {
+  "9000001": {
     "$type": "MonsterSkillsConfig, Assembly-CSharp",
     "name": "打击",
     "desc": "对前方1格造成2点伤害",
@@ -8,6 +8,19 @@
     "attactType": 1,
     "rangeDir": 1,
     "rangePar": 1,
+    "posPar": [
+      0
+    ],
+    "id": 9000001
+  },
+  "9000101": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "打击",
+    "desc": "对前方2格造成2点伤害",
+    "attact": 2,
+    "attactType": 1,
+    "rangeDir": 1,
+    "rangePar": 2,
     "posPar": [
       0
     ],
@@ -68,33 +81,26 @@
   "9000502": {
     "$type": "MonsterSkillsConfig, Assembly-CSharp",
     "name": "圣光普渡1",
-    "desc": "对0/2/4/6/8造成3点伤害",
+    "desc": "对目标目前所在位置造成3点伤害",
     "attact": 3,
     "attactType": 2,
     "rangeDir": 0,
     "rangePar": 0,
     "posPar": [
-      0,
-      2,
-      4,
-      6,
-      8
+      -1
     ],
     "id": 9000502
   },
   "9000503": {
     "$type": "MonsterSkillsConfig, Assembly-CSharp",
-    "name": "圣光普渡2",
-    "desc": "对1/3/5/7造成3点伤害",
+    "name": "射击",
+    "desc": "向前射出能量，对第一个单位造成3点伤害",
     "attact": 3,
-    "attactType": 2,
+    "attactType": 4,
     "rangeDir": 0,
     "rangePar": 0,
     "posPar": [
-      1,
-      3,
-      5,
-      7
+      0
     ],
     "id": 9000503
   },
@@ -110,5 +116,64 @@
       0
     ],
     "id": 9000504
+  },
+  "9000601": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "退却",
+    "desc": "对相邻2格造成3点伤害并击退1格",
+    "attact": 3,
+    "attactType": 1,
+    "rangeDir": 2,
+    "rangePar": 2,
+    "posPar": [
+      0
+    ],
+    "id": 9000601
+  },
+  "9000602": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "圣光普渡1",
+    "desc": "对0/2/4/6/8造成3点伤害",
+    "attact": 3,
+    "attactType": 2,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "posPar": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "id": 9000602
+  },
+  "9000603": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "圣光普渡2",
+    "desc": "对1/3/5/7造成3点伤害",
+    "attact": 3,
+    "attactType": 2,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "posPar": [
+      1,
+      3,
+      5,
+      7
+    ],
+    "id": 9000603
+  },
+  "9000604": {
+    "$type": "MonsterSkillsConfig, Assembly-CSharp",
+    "name": "召唤新怪物",
+    "desc": "在随机位置召唤2个小怪",
+    "attact": 0,
+    "attactType": 0,
+    "rangeDir": 0,
+    "rangePar": 0,
+    "posPar": [
+      0
+    ],
+    "id": 9000604
   }
 }

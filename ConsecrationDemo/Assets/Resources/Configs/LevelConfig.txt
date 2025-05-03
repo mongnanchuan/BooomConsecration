@@ -70,76 +70,252 @@
     "group3Pos": null,
     "id": 555
   },
-  "80000": {
+  "80001": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90000,
+      90000,
+      90000
+    ],
+    "group1Pos": [
+      1,
+      6,
+      8
+    ],
+    "group2ID": [
+      90000,
+      90000,
+      90000
+    ],
+    "group2Pos": [
+      2,
+      5,
+      8
+    ],
+    "group3ID": [
+      0
+    ],
+    "group3Pos": null,
+    "id": 80001
+  },
+  "80002": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90000,
+      90001,
+      90000
+    ],
+    "group1Pos": [
+      3,
+      7,
+      0
+    ],
+    "group2ID": [
+      90000,
+      90001,
+      90002
+    ],
+    "group2Pos": [
+      1,
+      7,
+      8
+    ],
+    "group3ID": [
+      0
+    ],
+    "group3Pos": null,
+    "id": 80002
+  },
+  "80003": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001,
+      90001,
+      90000
+    ],
+    "group1Pos": [
+      2,
+      6,
+      8
+    ],
+    "group2ID": [
+      90001,
+      90001,
+      90002
+    ],
+    "group2Pos": [
+      2,
+      6,
+      0
+    ],
+    "group3ID": [
+      0
+    ],
+    "group3Pos": null,
+    "id": 80003
+  },
+  "80004": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001,
+      90001,
+      90002
+    ],
+    "group1Pos": [
+      1,
+      6,
+      8
+    ],
+    "group2ID": [
+      90001,
+      90001,
+      90002,
+      90003
+    ],
+    "group2Pos": [
+      0,
+      2,
+      8,
+      7
+    ],
+    "group3ID": [
+      0
+    ],
+    "group3Pos": null,
+    "id": 80004
+  },
+  "80005": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001,
+      90002,
+      90003
+    ],
+    "group1Pos": [
+      7,
+      0,
+      2
+    ],
+    "group2ID": [
+      90001,
+      90002,
+      90003
+    ],
+    "group2Pos": [
+      4,
+      3,
+      8
+    ],
+    "group3ID": [
+      90001,
+      90002,
+      90003,
+      90003
+    ],
+    "group3Pos": [
+      4,
+      8,
+      1,
+      7
+    ],
+    "id": 80005
+  },
+  "80006": {
+    "$type": "LevelConfig, Assembly-CSharp",
+    "group1ID": [
+      90001,
+      90003,
+      90004
+    ],
+    "group1Pos": [
+      6,
+      2,
+      0
+    ],
+    "group2ID": [
+      90001,
+      90003,
+      90004,
+      90004
+    ],
+    "group2Pos": [
+      5,
+      2,
+      0,
+      8
+    ],
+    "group3ID": [
+      90001,
+      90003,
+      90004,
+      90004
+    ],
+    "group3Pos": [
+      4,
+      8,
+      1,
+      7
+    ],
+    "id": 80006
+  },
+  "80007": {
     "$type": "LevelConfig, Assembly-CSharp",
     "group1ID": [
       90001,
       90002,
       90003,
-      90004,
-      90005
+      90004
     ],
     "group1Pos": [
-      0,
+      4,
       8,
-      1,
       2,
-      3
+      6
     ],
     "group2ID": [
       90001,
-      90001,
-      90001
+      90002,
+      90003,
+      90004
     ],
     "group2Pos": [
+      3,
       0,
-      4,
+      6,
       8
     ],
     "group3ID": [
       90001,
-      90001,
-      90001
+      90002,
+      90003,
+      90004
     ],
     "group3Pos": [
-      0,
+      6,
+      1,
       4,
       8
     ],
-    "id": 80000
+    "id": 80007
   },
-  "80001": {
+  "80008": {
     "$type": "LevelConfig, Assembly-CSharp",
     "group1ID": [
+      90005,
       90001,
-      90002,
-      90003
+      90004
     ],
     "group1Pos": [
-      0,
-      4,
+      6,
+      2,
       8
     ],
     "group2ID": [
-      90001,
-      90002,
-      90003
+      0
     ],
-    "group2Pos": [
-      0,
-      4,
-      8
-    ],
-    "group3ID": [
-      90001,
-      90002,
-      90003
-    ],
-    "group3Pos": [
-      0,
-      4,
-      8
-    ],
-    "id": 80001
+    "group2Pos": null,
+    "group3ID": null,
+    "group3Pos": null,
+    "id": 80008
   }
 }

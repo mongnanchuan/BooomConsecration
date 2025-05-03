@@ -12,7 +12,7 @@ public class Skill10000 : SkillBase
 
     public override void Init()
     {
-        skill = ConfigManager.Instance.GetConfig<SkillsConfig>(10001);
+        skill = ConfigManager.Instance.GetConfig<SkillsConfig>(10000);
     }
     public override List<Effect> GetEffects()
     {
@@ -38,6 +38,7 @@ public class Skill10000 : SkillBase
                 damage = skill.damage
             };
             effects.Add(effect1);
+            Debug.Log(skill.damage);
         }
 
         return effects;

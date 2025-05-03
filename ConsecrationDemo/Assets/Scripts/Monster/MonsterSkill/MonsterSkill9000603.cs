@@ -1,35 +1,34 @@
 
     using System.Collections.Generic;
-using UnityEngine;
-
-public class MonsterSkill9000502 : MonsterSkillBase
+    public class MonsterSkill9000603 : MonsterSkillBase
 {
-    //对目标目前所在位置造成2点伤害
-    static MonsterSkill9000502()
+    //对1/3/5/7造成3点伤害
+    static MonsterSkill9000603()
     {
-        SkillFactory.Register(9000502, typeof(MonsterSkill9000502));
+        SkillFactory.Register(9000603, typeof(MonsterSkill9000603));
     }
 
     public override void Init()
     {
-        monsterSkill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(9000502);
+        monsterSkill = ConfigManager.Instance.GetConfig<MonsterSkillsConfig>(9000603);
     }
 
     public override List<Effect> GetEffects(MonsterBase mons)
     {
         List<Effect> effects = new List<Effect>();
         List<int> area = new List<int>();
-        area.Add(mons.posAddjust);
+
+        for (int i = 0; i < monsterSkill.posPar.Length; i++)
+        {
+            area.Add(monsterSkill.posPar[i]);
+        }
 
         List<Attribute> getHurt = GetRoleInArea(area);
 
         foreach (var attr in getHurt)
         {
-            if(mons.GetComponent<Attribute>() == attr)
-            {
-                Debug.Log("打自己怪怪的");
-                return effects;
-            }
+            if (attr == mons.GetComponent<Attribute>())
+                continue;
             Effect effect1 = new Effect()
             {
                 type = Effect_Type.MakeDamage,
@@ -39,7 +38,6 @@ public class MonsterSkill9000502 : MonsterSkillBase
             };
             effects.Add(effect1);
         }
-
         return effects;
     }
 

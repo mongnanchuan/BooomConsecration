@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8265745850279499822}
   - component: {fileID: 8945254518136595835}
-  - component: {fileID: 5094934084756531102}
+  - component: {fileID: 8065998198304000734}
   m_Layer: 0
-  m_Name: Monster90001
+  m_Name: Monster90000
   m_TagString: Combat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   additionalTurn: 0
   BodyAnim: {fileID: 0}
   isDead: 0
---- !u!114 &5094934084756531102
+--- !u!114 &8065998198304000734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1647861418932213703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3423912a94b8b4e819cbc4fa5537f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c4d8337223be7140bc464a938cf2fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attribute: {fileID: 0}

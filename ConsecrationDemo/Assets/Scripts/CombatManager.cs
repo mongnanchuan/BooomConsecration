@@ -44,7 +44,16 @@ public class CombatManager : MonoBehaviour
                 isInPlayerTurn = false;
                 CDUpdate();
             yield return new WaitForSeconds(0.5f);
-            MonsterManager.Instance.StartMonsterTurn(PlayerPosReport.Instance.GetPlayerPos());
+
+            if(MonsterManager.Instance.isShowing)
+            {
+                MonsterManager.Instance.SetNewMonsters(false);
+            }
+            else
+            {
+                MonsterManager.Instance.StartMonsterTurn(PlayerPosReport.Instance.GetPlayerPos());
+            }
+
         }
     }
 

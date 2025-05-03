@@ -162,7 +162,8 @@ public class MonsterBase : MonoBehaviour
                     ReadyToUseSkill(currentSkillID, playerPos);
                     yield break;
                 case 0:
-                    ReadyToUseSkill(currentSkillID, playerPos);
+                    isOnUse = true;
+                    StartCoroutine(HandleTurnWithEffect(playerPos));
                     yield break;
                 default:
                     break;
