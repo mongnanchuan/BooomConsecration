@@ -43,7 +43,7 @@ public class Altar : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-        if (!isFinished)
+        if (lm.Preparing && !isFinished)
         {
             isDragging = true;
             InfoCanvas.SetActive(false);

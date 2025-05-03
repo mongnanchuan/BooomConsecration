@@ -35,7 +35,7 @@ public class Token : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-        if (!isFinished)
+        if (lm.Preparing && !isFinished)
         {
             isDragging = true;
             InfoCanvas.SetActive(false);
