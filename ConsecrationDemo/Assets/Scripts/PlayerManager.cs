@@ -315,11 +315,15 @@ public class PlayerManager : MonoBehaviour
                         if (item == null)
                             continue;
 
-                        if (item.GetComponent<Altar>().CD != 0)
+                        if (item.GetComponent<Altar>().CD != 0 && item.GetComponent<Altar>()!= al)
                             tempAl.Add(item.GetComponent<Altar>());
                     }
-                    int ramdomNum = Random.Range(0, tempAl.Count);
-                    tempAl[ramdomNum].CD = 0;
+                    if(tempAl.Count != 0)
+                    {
+                        int ramdomNum = Random.Range(0, tempAl.Count);
+                        tempAl[ramdomNum].CD = 0;
+                    }
+                    
                 }
             }
                 
