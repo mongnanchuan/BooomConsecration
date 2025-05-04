@@ -10,7 +10,7 @@ public class AudioController : MonoBehaviour
     public Slider volumeSlider;
     private AudioSource audioSource;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }

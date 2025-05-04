@@ -67,8 +67,8 @@ public class LevelManager : MonoBehaviour
             TokenCorrectTrans[i] = TokenBlanks[i].transform;
         }
         AltarAndTokenReset();
-        acBGM.PlayBGM(0);
         PrepareLevel();
+        acBGM.PlayBGM(0);
     }
 
     // Update is called once per frame
