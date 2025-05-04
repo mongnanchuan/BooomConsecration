@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour
             selectButton.GetComponent<DropSelect>().dropType = 1;
             selectButton.GetComponent<DropSelect>().Index = i + 1;
             selectButton.GetComponent<DropSelect>().PrefabObject = NotUseAltarIcons[random];
-            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i*800, 30);
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i*800, 20);
             NotUseAltarIcons.RemoveAt(random);
             if(NotUseAltarIcons.Count == 0)
             {
@@ -111,7 +111,7 @@ public class LevelManager : MonoBehaviour
             selectButton.GetComponent<DropSelect>().dropType = 2;
             selectButton.GetComponent<DropSelect>().Index = i + 1;
             selectButton.GetComponent<DropSelect>().PrefabObject = NotUseTokenIcons[random];
-            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i * 800, 30);
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i * 800, 20);
             NotUseTokenIcons.RemoveAt(random);
             if (NotUseAltarIcons.Count == 0)
             {
