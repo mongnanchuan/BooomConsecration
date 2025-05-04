@@ -24,7 +24,7 @@ public class DropSelect : MonoBehaviour
         {
             AltarsConfig altar = ConfigManager.Instance.GetConfig<AltarsConfig>(PrefabObject.GetComponent<Altar>().currentID);
             SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(altar.Skill1);
-            SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(altar.Skill1);
+            SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(altar.Skill2);
             Title.text = altar.name;
             Text.text = skill1.desc + "\n\n"
                 + "Ï×¼Àºó£º" + skill2.desc + "\n\n"
