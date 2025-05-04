@@ -26,6 +26,8 @@ public class Skill10019 : SkillBase
             int tempM = taker.PosNow;
             int tempP = attrP.PosNow;
 
+            CombatManager.Instance.ShowFX(0, taker.PosNow);
+
             taker.PosNow = -1;
             attrP.PosNow = -1;
 
@@ -45,6 +47,7 @@ public class Skill10019 : SkillBase
                 portalMovePos = tempP
             };
             effects.Add(effect2);
+            
         }
         else
         {

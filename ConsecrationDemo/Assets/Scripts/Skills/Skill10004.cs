@@ -47,6 +47,19 @@ public class Skill10004 : SkillBase
                 forceMoveDis = dir ? 1 : -1
             };
             effects.Add(effect3);
+            CombatManager.Instance.ShowFX(0, taker.PosNow);
+        }
+        else
+        {
+            Effect effect2 = new Effect()
+            {
+                type = Effect_Type.ForceMove,
+                Taker = attrP,
+                Ganker = attrP,
+                forceMoveDis = dir ? 8 - attrP.PosNow : 0 - attrP.PosNow
+            };
+            effects.Add(effect2);
+            CombatManager.Instance.ShowFX(0, dir ? 8 : 0);
         }
 
         return effects;

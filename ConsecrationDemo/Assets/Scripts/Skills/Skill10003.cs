@@ -21,8 +21,9 @@ public class Skill10003 : SkillBase
         bool dir = attrP.GetComponent<PlayerManager>().isToRight;
         Attribute taker = GetFirstFaceRole(attrP.PosNow,dir);
 
-        if(taker != null)
+        if (taker != null)
         {
+
             Effect effect2 = new Effect()
             {
                 type = Effect_Type.ForceMove,
@@ -39,6 +40,19 @@ public class Skill10003 : SkillBase
                 damage = skill.damage
             };
             effects.Add(effect1);
+            CombatManager.Instance.ShowFX(0, taker.PosNow);
+        }
+        else
+        {
+            Effect effect2 = new Effect()
+            {
+                type = Effect_Type.ForceMove,
+                Taker = attrP,
+                Ganker = attrP,
+                forceMoveDis = dir ? 8-attrP.PosNow : 0-attrP.PosNow
+            };
+            effects.Add(effect2);
+            CombatManager.Instance.ShowFX(0, dir?8:0);
         }
 
         return effects;

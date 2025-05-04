@@ -60,6 +60,7 @@ public class Skill10016 : SkillBase
                 //forceMoveDis = attrP.PosNow - monsAttr.PosNow
             };
             effects.Add(effect3);
+            CombatManager.Instance.ShowFX(0, monsAttr.PosNow);
         }
         return effects;
     }

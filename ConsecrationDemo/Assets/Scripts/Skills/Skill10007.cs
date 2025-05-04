@@ -28,6 +28,11 @@ public class Skill10007 : SkillBase
             area.Add(tempPos);
         }
 
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(0, pos);
+        }
+
         Effect effect1 = new Effect()
         {
             type = Effect_Type.Sacrificing,

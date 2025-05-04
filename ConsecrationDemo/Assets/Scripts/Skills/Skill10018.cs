@@ -44,6 +44,7 @@ public class Skill10018 : SkillBase
                     damage = skill.damage
                 };
                 effects.Add(effect1);
+                CombatManager.Instance.ShowFX(0, mons.PosNow);
             }
         }
 

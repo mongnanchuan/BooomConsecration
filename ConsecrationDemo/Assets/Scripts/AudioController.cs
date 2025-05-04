@@ -18,7 +18,7 @@ public class AudioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        audioSource.volume = volumeSlider.value;
+        audioSource.volume = volumeSlider.value*0.4f;
     }
 
     public void PlayBGM(int i)

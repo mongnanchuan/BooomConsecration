@@ -39,6 +39,7 @@ public class Skill10011 : SkillBase
             };
             effects.Add(effect1);
             attrP.additionalTurn += 1;
+            CombatManager.Instance.ShowFX(0, attrP.PosNow);
         }
 
         return effects;

@@ -51,6 +51,7 @@ public class Skill10015 : SkillBase
                 };
                 effects.Add(effect2);
             }
+            CombatManager.Instance.ShowFX(0, monsAttr.PosNow);
         }
         return effects;
     }

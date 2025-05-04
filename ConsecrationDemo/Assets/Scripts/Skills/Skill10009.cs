@@ -28,6 +28,11 @@ public class Skill10009 : SkillBase
         List<Attribute> taker = new List<Attribute>(); 
         taker = GetRoleInArea(area);
 
+        foreach (var pos in area)
+        {
+            CombatManager.Instance.ShowFX(0, pos);
+        }
+
         foreach (var attr in taker)
         {
             Effect effect1 = new Effect()
