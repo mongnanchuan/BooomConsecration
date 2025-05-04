@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -274,5 +275,13 @@ public class LevelManager : MonoBehaviour
     {
         cm.isInPlayerTurn = false;
         victoryPanel.SetActive(true);
+    }
+
+    public void BackToMenu()
+    {
+        //Scene scene = SceneManager.GetActiveScene();
+        //SceneManager.UnloadSceneAsync(scene);
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 }
