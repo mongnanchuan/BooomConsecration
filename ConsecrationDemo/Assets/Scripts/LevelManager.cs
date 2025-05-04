@@ -18,10 +18,12 @@ public class LevelManager : MonoBehaviour
     }
 
     public CombatManager cm;
-    public GameObject UICanvas;
+    public GameObject Selects;
     public GameObject[] AltarBlanks;
     public GameObject[] TokenBlanks;
     public GameObject[] AttackAlert;
+    public AudioController acBGM;
+    public AudioController acSound;
     public Transform[] AltarCorrectTrans = new Transform[9];
     public GameObject[] AltarIcons = new GameObject[9];
     public Transform[] TokenCorrectTrans = new Transform[9];
@@ -48,6 +50,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject defeatPanel;
     public GameObject victoryPanel;
+    public GameObject settingsPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,7 @@ public class LevelManager : MonoBehaviour
             TokenCorrectTrans[i] = TokenBlanks[i].transform;
         }
         AltarAndTokenReset();
+        acBGM.PlayBGM(0);
         PrepareLevel();
     }
 
@@ -86,11 +90,11 @@ public class LevelManager : MonoBehaviour
         for(int i = 0; i < 2; i++)
         {
             int random = Random.Range(0, NotUseAltarIcons.Count);
-            GameObject selectButton = Instantiate(SelectPrefab, UICanvas.transform);
+            GameObject selectButton = Instantiate(SelectPrefab, Selects.transform);
             selectButton.GetComponent<DropSelect>().dropType = 1;
             selectButton.GetComponent<DropSelect>().Index = i + 1;
             selectButton.GetComponent<DropSelect>().PrefabObject = NotUseAltarIcons[random];
-            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i*800, 20);
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i*800, 180);
             NotUseAltarIcons.RemoveAt(random);
             if(NotUseAltarIcons.Count == 0)
             {
@@ -110,11 +114,11 @@ public class LevelManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             int random = Random.Range(0, NotUseTokenIcons.Count);
-            GameObject selectButton = Instantiate(SelectPrefab, UICanvas.transform);
+            GameObject selectButton = Instantiate(SelectPrefab, Selects.transform);
             selectButton.GetComponent<DropSelect>().dropType = 2;
             selectButton.GetComponent<DropSelect>().Index = i + 1;
             selectButton.GetComponent<DropSelect>().PrefabObject = NotUseTokenIcons[random];
-            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i * 800, 20);
+            selectButton.GetComponent<RectTransform>().localPosition = new Vector2(-400 + i * 800, 180);
             NotUseTokenIcons.RemoveAt(random);
             if (NotUseAltarIcons.Count == 0)
             {
@@ -126,7 +130,7 @@ public class LevelManager : MonoBehaviour
     //准备阶段，供玩家选择掉落与排布祭坛
     public void PrepareLevel()
     {
-        Title.GetComponent<Text>().text = "选择你的战利品";
+        Title.GetComponent<Text>().text = "选择你的祭坛与信物";
         Preparing = true;
         cm.Player.GetComponent<PlayerManager>().ResetPlayer();
         HPManager.SetActive(false);
@@ -268,12 +272,14 @@ public class LevelManager : MonoBehaviour
     public void GameDefeat()
     {
         cm.isInPlayerTurn = false;
+        acBGM.PlayBGM(1);
         defeatPanel.SetActive(true);
     }
 
     public void GameVictory()
     {
         cm.isInPlayerTurn = false;
+        acBGM.PlayBGM(1);
         victoryPanel.SetActive(true);
     }
 
@@ -283,5 +289,18 @@ public class LevelManager : MonoBehaviour
         //SceneManager.UnloadSceneAsync(scene);
         Destroy(gameObject);
         SceneManager.LoadScene(0);
+    }
+
+    public void OpenSettings(bool isopen)
+    {
+        if(isopen)
+        {
+            settingsPanel.SetActive(true);
+        }
+        else
+        {
+            settingsPanel.SetActive(false);
+        }
+        
     }
 }

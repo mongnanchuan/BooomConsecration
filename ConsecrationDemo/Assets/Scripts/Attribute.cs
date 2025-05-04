@@ -25,12 +25,14 @@ public class Attribute : MonoBehaviour
     public Animator BodyAnim;
 
     public bool isDead = false;
+    public AudioController ac;
     
 
     // Start is called before the first frame update
     void Start()
     {
         BodyObject = transform.Find("Body")?.gameObject;
+        ac = GameObject.Find("Main Camera/AudioPlayerSound").GetComponent<AudioController>();
         BodyAnim = BodyObject.GetComponent<Animator>();
     }
 
@@ -92,6 +94,7 @@ public class Attribute : MonoBehaviour
                 {
                     BodyObject.transform.DOPunchPosition(0.5f * Vector3.right, 0.2f, 8, 1);
                 }
+                ac.PlaySound(0);
                 //BodyObject.transform.DOShakePosition(0.2f, 1f, 2, 50, true);
             }
 
