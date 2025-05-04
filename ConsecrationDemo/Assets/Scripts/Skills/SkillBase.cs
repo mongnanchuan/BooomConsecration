@@ -80,7 +80,7 @@ public class SkillBase
     {
         List<Effect> newEffects = original;
         Attribute attrP = PlayerPosReport.Instance.attr;
-
+        Debug.Log(original.Count);
         switch (tokenID)
         {
             case 20004:
@@ -94,8 +94,9 @@ public class SkillBase
                 newEffects.Add(tokenEffect);
                 break;
             case 20005:
-                if (original != null && original.Count == 0)
+                if (original != null && original.Count != 0)
                 {
+
                     foreach (var effect in newEffects)
                     {
                         if (effect.type == Effect_Type.MakeDamage)
