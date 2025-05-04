@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4337669458905870}
   - component: {fileID: 198323406464391526}
   - component: {fileID: 199462697259478556}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4920,7 +4920,7 @@ GameObject:
   - component: {fileID: 4123698657944752}
   - component: {fileID: 198676920809795104}
   - component: {fileID: 199436663503000748}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GlowSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9829,7 +9829,7 @@ GameObject:
   - component: {fileID: 4693128791739228}
   - component: {fileID: 198088438726855338}
   - component: {fileID: 199453536019640516}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14738,7 +14738,7 @@ GameObject:
   - component: {fileID: 4099633953400604}
   - component: {fileID: 198839303956438118}
   - component: {fileID: 199095082997249908}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19648,7 +19648,7 @@ GameObject:
   - component: {fileID: 198892079497799816}
   - component: {fileID: 199927180550488024}
   - component: {fileID: 518839756699326664}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BossAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

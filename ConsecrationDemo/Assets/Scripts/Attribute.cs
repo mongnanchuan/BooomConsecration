@@ -95,10 +95,10 @@ public class Attribute : MonoBehaviour
                 //BodyObject.transform.DOShakePosition(0.2f, 1f, 2, 50, true);
             }
 
-            if(GetComponent<MonsterBase>()!= null)
+/*            if(GetComponent<MonsterBase>()!= null)
             {
                 CombatManager.Instance.ShowFX(0, PosNow);
-            }
+            }*/
 
             int newVal = HP - num;
             if (newVal <= 0)

@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     GameObject[] targetPrepare;
     GameObject[] targetCombat;
     GameObject[] targetButton;
+    GameObject[] targetFloor;
     private GameObject[] ToSpawnObject = new GameObject[2];
 
     public GameObject defeatPanel;
@@ -51,10 +52,11 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         cm = GetComponent<CombatManager>();
-        targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
+        //targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
         targetPrepare = GameObject.FindGameObjectsWithTag("Prepare");
         targetCombat = GameObject.FindGameObjectsWithTag("Combat");
         targetButton = GameObject.FindGameObjectsWithTag("CombatButton");
+        targetFloor = GameObject.FindGameObjectsWithTag("Floor");
         for (int i = 0; i < 9; i++)
         {
             AltarCorrectTrans[i] = AltarBlanks[i].transform;
@@ -135,6 +137,15 @@ public class LevelManager : MonoBehaviour
         {
             buttonObject.SetActive(false);
         }
+        targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
+        //所有altar切回献祭前
+        foreach (GameObject altarIconObject in targetAltarIcon)
+        {
+            Altar al = altarIconObject.GetComponent<Altar>();
+            al.CD = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(al.currentID).Skill1).cooldown;
+            al.isFinished = false;
+            AltarBlanks[al.index_before].GetComponentInParent<FloorConfig>().BackToIcon(al);
+        }
         ShowAltarDrop();
         
         //levelID++;
@@ -142,8 +153,7 @@ public class LevelManager : MonoBehaviour
     //准备完毕，进入新关卡
     public void ReadyAndStart()
     {
-        ReadyButton.SetActive(false);
-        HPManager.SetActive(true);
+        targetAltarIcon = GameObject.FindGameObjectsWithTag("AltarIcon");
         foreach (GameObject altarIconObject in targetAltarIcon)
         {
             Altar al = altarIconObject.GetComponent<Altar>();
@@ -151,6 +161,7 @@ public class LevelManager : MonoBehaviour
             {
                 //altarIconObject.SetActive(false);
                 //提示需要放置所有祭坛
+                TipsManager.Instance.ShowTip("需将所有祭坛放置完毕");
                 return;
             }
             else
@@ -164,6 +175,7 @@ public class LevelManager : MonoBehaviour
                     al.tokenID = 0;
                 }
                 al.isFinished = true;
+                al.CD = 0;
             }
         }
         foreach (GameObject combatObject in targetCombat)
@@ -180,6 +192,8 @@ public class LevelManager : MonoBehaviour
         }
         Preparing = false;
         cm.isInPlayerTurn = true;
+        ReadyButton.SetActive(false);
+        HPManager.SetActive(true);
         MonsterManager.Instance.MonsterGroupInit(levelID);
         PlayerPosReport.Instance.attr.healthInit();
     }

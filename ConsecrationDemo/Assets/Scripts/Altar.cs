@@ -31,13 +31,14 @@ public class Altar : MonoBehaviour
     {
         startPos = transform.position;
         collider2D = GetComponent<Collider2D>();
-        InfoCanvas = transform.GetChild(0).gameObject;
+        //InfoCanvas = transform.GetChild(0).gameObject;
+        InfoCanvas = transform.Find("Canvas").gameObject;
         lm = GameObject.FindWithTag("System").GetComponent<LevelManager>();
         SkillsConfig skill1 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
         SkillsConfig skill2 = ConfigManager.Instance.GetConfig<SkillsConfig>(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
         Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill1);
         Skills.Add(ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).Skill2);
-        CD = 0;
+        CD = skill1.cooldown;
         string imagePath = "Gods/" + ConfigManager.Instance.GetConfig<AltarsConfig>(currentID).name + "god";
         GodImage = Resources.Load(imagePath, typeof(Sprite)) as Sprite ;
         DescribeText = transform.Find("Canvas/Image/Text")?.gameObject.GetComponent<Text>();
@@ -112,7 +113,7 @@ public class Altar : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!isDragging)
+        if (!isDragging && !lm.defeatPanel.activeSelf && !lm.victoryPanel.activeSelf)
         {
             InfoCanvas.SetActive(true);
         }
@@ -175,7 +176,7 @@ public class Altar : MonoBehaviour
 
     public void IntoCD()
     {
-        CD = ConfigManager.Instance.GetConfig<SkillsConfig>(Skills[SkillIndex]).cooldown;
+        CD = ConfigManager.Instance.GetConfig<SkillsConfig>(Skills[SkillIndex]).cooldown + 1;
         if (tokenID == 20001)
         {
             CD -= 1;

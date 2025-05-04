@@ -42,6 +42,8 @@ public class FloorConfig : MonoBehaviour
     {
         godObject.SetActive(false);
         altarObject.SetActive(true);
+        crackMaskObject.SetActive(false);
         targetAltar.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        targetAltar.SkillIndex = 0;
     }
 }

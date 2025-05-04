@@ -70,7 +70,7 @@ public class Token : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!isDragging)
+        if (!isDragging && !lm.defeatPanel.activeSelf && !lm.victoryPanel.activeSelf)
         {
             InfoCanvas.SetActive(true);
         }

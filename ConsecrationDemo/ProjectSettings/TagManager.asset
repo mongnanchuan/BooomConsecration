@@ -11,6 +11,7 @@ TagManager:
   - CombatButton
   - TokenIcon
   - Select
+  - Floor
   layers:
   - Default
   - TransparentFX

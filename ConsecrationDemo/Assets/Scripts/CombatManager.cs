@@ -91,7 +91,7 @@ public class CombatManager : MonoBehaviour
 
     public void ShowFX(int type, int targetPos)
     {
-        //type:1-¼ÀÌ³¹¥»÷ 2-Boss¼¼ÄÜ 3-Íæ¼Ò¹¥»÷
+        //type:0-¼ÀÌ³¹¥»÷ 1-Boss¼¼ÄÜ 2-Íæ¼Ò¹¥»÷
         GameObject SetFX = Instantiate(FX[type]);
         SetFX.transform.position = SwitchPos.IntToVector2(targetPos) + new Vector2(0, 0.7f);
     }

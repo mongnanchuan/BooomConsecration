@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4931367707935766}
   - component: {fileID: 198010612824254086}
   - component: {fileID: 199508319708434004}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 4180964064145376}
   - component: {fileID: 198677512116065202}
   - component: {fileID: 199983182024241272}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9811,7 +9811,7 @@ GameObject:
   - component: {fileID: 4832863477892384}
   - component: {fileID: 198025050831813746}
   - component: {fileID: 199455456879373392}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14711,7 +14711,7 @@ GameObject:
   - component: {fileID: 4554313080166984}
   - component: {fileID: 198454046198444632}
   - component: {fileID: 199757712519134460}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SparksLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19621,7 +19621,7 @@ GameObject:
   - component: {fileID: 198468433817053274}
   - component: {fileID: 199097177990986506}
   - component: {fileID: 3071069613151189828}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24549,7 +24549,7 @@ GameObject:
   - component: {fileID: 4565841257810070}
   - component: {fileID: 198860748383259280}
   - component: {fileID: 199126025703040602}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29458,7 +29458,7 @@ GameObject:
   - component: {fileID: 4093544082557462}
   - component: {fileID: 198708701057784482}
   - component: {fileID: 199211003256044990}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
