@@ -192,7 +192,7 @@ public class MonsterManager : MonoBehaviour
         //剩下的怪物按照序号顺序一个一个判断执行内容
         foreach (var item in currentMonstersList)
         {
-            if (!item.Value.obj.GetComponent<Attribute>().isDead)
+            if (item.Value.obj!= null && !item.Value.obj.GetComponent<Attribute>().isDead)
             {
                 MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
 
