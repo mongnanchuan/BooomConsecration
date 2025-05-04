@@ -9,13 +9,13 @@
   "20002": {
     "$type": "TokensConfig, Assembly-CSharp",
     "name": "错乱的思绪",
-    "desc": "使用后，使随机1格刷新冷却时间",
+    "desc": "使用后使随机1格刷新冷却时间",
     "id": 20002
   },
   "20003": {
     "$type": "TokensConfig, Assembly-CSharp",
     "name": "纠缠的原初",
-    "desc": "主动献祭时额外受到1点伤害，同时献祭前方1格",
+    "desc": "主动血祭时额外受到1点伤害，同时血祭前方1格",
     "id": 20003
   },
   "20004": {
@@ -51,7 +51,7 @@
   "20009": {
     "$type": "TokensConfig, Assembly-CSharp",
     "name": "贪婪的喧嚣",
-    "desc": "献祭时不消耗生命值",
+    "desc": "血祭时不消耗生命值",
     "id": 20009
   },
   "20010": {

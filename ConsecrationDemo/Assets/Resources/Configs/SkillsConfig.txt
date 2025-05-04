@@ -80,7 +80,7 @@
   "10007": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "勾结",
-    "desc": "献祭前方1格的技能",
+    "desc": "血祭前方1格的技能",
     "cooldown": 3,
     "damage": 0,
     "range": 1,
@@ -91,7 +91,7 @@
   "10008": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "勾结",
-    "desc": "献祭相邻1格的2个技能",
+    "desc": "血祭相邻1格的2个技能",
     "cooldown": 3,
     "damage": 0,
     "range": 1,
@@ -190,7 +190,7 @@
   "10017": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "针对",
-    "desc": "射出1道能量，对第一个单位造成2点伤害",
+    "desc": "向前射出1道能量，对第一个单位造成2点伤害",
     "cooldown": 5,
     "damage": 2,
     "range": 0,
@@ -201,7 +201,7 @@
   "10018": {
     "$type": "SkillsConfig, Assembly-CSharp",
     "name": "针对",
-    "desc": "射出1道能量，穿过所有单位造成2点伤害",
+    "desc": "向前射出1道能量，穿过所有单位并造成2点伤害",
     "cooldown": 5,
     "damage": 2,
     "range": 0,
