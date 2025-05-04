@@ -499,7 +499,6 @@ MonoBehaviour:
   HPManager: {fileID: 1176586429}
   SelectIndex: 0
   AllTokenIcons:
-  - {fileID: 6456913008620078788, guid: 4c187698cdf4578438b95af66cace9a6, type: 3}
   - {fileID: 6456913008620078788, guid: d2c50a3ba9645fa4dbb6d638c05e8ef6, type: 3}
   - {fileID: 6456913008620078788, guid: dcf7a4d766343e34f810abd0c27b8149, type: 3}
   - {fileID: 6456913008620078788, guid: 17c9899535fe92c41b9adad011c45a2d, type: 3}
@@ -508,6 +507,7 @@ MonoBehaviour:
   - {fileID: 6456913008620078788, guid: 615b5217be441544f9e4f016a4f3bb61, type: 3}
   - {fileID: 6456913008620078788, guid: d6db59b89c7bd284e97954ef5ff727bb, type: 3}
   - {fileID: 6456913008620078788, guid: e4c62b53b28aa0f429db355a0ac218ef, type: 3}
+  RareTokenIcon: {fileID: 6456913008620078788, guid: 4c187698cdf4578438b95af66cace9a6, type: 3}
   AllAltarIcons:
   - {fileID: 867915268697680545, guid: 2b7ecc9007d9d1942b4ab3f1fcb91311, type: 3}
   - {fileID: 867915268697680545, guid: 4ef8df1748be34c4faf363791e02a2e2, type: 3}
@@ -5209,7 +5209,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 682719532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 14139762}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: BackToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &682719532
 MonoBehaviour:
   m_ObjectHideFlags: 0

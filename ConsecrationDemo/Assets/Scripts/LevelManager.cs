@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
     public GameObject HPManager;
     public int SelectIndex = 0;
     public List<GameObject> AllTokenIcons = new List<GameObject>();
+    public GameObject RareTokenIcon;
     public List<GameObject> AllAltarIcons = new List<GameObject>();
     private List<GameObject> NotUseTokenIcons = new List<GameObject>();
     private List<GameObject> NotUseAltarIcons = new List<GameObject>();
@@ -113,6 +114,11 @@ public class LevelManager : MonoBehaviour
         Selecting = 2;
         for (int i = 0; i < 2; i++)
         {
+            if(levelID >= 80006 && RareTokenIcon != null)
+            {
+                NotUseTokenIcons.Add(RareTokenIcon);
+                RareTokenIcon = null;
+            }
             int random = Random.Range(0, NotUseTokenIcons.Count);
             GameObject selectButton = Instantiate(SelectPrefab, Selects.transform);
             selectButton.GetComponent<DropSelect>().dropType = 2;

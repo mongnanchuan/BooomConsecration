@@ -112,6 +112,7 @@ public class Token : MonoBehaviour
                     lm.TokenIcons[id].transform.position = startPos;
                     lm.TokenIcons[id].GetComponent<Token>().index_before = -1;
                     lm.TokenIcons[id].GetComponent<Token>().startPos = lm.TokenIcons[id].transform.position;
+                    lm.TokenIcons[id].GetComponent<Token>().tokenSp.sprite = lm.TokenIcons[id].GetComponent<Token>().changeImage[0];
                 }
             }
             lm.TokenIcons[id] = gameObject;
@@ -123,6 +124,8 @@ public class Token : MonoBehaviour
         else
         {
             transform.position = startPos;
+            lm.TokenIcons[index_before] = gameObject;
+            tokenSp.sprite = changeImage[1];
         }
     }
 }
