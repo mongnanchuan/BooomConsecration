@@ -39,6 +39,7 @@ public class Attribute : MonoBehaviour
     public void healthInit()
     {
         HealthBarManager.Instance.HealthBarInit(this);
+        ShadowManager.Instance.ShadowInit(this);
     }
 
     // Update is called once per frame

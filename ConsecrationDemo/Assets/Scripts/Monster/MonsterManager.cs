@@ -44,6 +44,7 @@ public class MonsterManager : MonoBehaviour
     //怪物回合行动结束
     public event Action OnPlayerTurnStart;
 
+
     public void MonsterGroupInit(int level)
     {
         levelID = level;
@@ -192,6 +193,8 @@ public class MonsterManager : MonoBehaviour
         //剩下的怪物按照序号顺序一个一个判断执行内容
         foreach (var item in currentMonstersList)
         {
+            if (item.Value.obj == null)
+                continue;
             if (item.Value.obj!= null && !item.Value.obj.GetComponent<Attribute>().isDead)
             {
                 MonsterBase currentBase = item.Value.obj.GetComponent<MonsterBase>();
@@ -250,6 +253,7 @@ public class MonsterManager : MonoBehaviour
             }
             Destroy(currentMonstersData[count].obj.GetComponent<MonsterBase>().zone.gameObject);
             HealthBarManager.Instance.RemoveHealthBar(currentMonstersData[count].obj.GetComponent<Attribute>());
+            ShadowManager.Instance.RemoveShadow(currentMonstersData[count].obj.GetComponent<Attribute>());
             currentMonstersData.Remove(count);
 
             if(newBoss)
@@ -265,5 +269,8 @@ public class MonsterManager : MonoBehaviour
         }
         
     }
+
+
+
 
 }

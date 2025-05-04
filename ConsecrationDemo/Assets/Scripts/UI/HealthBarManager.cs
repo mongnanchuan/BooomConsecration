@@ -45,7 +45,13 @@ public class HealthBarManager : MonoBehaviour
         {
             RectTransform barRect = bar.GetComponent<RectTransform>();
             Vector3 worldPos = attr.transform.position; // 假设 attr 具有 Transform 组件
+
             Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos + offset); // 将世界坐标转换为屏幕坐标
+            if (attr.GetComponent<Monster90005>()!= null || attr.GetComponent<Monster90006>()!= null)
+            {
+                screenPos = Camera.main.WorldToScreenPoint(worldPos + offset + new Vector3(0f,0.8f,0f));
+            }       
+            
             barRect.anchoredPosition = screenPos; // 更新血条的位置
 
             for (int i = 0; i < bar.transform.childCount; i++)
