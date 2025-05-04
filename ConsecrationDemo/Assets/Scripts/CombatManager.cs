@@ -53,8 +53,10 @@ public class CombatManager : MonoBehaviour
         else
         {
             if (isInPlayerTurn)
+            {
                 isInPlayerTurn = false;
                 CDUpdate();
+            }
             yield return new WaitForSeconds(0.5f);
 
             if(MonsterManager.Instance.isShowing)

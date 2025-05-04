@@ -38,7 +38,7 @@ public class Skill10000 : SkillBase
                 damage = skill.damage
             };
             effects.Add(effect1);
-            Debug.Log(skill.damage);
+            //Debug.Log(skill.damage);
         }
 
         return effects;

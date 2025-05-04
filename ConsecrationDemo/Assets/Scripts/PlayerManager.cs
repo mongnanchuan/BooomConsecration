@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     public Vector2 shootOffect;
     public int SacrificeTimes = 0;
+    public int phase = 0;
 
     private void Awake()
     {
@@ -47,8 +48,18 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //处理输入
-        if (cm.isInPlayerTurn && !isDoing)
+        if(phase == 0 && attr.HP <= 5)
+        {
+            BodyObject.GetComponent<BodyPartManager>().TurnToSecond();
+            phase = 1;
+        }
+        if (phase == 1 && attr.HP <= 3)
+        {
+            BodyObject.GetComponent<BodyPartManager>().TurnToThird();
+            phase = 2;
+        }
+            //处理输入
+            if (cm.isInPlayerTurn && !isDoing)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
@@ -108,15 +119,15 @@ public class PlayerManager : MonoBehaviour
                     anim.SetTrigger("Sacrifice");
                     
                     GetComponent<Attribute>().Damage(takeDamage,true);
-                    SacrificeTimes++;
-                    if(SacrificeTimes >= 5)
+                    //SacrificeTimes++;
+/*                    if(SacrificeTimes >= 5)
                     {
                         BodyObject.GetComponent<BodyPartManager>().TurnToThird();
                     }
                     else if(SacrificeTimes >= 3)
                     {
                         BodyObject.GetComponent<BodyPartManager>().TurnToSecond();
-                    }
+                    }*/
                 }
                 else
                     TipsManager.Instance.ShowTip("无技能可以血祭");
